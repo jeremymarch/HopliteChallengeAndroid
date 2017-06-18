@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ButtonBlue">#FF007AFF</color>
+    <color name="KBGrey">#999999</color>
+    <color name="orange">#ff3800</color>
+    <color name="teal">#FF00B7FF</color>
+    <color name="ButtonDarkBlue">#FF00006E</color>
+    <color name="ButtonLightBlue">#FF8CDCFF</color>
+</resources>

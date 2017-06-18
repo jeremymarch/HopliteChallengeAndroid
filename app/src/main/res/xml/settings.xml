@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceCategory
+    android:title="Hansen &amp; Quinn Units"
+    android:key="pref_key_storage_settings">
+    <CheckBoxPreference
+        android:key="unit1"
+        android:title="Unit 1"
+        android:defaultValue="true" />
+    <CheckBoxPreference
+        android:key="unit2"
+        android:title="Unit 2"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit3"
+        android:title="Unit 3"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit4"
+        android:title="Unit 4"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit5"
+        android:title="Unit 5"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit6"
+        android:title="Unit 6"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit7"
+        android:title="Unit 7"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit8"
+        android:title="Unit 8"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit9"
+        android:title="Unit 9"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit10"
+        android:title="Unit 10"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit11"
+        android:title="Unit 11"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit12"
+        android:title="Unit 12"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit13"
+        android:title="Unit 13"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit14"
+        android:title="Unit 14"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit15"
+        android:title="Unit 15"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit16"
+        android:title="Unit 16"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit17"
+        android:title="Unit 17"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit18"
+        android:title="Unit 18"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit19"
+        android:title="Unit 19"
+        android:defaultValue="false" />
+    <CheckBoxPreference
+        android:key="unit20"
+        android:title="Unit 20"
+        android:defaultValue="false" />
+</PreferenceCategory>
+
+</PreferenceScreen>

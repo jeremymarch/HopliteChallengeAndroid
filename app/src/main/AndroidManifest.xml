@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.philolog.hc"
+    android:versionCode="36"
+    android:versionName="1.0.8">
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <application
+        android:icon="@mipmap/hcicon"
+        android:label="Hoplite Challenge"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+        <activity
+            android:name=".MainActivity"
+            android:label="Hoplite Challenge">
+        </activity>
+
+        <activity android:name=".MenuActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".GameHistory"
+            android:label="Game History" />
+        <activity
+            android:name=".PracticeHistory"
+            android:label="Practice History" />
+        <activity
+            android:name=".VerbList"
+            android:label="Verb List" />
+        <activity
+            android:name=".VerbForms"
+            android:label="Verb Forms" />
+        <activity
+            android:name=".TutorialActivity"
+            android:label="About" />
+    </application>
+</manifest>

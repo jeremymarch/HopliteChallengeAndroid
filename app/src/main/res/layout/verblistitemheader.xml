@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/verbitemheader"
+        android:layout_height="35dp"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:gravity="center_vertical"
+        android:text="text"
+        android:visibility="visible"
+        android:textColor="#FFffffff"
+        android:background="@color/ButtonDarkBlue"
+        android:paddingLeft="10dp" />
+
+</LinearLayout>
