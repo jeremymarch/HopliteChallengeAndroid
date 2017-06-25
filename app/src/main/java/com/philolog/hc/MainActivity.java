@@ -198,6 +198,7 @@ public class MainActivity extends Activity
                 editText.requestFocus();
                 openKeyboard(findViewById(R.id.myView2), mStartTimerRunnable);
                 editText.setEnabled(true);
+                editText.passEvents = false;
                 //startTimer();
             }
         }
@@ -313,6 +314,8 @@ public class MainActivity extends Activity
 
     public void checkVerb()
     {
+        editText.passEvents = true;
+
         if (checkVerb2AndSetCheckOrX()) {
             flip();
             continueButton.setVisibility(View.VISIBLE);
@@ -343,6 +346,7 @@ public class MainActivity extends Activity
     {
         stopTimer();
         editText.setEnabled(false);
+        editText.passEvents = true;
         hideCustomKeyboard(null);
         Runnable runCheckVerb = new Runnable() {
             public void run() {
@@ -360,6 +364,7 @@ public class MainActivity extends Activity
         {
             stopTimer();
             editText.setEnabled(false);
+            editText.passEvents = true;
             mMFLabelView.setVisibility(View.VISIBLE);
             hideCustomKeyboard(null);
             Runnable runCheckVerb = new Runnable() {
@@ -872,6 +877,7 @@ public class MainActivity extends Activity
                     if (front) {
                         stopTimer();
                         editText.setEnabled(false);
+                        editText.passEvents = true;
                         gv1.compareFormsCheckMFRecordResult(editText.getText().toString(), changedFormText.getText().toString(), String.format("%.2f", elapsedTime), mMFPressed);
                     }
                         //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -904,6 +910,7 @@ public class MainActivity extends Activity
             if (front) {
                 stopTimer();
                 editText.setEnabled(false);
+                editText.passEvents = true;
                 gv1.compareFormsCheckMFRecordResult(editText.getText().toString(), changedFormText.getText().toString(), String.format("%.2f", elapsedTime), mMFPressed);
             }
             /*
@@ -1118,6 +1125,7 @@ public class MainActivity extends Activity
         mHandler = new Handler();
 
         editText.setEnabled(false);
+        editText.passEvents = true;
 
         mainView = findViewById(R.id.myView2);
         mainView.setBackgroundColor(0xFFFFFFFF);
@@ -1131,6 +1139,7 @@ public class MainActivity extends Activity
         editText.setTypeface(type);
         editText.setTextSize(greekFontSize);
         editText.setEnabled(false);
+        editText.passEvents = true;
         origFormText.setTextSize(greekFontSize);
         stemText.setTextColor(0xFF888888);
         stemText.setTextSize(stemFontSize);
@@ -1179,6 +1188,7 @@ public class MainActivity extends Activity
                 mTimeLabel.setText("0.00 sec");
 
                 editText.setEnabled(false);
+                editText.passEvents = true;
                 hideCustomKeyboard(null);
                 Runnable runCheckVerb = new Runnable() {
                     public void run() {
@@ -1214,6 +1224,7 @@ public class MainActivity extends Activity
         mStartTimerRunnable = new Runnable() {
             public void run() {
                 editText.setEnabled(true);
+                editText.passEvents = false;
                 editText.requestFocus();
                 startTimer();
             }

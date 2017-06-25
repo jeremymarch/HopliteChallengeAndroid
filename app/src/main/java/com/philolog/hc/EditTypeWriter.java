@@ -3,14 +3,17 @@ package com.philolog.hc;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.EditText;
 import android.view.MotionEvent;
+
 /**
  * Created by jeremy on 4/7/16.
  */
 public class EditTypeWriter  extends EditText {
     private CharSequence mText;
     private int mIndex;
+    public Boolean passEvents = false;
     private long mDelay = 25; //Default 500ms delay
     private Runnable mComplete;
 
@@ -80,6 +83,14 @@ public class EditTypeWriter  extends EditText {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
-        return false;
+            if (passEvents) {
+                Log.e("abc", "pinchdddddddd");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
     }
 }

@@ -56,18 +56,32 @@ public class VerbForms extends ListActivity {
     private boolean isDecomposedMode = false;
     private ScaleGestureDetector mScaleDetector;
     private Handler handlerTimer;
-    private Boolean mBlock = false;
+    private Boolean mBlock = true;
     //I made this non-static so it can see my member variables here
     //https://medium.com/@ali.muzaffar/android-detecting-a-pinch-gesture-64a0a0ed4b41#.k0qw1qynj
     private class MyPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
 Log.e("abc", "Scale End");
+            //getListView().setScrollContainer(true);
+            getListView().setEnabled(true);
         }
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
             //mBlock = true;
             //getListView().setScrollContainer(false);
+            getListView().setEnabled(false);
+
+                handlerTimer.postDelayed(new Runnable(){
+                    public void run() {
+                        // do something
+                        Log.e("abc", "runnnnn");
+                        getListView().setEnabled(true);
+                        mBlock = false;
+                        //getListView().setScrollContainer(true);
+                    }}, 200);
+                //}
+
             return true;
         }
 
@@ -127,6 +141,17 @@ Log.e("abc", "Scale End");
                             }}, 2000);*/
                     //}
                 }
+                /*
+                handlerTimer.postDelayed(new Runnable(){
+                    public void run() {
+                        // do something
+                        Log.e("abc", "runnnnn");
+                        getListView().setEnabled(true);
+                        mBlock = false;
+                        //getListView().setScrollContainer(true);
+                    }}, 200);
+                //}
+                */
             }
 
             //getListView().setEnabled(true);
