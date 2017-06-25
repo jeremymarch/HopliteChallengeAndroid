@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.widget.EditText;
-
+import android.view.MotionEvent;
 /**
  * Created by jeremy on 4/7/16.
  */
@@ -74,5 +74,12 @@ public class EditTypeWriter  extends EditText {
 
     public void setCharacterDelay(long millis) {
         mDelay = millis;
+    }
+
+    //this allows pinch to go through this text edit widget to the parent
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        return false;
     }
 }

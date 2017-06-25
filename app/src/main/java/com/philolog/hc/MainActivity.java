@@ -946,9 +946,9 @@ public class MainActivity extends Activity
     class MyPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            if (front)
+            if (front) {
                 return true;
-
+            }
             if (detector.getScaleFactor() < 1)
             {
                 //together
