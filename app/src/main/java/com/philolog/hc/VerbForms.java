@@ -271,15 +271,20 @@ Log.e("abc", "Scale End");
                     int countPerSection = 0;
                     for (int n = 0; n < NUM_NUMBERS; n++) {
                         for (int p = 0; p < NUM_PERSONS; p++) {
+
                             vf.number = n;
                             vf.person = p;
+
+                            if (vf.mood == IMPERATIVE && vf.person == 0)
+                            {
+                                continue;
+                            }
 
                             int mf = 0;
                             if (isDecomposedMode)
                                 mf = 1;
 
                             String form = vf.getForm(1,mf);
-
                             form = form.replace(", ", "\n");
                             if (!form.isEmpty()) {
                                 if (!update)

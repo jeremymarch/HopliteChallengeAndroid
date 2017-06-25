@@ -413,7 +413,7 @@ void addEnding(VerbFormC *vf, UCS2 *ucs2, int *len, UCS2 *ending, int elen, bool
         
         if (vf->mood == SUBJUNCTIVE)
         {
-            if (!decompose && !utf8HasSuffix(vf->verb->present, "ῡμι"))
+            if (!decompose && !utf8HasSuffix(vf->verb->present, "ῡμι") && !utf8HasSuffix(vf->verb->present, "νυμαι"))
             {
                 --(*len);
             }

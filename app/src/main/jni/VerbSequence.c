@@ -20,6 +20,8 @@
 #define MAX_RECENT_VF 30
 #define HC_VERBS_PER_SET 4
 
+#define SQLITEPREPQUERYLEN 1024
+
 /*
  
  create table forms (
@@ -39,8 +41,6 @@ enum {
     GAME_INSIPIENT = 0, //A game which is started, but not yet in the db.  We add it to the db when first item is answered
     GAME_PRACTICE = 1 //the practice "game" has an id of 1.
 };
-
-#define SQLITEPREPQUERYLEN 1024
 
 //GLOBAL VARIABLES
 DataFormat *hcdata = NULL;

@@ -1,5 +1,6 @@
 //Useful link: http://developer.android.com/training/articles/perf-jni.html
 
+#ifdef __ANDROID__
 
 #include <string.h>
 #include <jni.h>
@@ -9,6 +10,7 @@
 #include "GreekForms.h"
 #include "GreekUnicode.h"
 #include "VerbSequence.h"
+#include "accent.h"
 
 #include <android/log.h>
 #define  LOG_TAG    "your-log-tag"
@@ -248,7 +250,8 @@ Java_com_philolog_hc_GreekVerb_getForm( JNIEnv* env, jobject thiz, jint mf, jint
 
     if (!getForm(&vf, buffer, bufferLen, mf, decompose)) //don't look here because will get stuck for deponents e.g.
     {
-        return (*env)->NewStringUTF(env, "");
+        LOGE("AAA Returned 0 %d", bufferLen);
+        return (*env)->NewStringUTF(env, buffer);
     }
 //__android_log_print(ANDROID_LOG_VERBOSE, "MyApp", "Here 4");
     //__android_log_print(ANDROID_LOG_VERBOSE, "MyApp", "The value of n is %s", buffer);
@@ -548,7 +551,7 @@ Java_com_philolog_hc_GreekVerb_addAccent( JNIEnv* env, jobject thiz, jint accent
     utf8_to_ucs2_string((const unsigned char *)letters, ucs2, &ucs2Len);
 
     if (ucs2[0] != COMBINING_ACUTE && ucs2[0] != COMBINING_MACRON && ucs2[0] != COMBINING_ROUGH_BREATHING && ucs2[0] != COMBINING_SMOOTH_BREATHING) {
-        accentSyllable(ucs2, 0, &ucs2Len, accent, true);
+        accentSyllable(ucs2, 0, &ucs2Len, accent, true, PRECOMPOSED_HC_MODE);
         ucs2_to_utf8_string(ucs2, ucs2Len, buffer);
     }
     else
@@ -559,3 +562,4 @@ Java_com_philolog_hc_GreekVerb_addAccent( JNIEnv* env, jobject thiz, jint accent
     return (*env)->NewStringUTF(env, buffer);
 }
 
+#endif
