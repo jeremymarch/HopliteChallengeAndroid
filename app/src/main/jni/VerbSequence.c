@@ -1057,7 +1057,7 @@ bool dbInit(const char *path)
     "FOREIGN KEY (gameid) REFERENCES games(gameid) " \
     "); " \
     
-    "INSERT INTO games VALUES (1,0,-1,0,0);"; //This is the Practice Game
+    "INSERT OR IGNORE INTO games VALUES (1,0,-1,0,0);"; //This is the Practice Game
     
     rc = sqlite3_exec(db, sql, NULL, NULL, &zErrMsg);
     if( rc != SQLITE_OK )
