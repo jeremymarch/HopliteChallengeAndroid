@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
         compileSdkVersion = 27
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
-        buildToolsVersion = "27.0.1" //"22.0.1"
+        buildToolsVersion = "27.0.3" //"22.0.1"
 
         defaultConfig.with {
             applicationId = "com.philolog.hc"
