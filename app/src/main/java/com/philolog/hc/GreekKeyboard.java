@@ -90,7 +90,7 @@ public class GreekKeyboard extends KeyboardView {
                 }
                 dr.draw(canvas);
             }
-            else if (key.codes[0] > 26 && key.codes[0] < 33){
+            else if (key.codes[0] > 25 && key.codes[0] < 33){
                 Drawable dr;
                 if (key.pressed) {
                     dr = (Drawable) context.getResources().getDrawable(R.drawable.accentbuttondown);
