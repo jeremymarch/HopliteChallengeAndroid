@@ -1,0 +1,4 @@
+[submodule "libseq"]
+	branch = master
+[submodule "libgreek"]
+	branch = master
