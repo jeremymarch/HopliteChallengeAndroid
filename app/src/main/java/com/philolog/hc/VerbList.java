@@ -66,10 +66,10 @@ public class VerbList extends ListActivity {
     }
 
     private void loadList() {
-        int unit = 1;
-        for (int i = 0; i < 114; i++)
+        int unit = 2;
+        for (int i = 0; i < 127; i++)
         {
-            if (i == 0 || i == 2 || i == 4 || i == 8 || i == 12 || i == 16 || i == 20 || i == 23 || i == 25 || i == 29 || i == 35 || i == 42 || i == 50 || i == 58 || i == 66 || i == 74 || i == 82 || i == 89 || i == 98 || i == 107) {
+            if (i == 0 || i == 4 || i == 8 || i == 12 || i == 16 || i == 20 || i == 23 || i == 25 || i == 29 || i == 35 || i == 42 || i == 52 || i == 60 || i == 73 || i == 83 || i == 92 || i == 99 || i == 110 || i == 120) {
                 mAdapter.addSectionHeaderItem("Unit " + unit++);
             }
             Verb v = new Verb();

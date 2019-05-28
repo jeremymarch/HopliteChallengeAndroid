@@ -18,15 +18,30 @@ add_library( # Sets the name of the library.
              # Provides a relative path to your source file(s).
              # Associated headers in the same location as their source
              # file are automatically included.
-                          src/main/jni/libGreekGlue.c
-                          src/main/jni/accent.c
-                          src/main/jni/utilities.c
-                          src/main/jni/augment.c
-                          src/main/jni/ending.c
-                          src/main/jni/GreekForms.c
-                          src/main/jni/libmorph.c
-                          src/main/jni/sqlite3.c
-                          src/main/jni/VerbSequence.c)
+
+        #src/main/jni/libGreekGlue.c
+        #src/main/jni/accent.c
+        #src/main/jni/utilities.c
+        #src/main/jni/augment.c
+        #src/main/jni/ending.c
+        #src/main/jni/GreekForms.c
+        #src/main/jni/libmorph.c
+        #src/main/jni/sqlite3.c
+        #src/main/jni/VerbSequence.c
+
+        src/main/jni/libgreek/accent.c
+        src/main/jni/libgreek/augment.c
+        src/main/jni/libgreek/specialverbs.c
+        src/main/jni/libgreek/libmorph.c
+        src/main/jni/libgreek/utilities.c
+        src/main/jni/libgreek/ending.c
+        src/main/jni/libgreek/GreekForms.c
+
+        src/main/jni/libseq/VerbSequence.c
+        src/main/jni/libseq/libGreekGlue.c
+        src/main/jni/libseq/sqlite3.c
+        src/main/jni/libseq/swiftVSeqLayer.c
+        )
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because system libraries are included in the search path by
@@ -51,3 +66,7 @@ target_link_libraries( # Specifies the target library.
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )
+
+include_directories(
+        src/main/jni/libgreek/
+        src/main/jni/libseq/ )

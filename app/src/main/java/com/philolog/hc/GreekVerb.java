@@ -6,19 +6,20 @@ package com.philolog.hc;
 
 public class GreekVerb
 {
-    public int person;
-    public int number;
-    public int tense;
-    public int voice;
-    public int mood;
+    public int person = 0;
+    public int number = 0;
+    public int tense = 0;
+    public int voice = 0;
+    public int mood = 0;
     public int score = 0;
-    public String elapsed;
+    public String elapsed = "";
     public Verb verb; //or int verbId?
+    public int verbid = 0;
 
     public native String addAccent(int accent, String str); //included here as a hack
     public native String getForm(int mf, int decompose);
     public native void generateForm();
-    public native void changeFormByDegrees(int degrees);
+    //public native void changeFormByDegrees(int degrees);
     public native String getAbbrevDescription();
 
     public native boolean compareFormsCheckMFRecordResult(String actual, String expected, String elapsed, boolean MFPressed);

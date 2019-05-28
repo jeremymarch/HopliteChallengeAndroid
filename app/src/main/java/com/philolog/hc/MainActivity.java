@@ -181,7 +181,8 @@ public class MainActivity extends Activity
 
             if (true) {
                 Log.e("abc", "VerbSeq: "  + verbSeqObj.seq);
-                if (verbSeqObj.seq == 1) {
+                //if (verbSeqObj.seq == 1) {
+                if (verbSeqObj.state == VerbSequence.STATE_NEW) {
                     origFormText.setText("");
                     mHandler.postDelayed(mShowOrigForm, 700);
                 }
@@ -730,12 +731,12 @@ public class MainActivity extends Activity
 
     public void nextSeq3()
     {
-        int res = verbSeqObj.nextVerbSeq(gv1, gv2);
-        Log.e("abc", "Cleanup: seq: " + verbSeqObj.seq + ", res: " + res);
-        if (res == 1)
-            cleanUp(false);
-        else if (res == 2)
+        int state = verbSeqObj.nextVerbSeq(gv1, gv2);
+        Log.e("abc", "Cleanup: seq: " + verbSeqObj.seq + ", res: " + state);
+        if (state == VerbSequence.STATE_NEW)
             cleanUp(true);
+        else //if (state == 2)
+            cleanUp(false);
     }
 
     public void cleanUp(final Boolean reset) //if reset, then clear away answer rather than move it up
@@ -1108,13 +1109,13 @@ public class MainActivity extends Activity
         {
             resetHCGame();
         }
-
+        verbSeqObj.resetVerbSeq();
         verbSeqObj.VerbSeqInit( datafile );
 
         v1 = new Verb();
-        v1.getRandomVerb();
+        //v1.getRandomVerb();
         v2 = new Verb();
-        v2.getRandomVerb();
+        //v2.getRandomVerb();
 
         gv1 = new GreekVerb();
         gv1.score = 0;
@@ -1256,7 +1257,7 @@ public class MainActivity extends Activity
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                int res = verbSeqObj.nextVerbSeq(gv1, gv2);
+                int state = verbSeqObj.nextVerbSeq(gv1, gv2);
                 flip();
             }
         }, 1000);

@@ -1,0 +1,6 @@
+[submodule "app/src/main/jni/libseq"]
+	path = app/src/main/jni/libseq
+	url = git@github.com:jeremymarch/libseq.git
+[submodule "app/src/main/jni/libgreek"]
+	path = app/src/main/jni/libgreek
+	url = git@github.com:jeremymarch/libgreek.git

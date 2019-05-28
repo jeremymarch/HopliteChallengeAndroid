@@ -247,6 +247,7 @@ Log.e("abc", "Scale End");
         GreekVerb vf = new GreekVerb();
         ve.getVerb(verbID);
         vf.verb = ve;
+        vf.verbid = verbID;
         int updateIndex = 0;
 
         boolean isOida = false;

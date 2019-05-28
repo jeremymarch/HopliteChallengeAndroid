@@ -13,7 +13,7 @@ public class Verb {
     public String aoristpass;
     public String def;
 
-    public native void getRandomVerb();
+    //public native void getRandomVerb();
     public native void getVerb(int verbId);
     public native int deponentType();
 
