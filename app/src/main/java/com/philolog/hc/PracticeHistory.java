@@ -33,6 +33,7 @@ public class PracticeHistory extends ListActivity {
     private String tableName = DBHelper.tableName;
     private SQLiteDatabase newDB;
     private Integer gameid;
+    private boolean isHCGame = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,28 @@ public class PracticeHistory extends ListActivity {
         Intent intent = getIntent();
         gameid = intent.getIntExtra("GameID", 1);
 
+        String newString;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                newString= null;
+            } else {
+                newString = extras.getString("GameOrPractice");
+                gameid = extras.getInt("GameID");
+            }
+        } else {
+            newString= (String) savedInstanceState.getSerializable("GameOrPractice");
+            gameid = (Integer) savedInstanceState.getSerializable("GameID");
+        }
+        if (newString.contentEquals("game"))
+        {
+            isHCGame = true;
+        }
+        else
+        {
+            isHCGame = false;
+        }
+
         setContentView(R.layout.activity_practice_history);
         openAndQueryDatabase(gameid);
 
@@ -56,10 +79,11 @@ public class PracticeHistory extends ListActivity {
     private void displayResultList() {
 
         TextView title = (TextView) findViewById(R.id.GameHistoryTitle);
-        if (gameid == 1)
-            title.setText("Practice History");
-        else
+        if (isHCGame)
             title.setText("Game History");
+        else
+            title.setText("Practice History");
+
         /*
         TextView tView = new TextView(this);
         tView.setBackgroundResource(R.color.ButtonDarkBlue);
@@ -122,6 +146,7 @@ public class PracticeHistory extends ListActivity {
                         gv.voice = Integer.parseInt(voice);
                         gv.mood = Integer.parseInt(mood);
                         gv.verb = v;
+                        gv.verbid = Integer.parseInt(verbid);
 
                         historyItem g = new historyItem();
                         g.stem = gv.getAbbrevDescription();

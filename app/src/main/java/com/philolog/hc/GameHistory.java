@@ -32,6 +32,7 @@ public class GameHistory extends ListActivity {
     private String tableName = DBHelper.tableName;
     private SQLiteDatabase newDB;
     private ListView lv;
+    private boolean isHCGame = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,28 @@ public class GameHistory extends ListActivity {
         }
         Log.e("abc", "loaded game history");
         mAdapter = new MyCustomAdapter();
+
+        String newString;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                newString= null;
+            } else {
+                newString= extras.getString("GameOrPractice");
+            }
+        } else {
+            newString= (String) savedInstanceState.getSerializable("GameOrPractice");
+        }
+        if (newString.contentEquals("game"))
+        {
+            isHCGame = true;
+        }
+        else
+        {
+            isHCGame = false;
+        }
+
+
 
         setContentView(R.layout.game_history);
         openAndQueryDatabase();
@@ -65,6 +88,14 @@ public class GameHistory extends ListActivity {
                 //EditText editText = (EditText) findViewById(R.id.edit_message);
                 //String message = "practice";//editText.getText().toString();
                 intent.putExtra("GameID", gameID);
+                if (isHCGame)
+                {
+                    intent.putExtra("GameOrPractice", "game");
+                }
+                else
+                {
+                    intent.putExtra("GameOrPractice", "practice");
+                }
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -73,6 +104,11 @@ public class GameHistory extends ListActivity {
                 startActivity(intent);
             }
         });
+        TextView title = (TextView) findViewById(R.id.GamesLabel);
+        if (isHCGame)
+            title.setText("Games");
+        else
+            title.setText("Practice");
     }
 
     private void displayResultList() {
@@ -104,10 +140,19 @@ public class GameHistory extends ListActivity {
 
     private void openAndQueryDatabase() {
         try {
+            String whereClause = "";
+            if (isHCGame)
+            {
+                whereClause = " WHERE score != -1 ";
+            }
+            else
+            {
+                whereClause = " WHERE score == -1 ";
+            }
             DBHelper dbHelper = new DBHelper(this.getApplicationContext());
             newDB = dbHelper.getReadableDatabase();//.getWritableDatabase();
             Cursor c = newDB.rawQuery("SELECT gameid, timest, score FROM " +
-                    tableName + " WHERE gameid > 1 ORDER BY gameid DESC LIMIT 1000", null);
+                    tableName + whereClause + " ORDER BY gameid DESC LIMIT 1000", null);
 
             Log.e("abc", "Row count: " + c.getCount());
 
@@ -178,14 +223,22 @@ public class GameHistory extends ListActivity {
                 convertView = mInflater.inflate(R.layout.gameshistoryitem, null);
                 holder = new ViewHolder();
                 holder.textView = (TextView)convertView.findViewById(R.id.gamedate);
-                holder.textView2 = (TextView)convertView.findViewById(R.id.score);
+                holder.textView2 = (TextView) convertView.findViewById(R.id.score);
+
                 holder.gameID = mData.get(position).gameID;
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder)convertView.getTag();
             }
             holder.textView.setText(mData.get(position).date);
+        if (isHCGame)
+        {
             holder.textView2.setText(mData.get(position).score);
+        }
+        else
+        {
+            holder.textView2.setText("");
+        }
 
             return convertView;
         }

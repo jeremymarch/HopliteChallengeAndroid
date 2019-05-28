@@ -94,11 +94,13 @@ public class MenuActivity extends Activity {
 
     public void showPracticeHistory(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, PracticeHistory.class);
+        Intent intent = new Intent(this, GameHistory.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
         //String message = "practice history";//editText.getText().toString();
         //intent.putExtra(EXTRA_MESSAGE, message);
-        intent.putExtra("GameID", 1); //1 is the practice game.
+        //intent.putExtra("GameID", 1); //1 is the practice game.
+        String message = "practice";//editText.getText().toString();
+        intent.putExtra("GameOrPractice", message);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -112,8 +114,8 @@ public class MenuActivity extends Activity {
         Log.e("abc", "show game history");
         Intent intent = new Intent(this, GameHistory.class);
         //EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = "game history";//editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
+        String message = "game";//editText.getText().toString();
+        intent.putExtra("GameOrPractice", message);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
