@@ -4,13 +4,9 @@
     android:title="Hansen &amp; Quinn Units"
     android:key="pref_key_storage_settings">
     <CheckBoxPreference
-        android:key="unit1"
-        android:title="Unit 1"
-        android:defaultValue="true" />
-    <CheckBoxPreference
         android:key="unit2"
         android:title="Unit 2"
-        android:defaultValue="false" />
+        android:defaultValue="true" />
     <CheckBoxPreference
         android:key="unit3"
         android:title="Unit 3"
