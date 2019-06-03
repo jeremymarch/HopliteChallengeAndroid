@@ -11,11 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.text.Editable;
 import android.os.Bundle;
+import android.os.Build;
+import android.text.InputType;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.view.inputmethod.InputMethodManager;
 import android.view.ScaleGestureDetector;
 import android.view.MotionEvent;
+import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 import android.text.TextUtils;
 import android.text.Html;
@@ -1262,6 +1265,16 @@ public class MainActivity extends Activity
             }
         }, 1000);
 
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            }
+        });
+
+        //so the default keyboard doesn't show.
+        editText.setShowSoftInputOnFocus(false);
+
 /*
         //or http://www.lucazanini.eu/en/2013/android/updating-frequently-a-textview-inside-a-loop/
 
@@ -1279,7 +1292,6 @@ public class MainActivity extends Activity
             }
         }.start();
         */
-
 
     }
 }
