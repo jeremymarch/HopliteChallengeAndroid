@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.content.Context;
 import android.widget.BaseAdapter;
 import android.view.LayoutInflater;
+import android.text.Html;
 
 public class PracticeHistory extends ListActivity {
 
@@ -124,7 +126,7 @@ public class PracticeHistory extends ListActivity {
             if (c != null ) {
                 if (c.moveToFirst()) {
                     do {
-                        Log.e("abc", "a");
+                        //Log.e("abc", "a");
                         String person = c.getString(c.getColumnIndex("person"));
                         String number = c.getString(c.getColumnIndex("number"));
                         String tense = c.getString(c.getColumnIndex("tense"));
@@ -202,6 +204,20 @@ public class PracticeHistory extends ListActivity {
             return position;
         }
 
+
+        public String makeBoldStem(String d1, String d2)
+        {
+            String[] d1Array = d1.split(" ");
+            String[] d2Array = d2.split(" ");
+
+            for (int i = 0; i < 5; i++) {
+                if (!d1Array[i].equals(d2Array[i]))
+                    d2Array[i] = "<b>" + d2Array[i] + "</b>";
+            }
+            //Log.d("abc", TextUtils.join(" ", d2Array));
+            return TextUtils.join(" ", d2Array);
+        }
+
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             System.out.println("getView " + position + " " + convertView);
@@ -218,22 +234,48 @@ public class PracticeHistory extends ListActivity {
                 holder.textView4 = (TextView)convertView.findViewById(R.id.time);
 
                 holder.greenCheck = (ImageView)convertView.findViewById(R.id.greenCheck);
-                holder.redX = (ImageView)convertView.findViewById(R.id.redX);
-                if (mData.get(position).isCorrect) {
-                    holder.greenCheck.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    holder.redX.setVisibility(View.VISIBLE);
-                }
+                //holder.redX = (ImageView)convertView.findViewById(R.id.redX);
+
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder)convertView.getTag();
             }
-            holder.textView.setText(mData.get(position).stem);
+
+            if ( mData.get(position).time.equals("(null)")) {
+                holder.greenCheck.setVisibility(View.INVISIBLE);
+                //holder.redX.setVisibility(View.INVISIBLE);
+                //holder.textView4.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                if (mData.get(position).isCorrect) {
+                    holder.greenCheck.setImageResource(R.drawable.greencheck);
+                    holder.greenCheck.setVisibility(View.VISIBLE);
+                } else {
+                    holder.greenCheck.setImageResource(R.drawable.redx);
+                    holder.greenCheck.setVisibility(View.VISIBLE);
+                    //holder.redX.setVisibility(View.VISIBLE);
+                }
+            }
+
+            String stem = mData.get(position).stem;
+
+            if (!mData.get(position).given.equals("START")) {
+                String prevStem = mData.get(position + 1).stem;
+                stem = makeBoldStem(prevStem, stem);
+                holder.textView4.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                holder.textView4.setVisibility(View.INVISIBLE);
+            }
+
+            holder.textView.setText(Html.fromHtml(stem));
             holder.textView2.setText(mData.get(position).correct);
             holder.textView3.setText(mData.get(position).given);
             holder.textView4.setText(mData.get(position).time);
+
+            Log.e("abc", mData.get(position).time);
             return convertView;
         }
 
