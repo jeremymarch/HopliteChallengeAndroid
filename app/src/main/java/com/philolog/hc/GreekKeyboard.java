@@ -99,7 +99,7 @@ public class GreekKeyboard extends KeyboardView {
                 else
                 {
                     dr = (Drawable) context.getResources().getDrawable(R.drawable.accentbutton);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(Color.BLACK);
                 }
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);

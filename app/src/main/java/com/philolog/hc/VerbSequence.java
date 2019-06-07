@@ -8,10 +8,10 @@ public class VerbSequence
 
     public int seq;
     public int state;
-    public native int nextVerbSeq(GreekVerb vf1, GreekVerb vf2);
-    public native void resetVerbSeq();
+    public native int vsNext(GreekVerb vf1, GreekVerb vf2);
+    public native void vsReset();
     public native int setupUnits(boolean[] unitArray, boolean isHCGame);
-    public native boolean VerbSeqInit(String path);
+    public native int vsInit(String path);
 
     public static final int STATE_ERROR    = 0;
     public static final int STATE_NEW      = 1;

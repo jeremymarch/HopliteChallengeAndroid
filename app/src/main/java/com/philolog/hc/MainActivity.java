@@ -111,6 +111,7 @@ public class MainActivity extends Activity
     public ImageView life1, life2, life3;
     public TextView gameOverLabel;
     public double elapsedTime = 0;
+    public boolean allowVibrate = true;
 
     public void onKeyPressed(View v){
         //if(v.getId() == R.id.my_btn){
@@ -149,7 +150,7 @@ public class MainActivity extends Activity
         {
             Log.d("abc", "back");
             isDecomposedMode = false;
-            //verbSeqObj.nextVerbSeq(gv1, gv2);
+            //verbSeqObj.vsNext(gv1, gv2);
             //Log.e("abc", "seq: " + verbSeqObj.seq);
             origStr = gv1.getForm(0,0);
             origStr = origStr.replace(", ", ",\n");
@@ -453,8 +454,9 @@ public class MainActivity extends Activity
             String str2 = editable.toString();
             start = fixCursorStart(start, str2, edittext);
 
-            vibrator.vibrate(KEYPRESS_VIBRATE);
-
+            if (allowVibrate) {
+                vibrator.vibrate(KEYPRESS_VIBRATE);
+            }
             if( primaryCode==CodeCancel ) {
                 //hideCustomKeyboard();
 
@@ -714,7 +716,7 @@ public class MainActivity extends Activity
         {
             gv1.score = 0;
         }
-        verbSeqObj.resetVerbSeq();
+        verbSeqObj.vsReset();
         life1.setVisibility(View.VISIBLE);
         life2.setVisibility(View.VISIBLE);
         life3.setVisibility(View.VISIBLE);
@@ -723,7 +725,9 @@ public class MainActivity extends Activity
 
     public void onContinuePressed(View v)
     {
-        vibrator.vibrate(KEYPRESS_VIBRATE);
+        if (allowVibrate) {
+            vibrator.vibrate(KEYPRESS_VIBRATE);
+        }
         if (isHCGame && lives == 0)
         {
             resetHCGame();
@@ -734,7 +738,7 @@ public class MainActivity extends Activity
 
     public void nextSeq3()
     {
-        int state = verbSeqObj.nextVerbSeq(gv1, gv2);
+        int state = verbSeqObj.vsNext(gv1, gv2);
         Log.e("abc", "Cleanup: seq: " + verbSeqObj.seq + ", res: " + state);
         if (state == VerbSequence.STATE_NEW)
             cleanUp(true);
@@ -1112,9 +1116,13 @@ public class MainActivity extends Activity
         {
             resetHCGame();
         }
-        verbSeqObj.resetVerbSeq();
-        verbSeqObj.VerbSeqInit( datafile );
-
+        verbSeqObj.vsReset();
+        int res = verbSeqObj.vsInit( datafile );
+        if (res != 0) {
+            Log.e("hoplite", "vsInit result: " + res);
+            origFormText.setText("Error Code: HC" + res);
+            return;
+        }
         v1 = new Verb();
         //v1.getRandomVerb();
         v2 = new Verb();
@@ -1260,7 +1268,7 @@ public class MainActivity extends Activity
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                int state = verbSeqObj.nextVerbSeq(gv1, gv2);
+                int state = verbSeqObj.vsNext(gv1, gv2);
                 flip();
             }
         }, 1000);

@@ -60,7 +60,7 @@ public class MenuActivity extends Activity {
             Log.d("File", "datafile exists");
         }
 
-        verbSeqObj.VerbSeqInit( datafile );
+        verbSeqObj.vsInit( datafile );
     }
 
     public void play(View view) {
