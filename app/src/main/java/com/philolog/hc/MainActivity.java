@@ -111,7 +111,7 @@ public class MainActivity extends Activity
     public ImageView life1, life2, life3;
     public TextView gameOverLabel;
     public double elapsedTime = 0;
-    public boolean allowVibrate = true;
+    public boolean allowVibrate = false;
 
     public void onKeyPressed(View v){
         //if(v.getId() == R.id.my_btn){
@@ -1085,7 +1085,7 @@ public class MainActivity extends Activity
         verbSeqObj = new VerbSequence();
         verbSeqObj.setupUnits(mUnits, isHCGame);
 
-        File a = getDatabasePath("hcdatadb.sqlite");
+        File a = getDatabasePath(DBHelper.DBName);
         if (a != null)
         {
             Log.e("abc", "createddb");
@@ -1095,9 +1095,9 @@ public class MainActivity extends Activity
             Log.e("abc", "did not create db");
         }
 
-        Log.e("abc", "newdbpath: " + getDatabasePath("hcdatadb.sqlite").toString());
+        Log.e("abc", "newdbpath: " + getDatabasePath(DBHelper.DBName).toString());
 
-        String datafile = getDatabasePath("hcdatadb.sqlite").toString();
+        String datafile = getDatabasePath(DBHelper.DBName).toString();
         File file = new File(datafile);
         if (!file.exists()) {
             Log.d("File", "datafile created");

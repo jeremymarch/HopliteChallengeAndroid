@@ -12,6 +12,7 @@ public class VerbSequence
     public native void vsReset();
     public native int setupUnits(boolean[] unitArray, boolean isHCGame);
     public native int vsInit(String path);
+    public native int upgradedb(String oldpath, String newpath);
 
     public static final int STATE_ERROR    = 0;
     public static final int STATE_NEW      = 1;

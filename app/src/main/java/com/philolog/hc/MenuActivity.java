@@ -33,7 +33,8 @@ public class MenuActivity extends Activity {
         VerbSequence verbSeqObj = new VerbSequence();
         //verbSeqObj.setupUnits(mUnits, isHCGame);
 
-        File a = getDatabasePath("hcdatadb.sqlite");
+        /*
+        File a = getDatabasePath(DBHelper.DBName);
         if (a != null)
         {
             Log.e("abc", "createddb");
@@ -43,9 +44,9 @@ public class MenuActivity extends Activity {
             Log.e("abc", "did not create db");
         }
 
-        Log.e("abc", "newdbpath: " + getDatabasePath("hcdatadb.sqlite").toString());
+        Log.e("abc", "newdbpath: " + getDatabasePath(DBHelper.DBName).toString());
 
-        String datafile = getDatabasePath("hcdatadb.sqlite").toString();
+        String datafile = getDatabasePath(DBHelper.DBName).toString();
         File file = new File(datafile);
         if (!file.exists()) {
             Log.d("File", "datafile created");
@@ -59,7 +60,8 @@ public class MenuActivity extends Activity {
         {
             Log.d("File", "datafile exists");
         }
-
+*/
+        String datafile = getDatabasePath(DBHelper.DBName).toString();
         verbSeqObj.vsInit( datafile );
     }
 

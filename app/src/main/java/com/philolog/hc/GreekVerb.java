@@ -18,7 +18,7 @@ public class GreekVerb
 
     public native String addAccent(int accent, String str); //included here as a hack
     public native String getForm(int mf, int decompose);
-    public native void generateForm();
+    //public native void generateForm();
     //public native void changeFormByDegrees(int degrees);
     public native String getAbbrevDescription();
 

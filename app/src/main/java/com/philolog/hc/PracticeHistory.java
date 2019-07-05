@@ -118,7 +118,7 @@ public class PracticeHistory extends ListActivity {
         try {
             DBHelper dbHelper = new DBHelper(this.getApplicationContext());
             newDB = dbHelper.getReadableDatabase();//.getWritableDatabase();
-            Cursor c = newDB.rawQuery("SELECT person, number, tense, voice, mood, verbid, correct, elapsedtime, incorrectAns FROM verbseq " +
+            Cursor c = newDB.rawQuery("SELECT person, number, tense, voice, mood, verbid, correct, elapsedtime, answerGiven FROM verbseq " +
                     " WHERE gameid=" + gameID.toString() + " ORDER BY id DESC LIMIT 1000", null);
 
             Log.e("abc", "Row count: " + c.getCount());
@@ -134,7 +134,7 @@ public class PracticeHistory extends ListActivity {
                         String mood = c.getString(c.getColumnIndex("mood"));
                         String verbid = c.getString(c.getColumnIndex("verbid"));
 
-                        String given = c.getString(c.getColumnIndex("incorrectAns"));
+                        String given = c.getString(c.getColumnIndex("answerGiven"));
                         String correct = c.getString(c.getColumnIndex("correct"));
                         String elapsedTime = c.getString(c.getColumnIndex("elapsedtime"));
 
@@ -185,12 +185,15 @@ public class PracticeHistory extends ListActivity {
         }
 
         public void addItem(final historyItem item) {
+            //Log.e("Hoplite", item.given);
             mData.add(item);
             notifyDataSetChanged();
         }
 
         @Override
         public int getCount() {
+
+            Log.e("Hoplite", "mdata size: " + mData.size());
             return mData.size();
         }
 
@@ -221,6 +224,7 @@ public class PracticeHistory extends ListActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             System.out.println("getView " + position + " " + convertView);
+
             ViewHolder holder = null;
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.historylistitem, null);
@@ -261,8 +265,12 @@ public class PracticeHistory extends ListActivity {
             String stem = mData.get(position).stem;
 
             if (!mData.get(position).given.equals("START")) {
-                String prevStem = mData.get(position + 1).stem;
-                stem = makeBoldStem(prevStem, stem);
+
+                if ( position + 1 < mData.size() ) {
+                    String prevStem = mData.get(position + 1).stem;
+                    stem = makeBoldStem(prevStem, stem);
+                }
+
                 holder.textView4.setVisibility(View.VISIBLE);
             }
             else
