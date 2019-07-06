@@ -20,12 +20,12 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public SQLiteDatabase DB;
     public String DBPath;
-    public String dboldpath1;
+    private String dboldpath1;
     public String dboldname1 = "hcdatadb.sqlite";
     public static String DBName = "hcdatadb1-5.sqlite";
     public static final int version = '1';
     public Context currentContext;
-    public static String tableName = "games";
+    //public static String tableName = "games";
 
     public DBHelper(Context context) {
         super(context, DBName, null, version);
