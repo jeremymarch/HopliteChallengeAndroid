@@ -260,9 +260,9 @@ Log.e("abc", "Scale End");
             for (int v = 0; v < NUM_VOICES; v++) {
                 vf.voice = v;
                 for (int m = 0; m < NUM_MOODS; m++) {
-                    if (!isOida && m != INDICATIVE && (t == PERFECT || t == PLUPERFECT || t == IMPERFECT || t == FUTURE))
+                    if (!isOida && ((m != INDICATIVE && (t == PERFECT || t == PLUPERFECT || t == IMPERFECT) || ((m == SUBJUNCTIVE || m == IMPERATIVE) && t == FUTURE))))
                         continue;
-                    else if (isOida && m != INDICATIVE && (t == PLUPERFECT || t == IMPERFECT || t == FUTURE))
+                    else if (isOida && (m != INDICATIVE && (t == PLUPERFECT || t == IMPERFECT)  || ((m == SUBJUNCTIVE || m == IMPERATIVE) && t == FUTURE)))
                         continue;
 
                     String s;
