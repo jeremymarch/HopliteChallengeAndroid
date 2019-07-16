@@ -780,7 +780,7 @@ public class MainActivity extends Activity
                             Animation.ABSOLUTE, editLoc[1] - changedLoc[1],
                             Animation.ABSOLUTE, origLoc[1] - changedLoc[1] );
 
-                    animation.setDuration(500);
+                    animation.setDuration(400);
                     //Log.e("abc", "Loc1: " + origLoc[1] + "Loc2: " + changedLoc[1] + ", Loc3: " + editLoc[1]);
                     changedFormText.setTextWithPadding(editText.getText().toString(), false); //here
                     changedFormText.setHeight(editText.getHeight());
@@ -793,7 +793,7 @@ public class MainActivity extends Activity
                             Animation.RELATIVE_TO_SELF, 0,
                             Animation.ABSOLUTE, origLoc[1] - changedLoc[1] );
 
-                    animation.setDuration(600);
+                    animation.setDuration(500);
                 }
 
                 animation.setFillAfter(false);
