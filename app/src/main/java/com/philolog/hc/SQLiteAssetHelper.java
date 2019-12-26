@@ -340,8 +340,8 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
                 e.printStackTrace();
             }
         }
-
         Log.w(TAG, "Successfully upgraded database " + mName + " from version " + oldVersion + " to " + newVersion);
+
     }
 
     @Override
