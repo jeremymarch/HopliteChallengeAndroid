@@ -176,6 +176,7 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
             db = createOrOpenDatabase(false);
 
             int version = db.getVersion();
+            Log.i(TAG, "DB User Version: " + version );
 
             // do force upgrade
             if (version != 0 && version < mForcedUpgradeVersion) {
@@ -269,6 +270,7 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
 
             onOpen(db);
             Log.w(TAG, "Opened " + mName + " in read-only mode");
+            Log.e(TAG, "VERSION " + db.getVersion() );
             mDatabase = db;
             return mDatabase;
         } finally {
@@ -303,6 +305,11 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //getVersion, setVersion
+        //https://stackoverflow.com/questions/3707797/where-does-android-store-sqlites-database-version/3711985#3711985
+        //sqlite> PRAGMA user_version=1;
+        //sqlite> PRAGMA user_version;
+
 
         Log.w(TAG, "Upgrading database " + mName + " from version " + oldVersion + " to " + newVersion + "...");
 
@@ -335,7 +342,6 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
         }
 
         Log.w(TAG, "Successfully upgraded database " + mName + " from version " + oldVersion + " to " + newVersion);
-
     }
 
     @Override

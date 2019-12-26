@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
     android {
-        compileSdkVersion = 28
+        compileSdkVersion = 29
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
-        buildToolsVersion = "28.0.3" //"22.0.1"
+        buildToolsVersion = "29.0.2" //"22.0.1"
 
         defaultConfig.with {
             applicationId = "com.philolog.hc"
             minSdkVersion 16
-            targetSdkVersion 28
+            targetSdkVersion 29
             ndk {
                 abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
             }
@@ -19,7 +19,7 @@ apply plugin: 'com.android.application'
                     // of "Customize C++ Support", in this codelab's
                     //    "Create a Sample App with the C++ Template",
                     //    step 6
-                    cFlags "-std=c99 -O3"
+                    cFlags "-std=c99 -O3 -DHCDEBUG"
                 }
             }
             flavorDimensions "abi"
