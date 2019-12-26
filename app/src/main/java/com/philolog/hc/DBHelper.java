@@ -32,10 +32,14 @@ public class DBHelper extends SQLiteOpenHelper{
         currentContext = context;
         //DBPath = "/data/data/" + context.getPackageName() + "/databases";
 
+        Log.e("aaa", "NEW1");
         DBPath = context.getDatabasePath(DBName).toString();
+        Log.e("aaa", "NEW2");
         dboldpath1 = context.getDatabasePath(dboldname1).toString();
+        Log.e("aaa", "NEW3");
 
         createDatabase();
+        Log.e("aaa", "NEW4");
     }
 
     @Override
@@ -59,7 +63,9 @@ public class DBHelper extends SQLiteOpenHelper{
         vs1 = null;
         Log.e("hoplitetesting", "done init old db");
 */
+        Log.e("aaa", "NEW3.1");
         boolean dbExists = checkDbExists(DBPath);
+        Log.e("aaa", "NEW3.2");
         if (!dbExists)
         {
             Log.e("hoplitetesting", "need to copy db from assets");
@@ -67,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper{
             try {
                 Log.e("hoplitetesting", "copying db from assets");
                 copyDatabase();
-
+/*
                 //do we need to copy from old db?
                 if ( checkDbExists(dboldpath1) ) {
                     Log.e("hoplitetesting", "old db exists, need to import to new db");
@@ -84,6 +90,8 @@ public class DBHelper extends SQLiteOpenHelper{
                     }
                     vs = null;
                 }
+
+ */
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -117,14 +125,15 @@ public class DBHelper extends SQLiteOpenHelper{
                     SQLiteDatabase.OPEN_READONLY);
 
         } catch (SQLiteException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            return false;
         }
 
         if (checkDB != null) {
             checkDB.close();
         }
 
-        Log.e("DBHelper", "Opendb: " + myPath + ", " + (checkDB != null ? "true" : "false"));
+        Log.e("checkDbExists", "checkDbExists: " + myPath + ", " + (checkDB != null ? "true" : "false"));
         return (checkDB != null); // ? true : false;
     }
 }

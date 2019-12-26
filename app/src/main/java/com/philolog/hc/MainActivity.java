@@ -999,8 +999,7 @@ public class MainActivity extends Activity
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /*
         ActionBar actionBar = getActionBar();
@@ -1019,7 +1018,7 @@ public class MainActivity extends Activity
         decorView.setSystemUiVisibility(uiOptions);
 */
         //http://stackoverflow.com/questions/9627774/android-allow-portrait-and-landscape-for-tablets-but-force-portrait-on-phone/39302787#39302787
-        if(getResources().getBoolean(R.bool.portrait_only)) {
+        if (getResources().getBoolean(R.bool.portrait_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
@@ -1032,9 +1031,9 @@ public class MainActivity extends Activity
         changedFormText = (TypeWriter) findViewById(R.id.changedTextView);
         mTimeLabel = (TextView) findViewById(R.id.mTimeLabel);
         editText = (EditTypeWriter) findViewById(R.id.editText);
-        continueButton =(Button)findViewById(R.id.continueButton);
-        mMFLabelView = (TextView ) findViewById(R.id.mfpressed);
-        scoreLabel = (TextView ) findViewById(R.id.scoreLabel);
+        continueButton = (Button) findViewById(R.id.continueButton);
+        mMFLabelView = (TextView) findViewById(R.id.mfpressed);
+        scoreLabel = (TextView) findViewById(R.id.scoreLabel);
         greenCheckRedX = (ImageView) findViewById(R.id.greenCheckRedX);
         life1 = (ImageView) findViewById(R.id.life1);
         life2 = (ImageView) findViewById(R.id.life2);
@@ -1074,7 +1073,7 @@ public class MainActivity extends Activity
             mTimerCountDown = true;
             lives = 3;
             mTimeLabel.setText("30.00 sec");
-        }else {
+        } else {
             scoreLabel.setVisibility(View.INVISIBLE);
             isHCGame = false;
             mTimerCountDown = false;
@@ -1084,7 +1083,7 @@ public class MainActivity extends Activity
 
         verbSeqObj = new VerbSequence();
         verbSeqObj.setupUnits(mUnits, isHCGame);
-
+/*
         File a = getDatabasePath(DBHelper.DBName);
         if (a != null)
         {
@@ -1111,13 +1110,12 @@ public class MainActivity extends Activity
         {
             Log.d("File", "datafile exists");
         }
-
-        if (isHCGame)
-        {
+*/
+        if (isHCGame) {
             resetHCGame();
         }
         verbSeqObj.vsReset();
-        int res = verbSeqObj.vsInit( datafile );
+        int res = 0;//verbSeqObj.vsInit( datafile );
         if (res != 0) {
             Log.e("hoplite", "vsInit result: " + res);
             origFormText.setText("Error Code: HC" + res);
@@ -1142,7 +1140,7 @@ public class MainActivity extends Activity
         mainView = findViewById(R.id.myView2);
         mainView.setBackgroundColor(0xFFFFFFFF);
 
-        Typeface type = Typeface.createFromAsset(getAssets(),"fonts/newathu405.ttf");
+        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/newathu405.ttf");
         int greekFontSize = 32;
         int stemFontSize = 24;
 
@@ -1165,13 +1163,13 @@ public class MainActivity extends Activity
 
         //http://stackoverflow.com/questions/25786272/how-to-display-custom-keyboard-when-clicking-on-edittext-in-android
         //http://www.fampennings.nl/maarten/android/09keyboard/index.htm
-        Keyboard mKeyboard= new Keyboard(this,R.xml.greekkeyboard);
+        Keyboard mKeyboard = new Keyboard(this, R.xml.greekkeyboard);
         //draw custom keys:
         // http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
         // Lookup the KeyboardView
-        mKeyboardView = (GreekKeyboard)findViewById(R.id.keyboardview);
+        mKeyboardView = (GreekKeyboard) findViewById(R.id.keyboardview);
         // Attach the keyboard to the view
-        mKeyboardView.setKeyboard( mKeyboard );
+        mKeyboardView.setKeyboard(mKeyboard);
         // Do not show the preview balloons
         mKeyboardView.setPreviewEnabled(false);
         mKeyboardView.setOnKeyboardActionListener(mOnKeyboardActionListener);
@@ -1180,35 +1178,33 @@ public class MainActivity extends Activity
         //http://android-developers.blogspot.com/2007/11/stitch-in-time.html
         mUpdateTimeTask = new Runnable() {
             public void run() {
-            double difference = 0.0;
-                difference = (System.nanoTime() - mStartTime)/1e6/1000;
+                double difference = 0.0;
+                difference = (System.nanoTime() - mStartTime) / 1e6 / 1000;
                 elapsedTime = difference;
                 if (mTimerCountDown) {
                     difference = HCTime - difference;
                 }
-            mTimeLabel.setText(String.format("%.2f sec", difference));
+                mTimeLabel.setText(String.format("%.2f sec", difference));
 
-            //mHandler.postAtTime(this, 1000);//start + (( seconds + 1) * 1000));
-            if (difference > 0 || !mTimerCountDown) {
-                mHandler.postDelayed(mUpdateTimeTask, 50);
-                //mHandler.postAtTime(mUpdateTimeTask, System.currentTimeMillis() + 1000 );
-            }
-            else
-            {
-                mTimeLabel.setTextColor(0xFFFF0000); //make red
-                stopTimer();
-                mTimeLabel.setText("0.00 sec");
+                //mHandler.postAtTime(this, 1000);//start + (( seconds + 1) * 1000));
+                if (difference > 0 || !mTimerCountDown) {
+                    mHandler.postDelayed(mUpdateTimeTask, 50);
+                    //mHandler.postAtTime(mUpdateTimeTask, System.currentTimeMillis() + 1000 );
+                } else {
+                    mTimeLabel.setTextColor(0xFFFF0000); //make red
+                    stopTimer();
+                    mTimeLabel.setText("0.00 sec");
 
-                editText.setEnabled(false);
-                editText.passEvents = true;
-                hideCustomKeyboard(null);
-                Runnable runCheckVerb = new Runnable() {
-                    public void run() {
-                        checkVerb();
-                    }
-                };
-                mHandler.postDelayed(runCheckVerb, 1);//a tiny delay prevents freeze on api 21
-            }
+                    editText.setEnabled(false);
+                    editText.passEvents = true;
+                    hideCustomKeyboard(null);
+                    Runnable runCheckVerb = new Runnable() {
+                        public void run() {
+                            checkVerb();
+                        }
+                    };
+                    mHandler.postDelayed(runCheckVerb, 1);//a tiny delay prevents freeze on api 21
+                }
             }
         };
 /*
@@ -1222,7 +1218,7 @@ public class MainActivity extends Activity
             }
         });
 */
-            /* Using it */
+        /* Using it */
         final ScaleGestureDetector mScaleDetector =
                 new ScaleGestureDetector(this, new MyPinchListener());
         mainView.setOnTouchListener(new View.OnTouchListener() {
@@ -1281,7 +1277,9 @@ public class MainActivity extends Activity
         });
 
         //so the default keyboard doesn't show.
-        editText.setShowSoftInputOnFocus(false);
+        if (Build.VERSION.SDK_INT > 20) {
+            editText.setShowSoftInputOnFocus(false);
+    }
 
 /*
         //or http://www.lucazanini.eu/en/2013/android/updating-frequently-a-textview-inside-a-loop/

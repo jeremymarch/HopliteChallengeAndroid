@@ -27,7 +27,8 @@ public class MenuActivity extends Activity {
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         //to be sure the db is created on first run
-        DBHelper dbh = new DBHelper(getApplicationContext());
+        HCDBHelperNew dbh = new HCDBHelperNew(getApplicationContext());
+        dbh.getReadableDatabase();
 
         //to be sure db is setup before first game
         VerbSequence verbSeqObj = new VerbSequence();
@@ -61,7 +62,7 @@ public class MenuActivity extends Activity {
             Log.d("File", "datafile exists");
         }
 */
-        String datafile = getDatabasePath(DBHelper.DBName).toString();
+        String datafile = dbh.dbpath;
         verbSeqObj.vsInit( datafile );
     }
 
