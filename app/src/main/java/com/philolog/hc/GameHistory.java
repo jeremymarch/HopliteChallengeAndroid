@@ -29,7 +29,6 @@ public class GameHistory extends ListActivity {
     public final static String EXTRA_MESSAGE = "com.philolog.hc.MESSAGE";
     private ArrayList<String> results = new ArrayList<String>();
     private MyCustomAdapter mAdapter;
-    private String tableName = DBHelper.tableName;
     private SQLiteDatabase newDB;
     private ListView lv;
     private boolean isHCGame = false;
@@ -149,10 +148,11 @@ public class GameHistory extends ListActivity {
             {
                 whereClause = " WHERE score == -1 ";
             }
-            DBHelper dbHelper = new DBHelper(this.getApplicationContext());
+
+            HCDBHelperNew dbHelper = HCDBHelperNew.getInstance(getApplicationContext());
             newDB = dbHelper.getReadableDatabase();//.getWritableDatabase();
-            Cursor c = newDB.rawQuery("SELECT gameid, timest, score FROM " +
-                    tableName + whereClause + " ORDER BY gameid DESC LIMIT 1000", null);
+            Cursor c = newDB.rawQuery("SELECT gameid, timest, score FROM games " +
+                    whereClause + " ORDER BY gameid DESC LIMIT 1000", null);
 
             Log.e("abc", "Row count: " + c.getCount());
 

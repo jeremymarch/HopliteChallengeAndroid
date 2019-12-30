@@ -1095,34 +1095,7 @@ public class MainActivity extends Activity
 
         verbSeqObj = new VerbSequence();
         verbSeqObj.setupUnits(mUnits, isHCGame);
-/*
-        File a = getDatabasePath(DBHelper.DBName);
-        if (a != null)
-        {
-            Log.e("abc", "createddb");
-        }
-        else
-        {
-            Log.e("abc", "did not create db");
-        }
 
-        Log.e("abc", "newdbpath: " + getDatabasePath(DBHelper.DBName).toString());
-
-        String datafile = getDatabasePath(DBHelper.DBName).toString();
-        File file = new File(datafile);
-        if (!file.exists()) {
-            Log.d("File", "datafile created");
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else
-        {
-            Log.d("File", "datafile exists");
-        }
-*/
         if (isHCGame) {
             resetHCGame();
         }

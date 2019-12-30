@@ -32,7 +32,6 @@ public class PracticeHistory extends ListActivity {
 
     private ArrayList<String> results = new ArrayList<String>();
     private MyCustomAdapter mAdapter;
-    private String tableName = DBHelper.tableName;
     private SQLiteDatabase newDB;
     private Integer gameid;
     private boolean isHCGame = false;
@@ -116,7 +115,7 @@ public class PracticeHistory extends ListActivity {
 
     private void openAndQueryDatabase(Integer gameID) {
         try {
-            DBHelper dbHelper = new DBHelper(this.getApplicationContext());
+            HCDBHelperNew dbHelper = HCDBHelperNew.getInstance(getApplicationContext());
             newDB = dbHelper.getReadableDatabase();//.getWritableDatabase();
             Cursor c = newDB.rawQuery("SELECT person, number, tense, voice, mood, verbid, correct, elapsedtime, answerGiven FROM verbseq " +
                     " WHERE gameid=" + gameID.toString() + " ORDER BY id DESC LIMIT 1000", null);
