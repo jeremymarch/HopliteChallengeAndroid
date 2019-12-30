@@ -47,6 +47,6 @@
         <Key android:codes="12"    android:keyLabel="μ"  />
 
         <Key android:codes="26" android:keyLabel="( )" />
-        <Key android:codes="35" android:keyLabel="Del" android:keyEdgeFlags="right" android:isRepeatable="true"/>
+        <Key android:codes="35" android:keyLabel="⌫" android:keyEdgeFlags="right" android:isRepeatable="true"/>
     </Row>
 </Keyboard>

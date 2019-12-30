@@ -50,13 +50,13 @@ public class GreekKeyboard extends KeyboardView {
                 if (key.pressed) {
                     dr = (Drawable) context.getResources().getDrawable(R.drawable.mfbuttondown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(context.getResources().getColor(R.color.orange));
+                    paint.setColor(Color.WHITE);
                 }
                 else
                 {
                     dr = (Drawable) context.getResources().getDrawable(R.drawable.mfbutton);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(context.getResources().getColor(R.color.orange));
                 }
                 dr.draw(canvas);
             }
@@ -65,13 +65,13 @@ public class GreekKeyboard extends KeyboardView {
                 if (key.pressed) {
                     dr = (Drawable) context.getResources().getDrawable(R.drawable.mfpresseddown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(context.getResources().getColor(R.color.orange));
                 }
                 else
                 {
                     dr = (Drawable) context.getResources().getDrawable(R.drawable.mfbuttondown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(context.getResources().getColor(R.color.orange));
+                    paint.setColor(Color.WHITE);
                 }
                 dr.draw(canvas);
             }
@@ -99,9 +99,22 @@ public class GreekKeyboard extends KeyboardView {
                 else
                 {
                     dr = (Drawable) context.getResources().getDrawable(R.drawable.accentbutton);
-                    paint.setColor(Color.BLACK);
+                    paint.setColor(Color.WHITE);
                 }
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
+                dr.draw(canvas);
+            }
+            else if (key.codes[0] == 35){ //delete
+                Drawable dr;
+                if (key.pressed) {
+                    dr = (Drawable) context.getResources().getDrawable(R.drawable.normalbuttondown);
+                    paint.setColor(Color.WHITE);
+                }
+                else {
+                    dr = (Drawable) context.getResources().getDrawable(R.drawable.deletebutton);
+                    paint.setColor(Color.BLACK);
+                }
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
             else {
