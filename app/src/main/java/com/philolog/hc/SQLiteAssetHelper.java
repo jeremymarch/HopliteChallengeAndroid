@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+//other examples
+//https://www.programcreek.com/java-api-examples/?class=android.content.Context&method=getDatabasePath
+//newer:
+//https://github.com/jakirseu/Android-Pre-Built-database
+
 package com.philolog.hc;
 
 import android.content.Context;
@@ -195,7 +200,9 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
                             Log.w(TAG, "Can't downgrade read-only database from version " +
                                     version + " to " + mNewVersion + ": " + db.getPath());
                         }
-                        onUpgrade(db, version, mNewVersion);
+
+                        //db user version was randomly being set to 49 and causing problems, so commenting this out
+                        //onUpgrade(db, version, mNewVersion);
                     }
                     db.setVersion(mNewVersion);
                     db.setTransactionSuccessful();
@@ -468,6 +475,12 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
             se.setStackTrace(e.getStackTrace());
             throw se;
         }
+        onCopy();
+    }
+
+    public void onCopy()
+    {
+        Log.e(TAG, "COPY SUPER");
     }
 
     private InputStream getUpgradeSQLStream(int oldVersion, int newVersion) {

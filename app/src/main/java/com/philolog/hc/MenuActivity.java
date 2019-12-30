@@ -27,7 +27,7 @@ public class MenuActivity extends Activity {
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         //to be sure the db is created on first run
-        HCDBHelperNew dbh = new HCDBHelperNew(getApplicationContext());
+        HCDBHelperNew dbh = HCDBHelperNew.getInstance(getApplicationContext());
         dbh.getReadableDatabase();
 
         //to be sure db is setup before first game

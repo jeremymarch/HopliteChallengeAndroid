@@ -1,10 +1,20 @@
 apply plugin: 'com.android.application'
 
     android {
+        signingConfigs {
+            debug {
+                /*
+                storeFile file('/Users/jeremy/AndroidStudioProjects/keystore.jks')
+                storePassword ''
+                keyAlias = ''
+                keyPassword ''
+                */
+            }
+        }
         compileSdkVersion = 29
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
-        buildToolsVersion = "29.0.2" //"22.0.1"
+        buildToolsVersion = "29.0.2"
 
         defaultConfig.with {
             applicationId = "com.philolog.hc"
@@ -12,15 +22,6 @@ apply plugin: 'com.android.application'
             targetSdkVersion 29
             ndk {
                 abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
-            }
-            externalNativeBuild {
-                cmake {
-                    // cppFlags are configured according to your selection
-                    // of "Customize C++ Support", in this codelab's
-                    //    "Create a Sample App with the C++ Template",
-                    //    step 6
-                    cFlags "-std=c99 -O3 -DHCDEBUG"
-                }
             }
             flavorDimensions "abi"
             productFlavors {
@@ -50,9 +51,19 @@ apply plugin: 'com.android.application'
         release {
             minifyEnabled = false
             proguardFiles.add(file('proguard-rules.txt'))
+            externalNativeBuild {
+                cmake {
+                    cFlags "-std=c99 -O3 -DNDEBUG"
+                }
+            }
         }
         debug {
             debuggable = true
+            externalNativeBuild {
+                cmake {
+                    cFlags "-std=c99 -O3 -DHCDEBUG"
+                }
+            }
         }
     }
 

@@ -551,8 +551,9 @@ public class MainActivity extends Activity
                 if( start > 0 )
                 {
                     int i = 0;
-                    while (isCombiningCharacter(str2.charAt(start - i - 1)) && start - i - 1 > 0)
+                    while (isCombiningCharacter(str2.charAt(start - i - 1)) && start - i - 1 > 0) {
                         i++;
+                    }
                     editable.delete(start - i - 1, start);
                 }
             } /* else {// Insert character
@@ -590,6 +591,9 @@ public class MainActivity extends Activity
         String accentedLetter = "";
         int i;
 
+        //this seems like an odd way of doing this??
+        //should determine combining diacritics + letter first and
+        //only call addAccent once
         for (i = 1; i < maxSubstringForAccent; i++)
         {
             if (start - i < 0)
@@ -597,6 +601,7 @@ public class MainActivity extends Activity
                 break;
             }
             sub = str2.substring(start - i, start);
+
             accentedLetter = gv1.addAccent(acc, sub);
             if (!accentedLetter.equals("")) {
                 break;
@@ -607,21 +612,20 @@ public class MainActivity extends Activity
         }
     }
 
-    public void openKeyboard(View v, Runnable onComplete)
-    {
+    public void openKeyboard(View v, Runnable onComplete) {
         if (mKeyboardView.getVisibility() == View.GONE) {
 
             Animation animation = AnimationUtils
                     .loadAnimation(MainActivity.this,
                             R.anim.slide_in_bottom);
-                                        animation.setRepeatCount(Animation.INFINITE);
+            animation.setRepeatCount(Animation.INFINITE);
             animation.setRepeatMode(Animation.RESTART);
             animation.setInterpolator(new LinearInterpolator());
             mKeyboardView.showWithAnimation(animation, onComplete);
 
             mKeyboardView.setVisibility(View.VISIBLE);
             mKeyboardView.setEnabled(true);
-            if( v!=null) {
+            if (v != null) {
                 ((InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
             editText.setVisibility(View.VISIBLE);
@@ -1001,6 +1005,14 @@ public class MainActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+/*
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.LightTheme);
+        }
+*/
+
         /*
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
