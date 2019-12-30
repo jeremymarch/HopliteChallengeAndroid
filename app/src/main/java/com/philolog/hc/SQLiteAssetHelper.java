@@ -201,7 +201,7 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
                                     version + " to " + mNewVersion + ": " + db.getPath());
                         }
 
-                        //db user version was randomly being set to 49 and causing problems, so commenting this out
+                        //FIX ME: db user version was randomly being set to 49 and causing problems, so commenting this out
                         //onUpgrade(db, version, mNewVersion);
                     }
                     db.setVersion(mNewVersion);

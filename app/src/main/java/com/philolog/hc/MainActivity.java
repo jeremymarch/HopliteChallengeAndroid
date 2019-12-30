@@ -450,7 +450,7 @@ public class MainActivity extends Activity
             Editable editable = edittext.getText();
             //fix bug found by Chris SGI2019
             // where text can be entered after pressing enter
-            if (!edittext.isEnabled()) 
+            if (!edittext.isEnabled())
             {
                 return;
             }
@@ -1106,7 +1106,9 @@ public class MainActivity extends Activity
             resetHCGame();
         }
         verbSeqObj.vsReset();
-        int res = 0;//verbSeqObj.vsInit( datafile );
+        HCDBHelperNew dbh = HCDBHelperNew.getInstance(getApplicationContext());
+        String datafile = dbh.dbpath;
+        int res = verbSeqObj.vsInit( datafile );
         if (res != 0) {
             Log.e("hoplite", "vsInit result: " + res);
             origFormText.setText("Error Code: HC" + res);
