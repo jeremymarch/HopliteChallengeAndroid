@@ -448,6 +448,12 @@ public class MainActivity extends Activity
                 return;
             EditTypeWriter edittext = (EditTypeWriter) focusCurrent;
             Editable editable = edittext.getText();
+            //fix bug found by Chris SGI2019
+            // where text can be entered after pressing enter
+            if (!edittext.isEnabled()) 
+            {
+                return;
+            }
             int start = edittext.getSelectionStart();
 
             // this will prevent inserting a char between combining accents
