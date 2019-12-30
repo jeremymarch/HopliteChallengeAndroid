@@ -1,0 +1,19 @@
+BODY { font-family:helvetica; font-size:12pt;
+    margin-top:80px; margin-left:5%; margin-right:5%; margin-bottom:10px;
+}
+@font-face { font-family: 'WebNewAthenaUnicode'; src: url('newathu5.ttf');
+}
+
+.greek { font-family:NewAthenaUnicode, WebNewAthenaUnicode; font-size:12pt; font-weight:bold; }
+.subtitle { font-weight:bold; }
+
+li { margin-top: 3px; margin-bottom: 6px; }
+
+
+@media (prefers-color-scheme: dark) {
+  BODY { background-color: black; color: white; }
+  A { color: #347cd8; }
+}
+@media (prefers-color-scheme: light) {
+  BODY { background-color: white; color: black; }
+}
