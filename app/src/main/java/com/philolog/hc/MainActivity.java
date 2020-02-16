@@ -130,6 +130,9 @@ public class MainActivity extends Activity
     public TextView gameOverLabel;
     public double elapsedTime = 0;
     public boolean allowVibrate = false;
+    public String screenSize = "";
+    public String osInfo = "";
+    public String uniqueDeviceID = "";
 
     public void onKeyPressed(View v){
         //if(v.getId() == R.id.my_btn){
@@ -355,18 +358,6 @@ public class MainActivity extends Activity
 
     public void sendDiagnostics(Boolean isCorrect, int lives, int score, String answerText, String expectedForm, String elapsedTime, Boolean mfPressed)
     {
-        //https://stackoverflow.com/questions/4616095/how-to-get-the-build-version-number-of-your-android-application
-        String osInfo="";
-        osInfo += "Android: " + System.getProperty("os.version") + "(" + android.os.Build.VERSION.INCREMENTAL + ")";
-        osInfo += " (API: " + android.os.Build.VERSION.SDK_INT + ")";
-        osInfo += " Device: " + android.os.Build.DEVICE;
-        osInfo += " Model (and Product): " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        String screen = size.x + " x " + size.y;
-
         JSONObject postData = new JSONObject();
         try {
             postData.put("type", "debugRequestPlusAnswer");
@@ -385,9 +376,9 @@ public class MainActivity extends Activity
             postData.put("voice", gv2.voice);
             postData.put("mood", gv2.mood);
             postData.put("appversion", BuildConfig.VERSION_NAME);
-            postData.put("device", uid(getApplicationContext()));
+            postData.put("device", uniqueDeviceID);
             postData.put("agent", osInfo);
-            postData.put("screen", screen);
+            postData.put("screen", screenSize);
             postData.put("accessdate", "");
             postData.put("error", "");
 
@@ -396,7 +387,7 @@ public class MainActivity extends Activity
             e.printStackTrace();
             //assert(1 == 2);
         }
-        Log.e("abc", postData.toString());
+        //Log.e("abc", "[" + postData.toString() + "]");
     }
 
     public void checkVerb()
@@ -1101,6 +1092,19 @@ public class MainActivity extends Activity
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
+        //https://stackoverflow.com/questions/4616095/how-to-get-the-build-version-number-of-your-android-application
+
+        osInfo = "Android: " + System.getProperty("os.version") + "(" + android.os.Build.VERSION.INCREMENTAL + ")";
+        osInfo += " (API: " + android.os.Build.VERSION.SDK_INT + ")";
+        osInfo += " Device: " + android.os.Build.DEVICE;
+        osInfo += " Model (and Product): " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        screenSize = size.x + " x " + size.y;
+        uniqueDeviceID = uid(getApplicationContext());
 /*
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
