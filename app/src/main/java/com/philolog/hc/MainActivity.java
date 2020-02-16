@@ -133,6 +133,7 @@ public class MainActivity extends Activity
     public String screenSize = "";
     public String osInfo = "";
     public String uniqueDeviceID = "";
+    public Boolean timerTimedOut = false;
 
     public void onKeyPressed(View v){
         //if(v.getId() == R.id.my_btn){
@@ -365,7 +366,7 @@ public class MainActivity extends Activity
             postData.put("expectedForm", expectedForm);
             postData.put("isCorrect", isCorrect);
             postData.put("answerSeconds", elapsedTime);
-            postData.put("timedOut", false);
+            postData.put("timedOut", timerTimedOut);
             postData.put("mfPressed", mfPressed.toString());
             postData.put("lives", lives);
             postData.put("score", score);
@@ -1027,6 +1028,7 @@ public class MainActivity extends Activity
     {
         //start timer
         //if (mStartTime == 0L) {
+        timerTimedOut = false;
         mTimeLabel.setTextColor(0xFF000000);
         mStartTime = System.nanoTime();
         elapsedTime = 0;
@@ -1281,7 +1283,7 @@ public class MainActivity extends Activity
                     mTimeLabel.setTextColor(0xFFFF0000); //make red
                     stopTimer();
                     mTimeLabel.setText("0.00 sec");
-
+                    timerTimedOut = true;
                     editText.setEnabled(false);
                     editText.passEvents = true;
                     hideCustomKeyboard(null);
