@@ -19,7 +19,7 @@ apply plugin: 'com.android.application'
         defaultConfig.with {
             applicationId = "com.philolog.hc"
             versionName "1.5.1"
-            versionCode 56
+            versionCode 57
             minSdkVersion 16
             targetSdkVersion 29
             ndk {

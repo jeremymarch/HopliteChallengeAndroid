@@ -1095,15 +1095,15 @@ public class MainActivity extends Activity
 
         //https://stackoverflow.com/questions/4616095/how-to-get-the-build-version-number-of-your-android-application
 
-        osInfo = "Android: " + System.getProperty("os.version") + "(" + android.os.Build.VERSION.INCREMENTAL + ")";
+        osInfo = "Android: " + android.os.Build.VERSION.RELEASE + " (" + android.os.Build.VERSION.INCREMENTAL + ")";
         osInfo += " (API: " + android.os.Build.VERSION.SDK_INT + ")";
         osInfo += " Device: " + android.os.Build.DEVICE;
-        osInfo += " Model (and Product): " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
+        osInfo += " Model (and Product): " + Build.MANUFACTURER + " - " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        screenSize = size.x + " x " + size.y;
+        screenSize = size.y + " x " + size.x;
         uniqueDeviceID = uid(getApplicationContext());
 /*
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
