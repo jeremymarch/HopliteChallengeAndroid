@@ -46,6 +46,24 @@ import android.view.animation.LinearInterpolator;
 import android.provider.SyncStateContract.Constants;
 import android.os.Vibrator;
 import android.content.pm.ActivityInfo;
+import org.json.JSONObject;
+import org.json.JSONException;
+import android.os.AsyncTask;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import com.philolog.hc.BuildConfig;
+import android.view.Display;
+import android.graphics.Point;
+import android.os.StrictMode;
+import java.util.UUID;
+import android.content.Context;
+import android.content.SharedPreferences.Editor;
 
 public class MainActivity extends Activity
 {
@@ -266,19 +284,20 @@ public class MainActivity extends Activity
         lp.height = convertDpToPx(24, dm);
         greenCheckRedX.setLayoutParams(lp);
 
-        Boolean ret;
+        Boolean isCorrect;
         //change ret back to space to compare
-        String changed = changedFormText.getText().toString().replace(",\n", ", ");
-        ret = gv1.compareFormsCheckMFRecordResult(editText.getText().toString(), changed, String.format("%.2f", elapsedTime), mMFPressed);
+        String expectedForm = changedFormText.getText().toString().replace(",\n", ", ");
+        String answerText = editText.getText().toString();
+        String sElapsedTime = String.format("%.2f", elapsedTime);
+        isCorrect = gv1.compareFormsCheckMFRecordResult(answerText, expectedForm, sElapsedTime, mMFPressed);
 
         //Log.e("abc", "score1: " + gv1.score);
         if (isHCGame == true) {
             scoreLabel.setText(Integer.toString(gv1.score));
         }
-        if (ret) {
+        if (isCorrect) {
             greenCheckRedX.setImageResource(R.drawable.greencheck);
             greenCheckRedX.setVisibility(View.VISIBLE);
-            return true;
         }
         else
         {
@@ -305,16 +324,79 @@ public class MainActivity extends Activity
                 life2.setVisibility(View.GONE);
                 life1.setVisibility(View.VISIBLE);
             }
-            else if (lives == 0)
-            {
+            else if (lives == 0) {
                 life3.setVisibility(View.GONE);
                 life2.setVisibility(View.GONE);
                 life1.setVisibility(View.GONE);
                 gameOverLabel.setVisibility(View.VISIBLE);
                 continueButton.setText("Play again?");
             }
-            return false;
         }
+
+        sendDiagnostics(isCorrect, lives, gv1.score, answerText, expectedForm, sElapsedTime, mMFPressed);
+        return isCorrect;
+    }
+
+    private static String uniqueID = null;
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
+    public synchronized static String uid(Context context) {
+    if (uniqueID == null) {
+        SharedPreferences sharedPrefs = context.getSharedPreferences(
+                PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+        uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+        if (uniqueID == null) {
+            uniqueID = UUID.randomUUID().toString();
+            Editor editor = sharedPrefs.edit();
+            editor.putString(PREF_UNIQUE_ID, uniqueID);
+            editor.commit();
+        }
+    }    return uniqueID;
+}
+
+    public void sendDiagnostics(Boolean isCorrect, int lives, int score, String answerText, String expectedForm, String elapsedTime, Boolean mfPressed)
+    {
+        //https://stackoverflow.com/questions/4616095/how-to-get-the-build-version-number-of-your-android-application
+        String osInfo="";
+        osInfo += "Android: " + System.getProperty("os.version") + "(" + android.os.Build.VERSION.INCREMENTAL + ")";
+        osInfo += " (API: " + android.os.Build.VERSION.SDK_INT + ")";
+        osInfo += " Device: " + android.os.Build.DEVICE;
+        osInfo += " Model (and Product): " + android.os.Build.MODEL + " ("+ android.os.Build.PRODUCT + ")";
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        String screen = size.x + " x " + size.y;
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("type", "debugRequestPlusAnswer");
+            postData.put("answerText", answerText);
+            postData.put("expectedForm", expectedForm);
+            postData.put("isCorrect", isCorrect);
+            postData.put("answerSeconds", elapsedTime);
+            postData.put("timedOut", false);
+            postData.put("mfPressed", mfPressed.toString());
+            postData.put("lives", lives);
+            postData.put("score", score);
+            postData.put("verbID", gv2.verbid);
+            postData.put("person", gv2.person);
+            postData.put("number", gv2.number);
+            postData.put("tense", gv2.tense);
+            postData.put("voice", gv2.voice);
+            postData.put("mood", gv2.mood);
+            postData.put("appversion", BuildConfig.VERSION_NAME);
+            postData.put("device", uid(getApplicationContext()));
+            postData.put("agent", osInfo);
+            postData.put("screen", screen);
+            postData.put("accessdate", "");
+            postData.put("error", "");
+
+            new SendDeviceDetails().execute("https://philolog.us/hc.php", "[" + postData.toString() + "]");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            //assert(1 == 2);
+        }
+        Log.e("abc", postData.toString());
     }
 
     public void checkVerb()
@@ -372,6 +454,7 @@ public class MainActivity extends Activity
             editText.passEvents = true;
             mMFLabelView.setVisibility(View.VISIBLE);
             hideCustomKeyboard(null);
+            mMFPressed = true;
             Runnable runCheckVerb = new Runnable() {
                 public void run() {
                     checkVerb();
@@ -1011,6 +1094,13 @@ public class MainActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //https://stackoverflow.com/questions/39933345/no-network-security-config-specified-using-platform-default-android-log
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 /*
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
@@ -1293,4 +1383,62 @@ public class MainActivity extends Activity
         */
 
     }
+
+    private class SendDeviceDetails extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String data = "";
+
+            HttpsURLConnection httpURLConnection = null;
+
+            try {
+
+                httpURLConnection = (HttpsURLConnection) new URL(params[0]).openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+                httpURLConnection.setRequestProperty("Accept", "application/json");
+                httpURLConnection.setRequestProperty("Content-Length", "" + params[1].getBytes().length);
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+
+                //https://stackoverflow.com/questions/16504527/how-to-do-an-https-post-from-android
+                SSLContext sc;
+                sc = SSLContext.getInstance("TLS");
+                sc.init(null, null, new java.security.SecureRandom());
+                httpURLConnection.setSSLSocketFactory(sc.getSocketFactory());
+
+                DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
+                wr.write(params[1].getBytes("UTF-8"));
+                wr.flush();
+                wr.close();
+
+                InputStream in = httpURLConnection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(in);
+
+                int inputStreamData = inputStreamReader.read();
+                while (inputStreamData != -1) {
+                    char current = (char) inputStreamData;
+                    inputStreamData = inputStreamReader.read();
+                    data += current;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (httpURLConnection != null) {
+                    httpURLConnection.disconnect();
+                }
+            }
+
+            return data;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            Log.e("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
+        }
+    }
 }
+
