@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.philolog.hc.MenuActivity"
-    android:background="@android:color/background_light"
+    android:background="?attr/hcbgColor"
     android:orientation="vertical">
 
     <Button
@@ -15,7 +15,7 @@
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
         android:onClick="play"
-        android:textColor="@android:color/background_light"
+        android:textColor="?attr/hcMenuButtonTextColor1"
         android:background="@drawable/bluemenubutton"
         android:textSize="12pt"
         android:gravity="center"
@@ -33,7 +33,7 @@
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
         android:onClick="showGameHistory"
-        android:textColor="@android:color/background_light"
+        android:textColor="?attr/hcMenuButtonTextColor2"
         android:background="@drawable/darkbluebuttondrawable"
         android:textSize="12pt"
         android:gravity="center"
@@ -51,7 +51,7 @@
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
         android:onClick="practice"
-        android:textColor="@android:color/background_light"
+        android:textColor="?attr/hcMenuButtonTextColor1"
         android:background="@drawable/bluemenubutton"
         android:textSize="12pt"
         android:gravity="center"
@@ -68,7 +68,7 @@
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true"
         android:onClick="showPracticeHistory"
-        android:textColor="@android:color/background_light"
+        android:textColor="?attr/hcMenuButtonTextColor2"
         android:background="@drawable/darkbluebuttondrawable"
         android:textSize="12pt"
         android:gravity="center"
@@ -85,7 +85,7 @@
         android:id="@+id/verbListButton"
         android:layout_alignParentBottom="true"
         android:onClick="showVerbList"
-        android:textColor="@color/ButtonDarkBlue"
+        android:textColor="?attr/hcMenuButtonTextColor3"
         android:background="@drawable/lightbluebutton"
         android:textSize="12pt"
         android:gravity="center"
@@ -132,6 +132,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp"
         android:textSize="40dp"
-        android:textColor="#000000"
+        android:textColor="?attr/hctextColor"
         android:gravity="center_vertical|center_horizontal" />
 </RelativeLayout>

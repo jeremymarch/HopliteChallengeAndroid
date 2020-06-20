@@ -1,4 +1,46 @@
 <resources>
+    <style name="HCLight" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
 
+        <item name="hctextColor">#FF000000</item>
+        <item name="hcbgColor">#FFFFFFFF</item>
+        <item name="hcContinueBtnTextColor">#FFFFFFFF</item>
+        <item name="hcContinueBtnBGColor">@color/ButtonBlue</item>
 
+        <item name="hcMenuButtonTextColor1">#FFFFFFFF</item>
+        <item name="hcMenuButtonBGColor1">@color/ButtonBlue</item>
+        <item name="hcMenuButtonTextColor2">#FFFFFFFF</item>
+        <item name="hcMenuButtonBGColor2">@color/ButtonDarkBlue</item>
+        <item name="hcMenuButtonTextColor3">@color/ButtonDarkBlue</item>
+        <item name="hcMenuButtonBGColor3">@color/ButtonLightBlue</item>
+
+        <item name="hcQuitText">#FF999999</item>
+        <item name="hcVerbFormLabelColor">#FF999999</item>
+    </style>
+    <style name="HCDark" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="hctextColor">#FFFFFFFF</item>
+        <item name="hcbgColor">#FF000000</item>
+        <item name="hcContinueBtnTextColor">#FFFFFFFF</item>
+        <item name="hcContinueBtnBGColor">#FF666666</item>
+
+        <item name="hcMenuButtonTextColor1">#FFFFFFFF</item>
+        <item name="hcMenuButtonBGColor1">@color/ButtonBlue</item>
+        <item name="hcMenuButtonTextColor2">#FFFFFFFF</item>
+        <item name="hcMenuButtonBGColor2">@color/ButtonDarkBlue</item>
+        <item name="hcMenuButtonTextColor3">@color/ButtonDarkBlue</item>
+        <item name="hcMenuButtonBGColor3">@color/ButtonLightBlue</item>
+
+        <item name="hcQuitText">#FF999999</item>
+        <item name="hcVerbFormLabelColor">#FF999999</item>
+    </style>
+    <style name="HCDayNight" parent="HCLight">
+    </style>
 </resources>

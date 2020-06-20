@@ -9,11 +9,11 @@
 <item
     android:top="-7dp">
     <shape android:shape="rectangle" >
-        <solid android:color="@color/ButtonDarkBlue" />
+        <solid android:color="?attr/hcMenuButtonBGColor2" />
 
         <stroke
             android:width="7dp"
-            android:color="#ffffffff" />
+            android:color="?attr/hcbgColor" />
     </shape>
 </item>
 </layer-list>

@@ -1,6 +1,7 @@
 package com.philolog.hc;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.text.Spanned;
 import android.view.View;
 import android.view.Gravity;
@@ -193,7 +194,7 @@ public class MainActivity extends Activity
             changedFormText.setVisibility(View.INVISIBLE);
             changedFormText.setText(changedStr);
 
-            mTimeLabel.setTextColor(0xFF000000);
+            mTimeLabel.setTextColor(textColor);
             if (isHCGame)
                 mTimeLabel.setText("30.00 sec");
             else
@@ -201,7 +202,7 @@ public class MainActivity extends Activity
             editText.setText("");
 
             stemText.setText("");
-            editText.setTextColor(0xFF000000);
+            editText.setTextColor(textColor);
             greenCheckRedX.setVisibility(View.GONE);
             isDecomposedMode = false;
 
@@ -1029,7 +1030,7 @@ public class MainActivity extends Activity
         //start timer
         //if (mStartTime == 0L) {
         timerTimedOut = false;
-        mTimeLabel.setTextColor(0xFF000000);
+        mTimeLabel.setTextColor(textColor);
         mStartTime = System.nanoTime();
         elapsedTime = 0;
         mHandler.removeCallbacks(mUpdateTimeTask);
@@ -1084,9 +1085,19 @@ public class MainActivity extends Activity
         }
     }
 
+    int textColor = 0;
+    int bgColor = 0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getTheme();
+        theme.resolveAttribute(R.attr.hctextColor, typedValue, true);
+        textColor = typedValue.data;
+        theme.resolveAttribute(R.attr.hcbgColor, typedValue, true);
+        bgColor = typedValue.data;
 
         //https://stackoverflow.com/questions/39933345/no-network-security-config-specified-using-platform-default-android-log
         if (android.os.Build.VERSION.SDK_INT > 9)
@@ -1227,7 +1238,7 @@ public class MainActivity extends Activity
         editText.passEvents = true;
 
         mainView = findViewById(R.id.myView2);
-        mainView.setBackgroundColor(0xFFFFFFFF);
+        mainView.setBackgroundColor(bgColor);
 
         Typeface type = Typeface.createFromAsset(getAssets(), "fonts/newathu405.ttf");
         int greekFontSize = 32;

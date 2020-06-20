@@ -12,8 +12,8 @@
         android:gravity="center_vertical"
         android:text="text"
         android:visibility="visible"
-        android:textColor="#FF000000"
-        android:background="#FFFFFFFF"
+        android:textColor="?attr/hctextColor"
+        android:background="?attr/hcbgColor"
         android:paddingLeft="10dp" />
 
 </LinearLayout>

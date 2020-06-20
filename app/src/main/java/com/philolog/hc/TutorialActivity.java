@@ -1,12 +1,12 @@
 package com.philolog.hc;
 
 import android.content.pm.ActivityInfo;
-import android.support.v4.view.ViewPager;
+import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.app.Activity;
 
 
-import android.support.v4.view.PagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.util.Log;
 import java.util.List;

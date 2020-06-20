@@ -1,0 +1,4 @@
+<resources>
+    <style name="HCDayNight" parent="HCDark">
+    </style>
+</resources>

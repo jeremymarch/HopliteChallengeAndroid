@@ -24,7 +24,7 @@ public class VerbList extends ListActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        mAdapter = new HeaderListAdapter(getApplicationContext(), 0);
+        mAdapter = new HeaderListAdapter(VerbList.this, 0);
         setContentView(R.layout.verblist);
         loadList();
 

@@ -3,10 +3,10 @@
     <item
         android:top="-7dp">
         <shape android:shape="rectangle" >
-            <solid android:color="@color/ButtonBlue" />
+            <solid android:color="?attr/hcMenuButtonBGColor1" />
             <stroke
                 android:width="7dp"
-                android:color="#ffffffff" />
+                android:color="?attr/hcbgColor" />
         </shape>
     </item>
 </layer-list>

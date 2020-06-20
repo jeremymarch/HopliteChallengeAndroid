@@ -185,7 +185,7 @@ Log.e("abc", "Scale End");
             System.out.println("VerbID = " + verbID);
         }
 
-        mAdapter = new HeaderListAdapter(getApplicationContext(), 1);
+        mAdapter = new HeaderListAdapter(VerbForms.this, 1);
 
         setContentView(R.layout.verblist);
         getListView().setDivider(null);
