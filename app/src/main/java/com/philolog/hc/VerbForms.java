@@ -2,10 +2,12 @@ package com.philolog.hc;
 
 import android.app.ListActivity;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.TextView;
@@ -57,12 +59,13 @@ public class VerbForms extends ListActivity {
     private ScaleGestureDetector mScaleDetector;
     private Handler handlerTimer;
     private Boolean mBlock = true;
+    private int ppTextColor = 0;
     //I made this non-static so it can see my member variables here
     //https://medium.com/@ali.muzaffar/android-detecting-a-pinch-gesture-64a0a0ed4b41#.k0qw1qynj
     private class MyPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public void onScaleEnd(ScaleGestureDetector detector) {
-Log.e("abc", "Scale End");
+//Log.e("abc", "Scale End");
             //getListView().setScrollContainer(true);
             getListView().setEnabled(true);
         }
@@ -75,7 +78,7 @@ Log.e("abc", "Scale End");
                 handlerTimer.postDelayed(new Runnable(){
                     public void run() {
                         // do something
-                        Log.e("abc", "runnnnn");
+                        //Log.e("abc", "runnnnn");
                         getListView().setEnabled(true);
                         mBlock = false;
                         //getListView().setScrollContainer(true);
@@ -87,11 +90,11 @@ Log.e("abc", "Scale End");
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            Log.e("abc", "pinch: " + detector.getScaleFactor());
+            //Log.e("abc", "pinch: " + detector.getScaleFactor());
 
             if (detector.getScaleFactor() < 1)
             {
-                Log.e("abc", "pinch together");
+                //Log.e("abc", "pinch together");
                 //together
                 /*if (!mBlock) {
                     getListView().setEnabled(false);
@@ -118,7 +121,7 @@ Log.e("abc", "Scale End");
             else
             {
                 //apart
-                Log.e("abc", "apart");
+                //Log.e("abc", "apart");
                 /*
                 if (!mBlock) {
                     getListView().setEnabled(false);
@@ -171,6 +174,11 @@ Log.e("abc", "Scale End");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getTheme();
+        theme.resolveAttribute(R.attr.hctextColor, typedValue, true);
+        ppTextColor = typedValue.data;
 
         if(getResources().getBoolean(R.bool.portrait_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -229,9 +237,10 @@ Log.e("abc", "Scale End");
         title.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         title.setText(ve.present);
 
+        //text view for principal parts
         TextView tView = new TextView(this);
         tView.setPadding(20,10,10,10);
-        tView.setTextColor(Color.BLACK);
+        tView.setTextColor(ppTextColor);
 
         tView.setTypeface(type);
         tView.setTextSize(24);

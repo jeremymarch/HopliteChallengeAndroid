@@ -12,8 +12,8 @@ android:layout_width="fill_parent"
     android:gravity="center_vertical"
     android:text="text"
     android:visibility="visible"
-    android:textColor="#FF000000"
-    android:background="#FFFFFFFF"
+    android:textColor="?attr/hctextColor"
+    android:background="?attr/hcbgColor"
     android:paddingLeft="10dp" />
 
     <TextView
@@ -24,7 +24,7 @@ android:layout_width="fill_parent"
         android:visibility="visible"
         android:layout_width="0dp"
         android:layout_weight="0.50"
-        android:textColor="#FF000000"
-        android:background="#FFFFFFFF"
+        android:textColor="?attr/hctextColor"
+        android:background="?attr/hcbgColor"
         android:paddingRight="10dp" />
 </LinearLayout>

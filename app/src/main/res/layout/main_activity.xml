@@ -27,14 +27,14 @@
                 android:id="@+id/quitButton"
                 android:textSize="20sp"
                 android:onClick="quitPressed"
-                android:textColor="#ff999999"
+                android:textColor="?attr/hcQuitText"
                 android:background="@drawable/quitbackground"
                 android:layout_margin="4dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="1dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="0dp" />
-            <Button
+            <!--<Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="H"
@@ -60,7 +60,7 @@
                 android:layout_marginLeft="120dp"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="4dp"
-                android:visibility="gone"/>
+                android:visibility="gone"/>-->
             <TextView
                 android:layout_marginLeft="46dp"
                 android:layout_marginStart="46dp"

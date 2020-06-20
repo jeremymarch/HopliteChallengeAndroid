@@ -15,5 +15,4 @@
         android:textColor="?attr/hctextColor"
         android:background="?attr/hcbgColor"
         android:paddingLeft="10dp" />
-
 </LinearLayout>

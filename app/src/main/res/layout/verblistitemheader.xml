@@ -12,8 +12,7 @@
         android:gravity="center_vertical"
         android:text="text"
         android:visibility="visible"
-        android:textColor="#FFffffff"
-        android:background="@color/ButtonDarkBlue"
+        android:textColor="?attr/hcVerbListSectionHeaderTextColor"
+        android:background="?attr/hcVerbListSectionHeaderBGColor"
         android:paddingLeft="10dp" />
-
 </LinearLayout>

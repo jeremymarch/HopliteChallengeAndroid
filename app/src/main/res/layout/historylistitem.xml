@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
     android:orientation="horizontal"
-    android:background="@android:color/background_light">
+    android:background="?attr/hcbgColor">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,8 +20,8 @@
         android:gravity="center_vertical"
         android:text="text"
         android:visibility="visible"
-        android:textColor="#FF000000"
-        android:background="#FFFFFFFF"
+        android:textColor="?attr/hctextColor"
+        android:background="?attr/hcbgColor"
         android:paddingStart="10dp" />
 
     <TextView
@@ -31,8 +31,8 @@
         android:text="text"
         android:visibility="visible"
         android:layout_width="fill_parent"
-        android:textColor="#FF000000"
-        android:background="#FFFFFFFF"
+        android:textColor="?attr/hctextColor"
+        android:background="?attr/hcbgColor"
         android:paddingStart="10dp" />
         <TextView
             android:id="@+id/given"
@@ -41,8 +41,8 @@
             android:text="text"
             android:visibility="visible"
             android:layout_width="fill_parent"
-            android:textColor="#FF000000"
-            android:background="#FFFFFFFF"
+            android:textColor="?attr/hctextColor"
+            android:background="?attr/hcbgColor"
             android:paddingStart="10dp" />
     </LinearLayout>
     <LinearLayout
@@ -67,8 +67,8 @@
             android:gravity="center_vertical|right"
             android:text="text"
             android:visibility="visible"
-            android:textColor="#FF000000"
-            android:background="#FFFFFFFF"
+            android:textColor="?attr/hctextColor"
+            android:background="?attr/hcbgColor"
             android:paddingEnd="10dp" />
     </LinearLayout>
 </LinearLayout>

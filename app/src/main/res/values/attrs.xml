@@ -36,9 +36,17 @@
     <attr name="hcMenuButtonBGColor2" format="reference|color" />
     <attr name="hcMenuButtonTextColor3" format="reference|color" />
     <attr name="hcMenuButtonBGColor3" format="reference|color" />
+    <attr name="hcMenuSettingsColor" format="reference|color" />
 
     <attr name="hcQuitText" format="reference|color" />
+
+    <attr name="hcVerbListHeaderTextColor" format="reference|color" />
+    <attr name="hcVerbListHeaderBGColor" format="reference|color" />
+
     <attr name="hcVerbFormLabelColor" format="reference|color" />
+    <attr name="hcVerbListSectionHeaderTextColor" format="reference|color" />
+    <attr name="hcVerbListSectionHeaderBGColor" format="reference|color" />
+
 
 
 </resources>
