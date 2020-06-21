@@ -16,6 +16,8 @@ android:layout_height="match_parent"
             android:gravity="center_horizontal|start"
             android:textColor="?attr/hcVerbListHeaderTextColor"
             android:textSize="28sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"/>
     </LinearLayout>
