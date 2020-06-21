@@ -18,8 +18,8 @@ apply plugin: 'com.android.application'
 
         defaultConfig.with {
             applicationId = "com.philolog.hc"
-            versionName "1.6"
-            versionCode 59
+            versionName "1.6.1"
+            versionCode 60
             minSdkVersion 21 //16
             targetSdkVersion 29
             ndk {
