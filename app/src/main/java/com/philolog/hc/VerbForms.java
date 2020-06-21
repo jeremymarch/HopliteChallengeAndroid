@@ -173,6 +173,7 @@ public class VerbForms extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MainActivity.localSetTheme(this);
         super.onCreate(savedInstanceState);
 
         TypedValue typedValue = new TypedValue();

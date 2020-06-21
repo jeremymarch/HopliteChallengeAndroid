@@ -79,6 +79,12 @@
         android:key="unit20"
         android:title="Unit 20"
         android:defaultValue="false" />
+    <ListPreference
+        android:key="HCTheme"
+        android:title="Dark Mode"
+        android:entries="@array/themeentries"
+        android:entryValues="@array/themevalues"
+        android:defaultValue="HCDayNight"/>
 </PreferenceCategory>
 
 </PreferenceScreen>

@@ -38,6 +38,7 @@ public class PracticeHistory extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MainActivity.localSetTheme(this);
         super.onCreate(savedInstanceState);
 
         if(getResources().getBoolean(R.bool.portrait_only)) {

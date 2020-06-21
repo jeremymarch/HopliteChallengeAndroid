@@ -1,6 +1,7 @@
 package com.philolog.hc;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -14,8 +15,11 @@ import java.io.IOException;
 
 public class MenuActivity extends Activity {
     public final static String EXTRA_MESSAGE = "com.philolog.hc.MESSAGE";
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MainActivity.localSetTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
@@ -25,6 +29,15 @@ public class MenuActivity extends Activity {
         }
 
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
+        SharedPreferences sharedPref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+            if (key.equals("HCTheme")) {
+                recreate();
+            }
+        };
+    };
+        sharedPref.registerOnSharedPreferenceChangeListener(prefListener);
 
         //to be sure the db is created on first run
         HCDBHelperNew dbh = HCDBHelperNew.getInstance(getApplicationContext());

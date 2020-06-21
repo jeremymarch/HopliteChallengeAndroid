@@ -11,6 +11,7 @@ public class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MainActivity.localSetTheme(this);
         super.onCreate(savedInstanceState);
 
         if(getResources().getBoolean(R.bool.portrait_only)) {
@@ -24,7 +25,6 @@ public class SettingsActivity extends Activity {
         PrefsFragment mPrefsFragment = new PrefsFragment();
         mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
         mFragmentTransaction.commit();
-
     }
 
     public static class PrefsFragment extends PreferenceFragment {

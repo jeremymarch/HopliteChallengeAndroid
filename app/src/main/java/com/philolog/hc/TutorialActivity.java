@@ -21,6 +21,7 @@ public class TutorialActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MainActivity.localSetTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 

@@ -1088,8 +1088,33 @@ public class MainActivity extends Activity
     int textColor = 0;
     int bgColor = 0;
     int timeIsOutColor = 0;
+
+    public static void localSetTheme(Context context)
+    {
+        SharedPreferences sharedPref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
+        String themeName = sharedPref.getString("HCTheme", "HCDayNight");
+        if (themeName == null)
+        {
+            themeName = "HCDayNight";
+        }
+
+        switch(themeName)
+        {
+            case "HCDark":
+                context.setTheme(R.style.HCDark);
+                break;
+            case "HCLight":
+                context.setTheme(R.style.HCLight);
+                break;
+            default:
+                context.setTheme(R.style.HCDayNight);
+                break;
+        }
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        MainActivity.localSetTheme(this);
         super.onCreate(savedInstanceState);
 
         TypedValue typedValue = new TypedValue();
