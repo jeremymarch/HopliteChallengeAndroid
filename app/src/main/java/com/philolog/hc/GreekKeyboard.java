@@ -1,5 +1,6 @@
 package com.philolog.hc;
 
+import android.content.res.Resources;
 import android.inputmethodservice.KeyboardView;
 
 import android.graphics.Canvas;
@@ -12,9 +13,13 @@ import android.util.AttributeSet;
 import android.graphics.Paint;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+
+import androidx.core.content.ContextCompat;
+
 /**
  * Created by jeremy on 3/27/16.
  * http://stackoverflow.com/questions/18224520/how-to-set-different-background-of-keys-for-android-custom-keyboard
@@ -22,10 +27,38 @@ import android.view.animation.Animation.AnimationListener;
 public class GreekKeyboard extends KeyboardView {
 
     public boolean mMFPressed = false;
+    private int keyTextColor = 0;
+    private int keyTextColorDown = 0;
+    private int diacriticTextColor = 0;
+    private int diacriticTextColorDown = 0;
+    private int enterTextColor = 0;
+    private int enterTextColorDown = 0;
+    private int keyboardBgColor = 0;
+    private int mfTextColor = 0;
+    private int mfTextColorDown = 0;
+    public GreekKeyboard(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.keyTextColor, typedValue, true);
+        keyTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.keyTextColorDown, typedValue, true);
+        keyTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.diacriticTextColor, typedValue, true);
+        diacriticTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.diacriticTextColorDown, typedValue, true);
+        diacriticTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.enterTextColor, typedValue, true);
+        enterTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.enterTextColorDown, typedValue, true);
+        enterTextColorDown = typedValue.data;
+        theme.resolveAttribute(R.attr.keyboardBgColor, typedValue, true);
+        keyboardBgColor = typedValue.data;
 
-    public GreekKeyboard(Context context, AttributeSet attrs)
-    {
-            super(context, attrs);
+        theme.resolveAttribute(R.attr.hcMFBtnTextColor, typedValue, true);
+        mfTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.hcMFBtnTextColorDown, typedValue, true);
+        mfTextColorDown = typedValue.data;
     }
 
     //http://stackoverflow.com/questions/3972445/how-to-put-text-in-a-drawable
@@ -38,7 +71,7 @@ public class GreekKeyboard extends KeyboardView {
         //background color:
         int width = this.getWidth();
         int height = this.getHeight();
-        paint.setColor(Color.rgb(200, 200, 200));
+        paint.setColor(keyboardBgColor);
         paint.setStyle(Paint.Style.FILL); //fill the background with blue color
         canvas.drawRect(0, 0, width, height, paint);
 
@@ -48,13 +81,13 @@ public class GreekKeyboard extends KeyboardView {
             if (key.codes[0] == 33 && !mMFPressed) {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.mfbuttondown);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.mfbuttondown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                     paint.setColor(Color.WHITE);
                 }
                 else
                 {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.mfbutton);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.mfbutton);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                     paint.setColor(context.getResources().getColor(R.color.orange));
                 }
@@ -63,15 +96,15 @@ public class GreekKeyboard extends KeyboardView {
             else if (key.codes[0] == 33 && mMFPressed) {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.mfpresseddown);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.mfpresseddown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(context.getResources().getColor(R.color.orange));
+                    paint.setColor(mfTextColorDown);
                 }
                 else
                 {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.mfbuttondown);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.mfbuttondown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(mfTextColor);
                 }
                 dr.draw(canvas);
             }
@@ -79,27 +112,27 @@ public class GreekKeyboard extends KeyboardView {
                 Drawable dr;
                 if (key.pressed)
                 {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.enterbuttondown);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.enterbuttondown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(context.getResources().getColor(R.color.ButtonBlue));
+                    paint.setColor(enterTextColorDown);
                 }
                 else {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.enterbutton);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.enterbutton);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height - 4);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(enterTextColor);
                 }
                 dr.draw(canvas);
             }
             else if (key.codes[0] > 25 && key.codes[0] < 33){
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.accentbuttondown);
-                    paint.setColor(Color.WHITE);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.accentbuttondown);
+                    paint.setColor(diacriticTextColorDown);
                 }
                 else
                 {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.accentbutton);
-                    paint.setColor(Color.WHITE);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.accentbutton);
+                    paint.setColor(diacriticTextColor);
                 }
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
@@ -107,12 +140,12 @@ public class GreekKeyboard extends KeyboardView {
             else if (key.codes[0] == 35){ //delete
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.normalbuttondown);
-                    paint.setColor(Color.WHITE);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
+                    paint.setColor(keyTextColorDown);
                 }
                 else {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.deletebutton);
-                    paint.setColor(Color.BLACK);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.deletebutton);
+                    paint.setColor(keyTextColor);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
@@ -120,12 +153,12 @@ public class GreekKeyboard extends KeyboardView {
             else {
                 Drawable dr;
                 if (key.pressed) {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.normalbuttondown);
-                    paint.setColor(Color.WHITE);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.normalbuttondown);
+                    paint.setColor(keyTextColorDown);
                 }
                 else {
-                    dr = (Drawable) context.getResources().getDrawable(R.drawable.normalbutton);
-                    paint.setColor(Color.BLACK);
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.normalbutton);
+                    paint.setColor(keyTextColor);
                 }
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);

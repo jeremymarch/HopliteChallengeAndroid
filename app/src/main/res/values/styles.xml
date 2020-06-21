@@ -11,6 +11,10 @@
         <item name="hcContinueBtnBGColor">@color/ButtonBlue</item>
         <item name="hcMFBtnTextColor">@color/orange</item>
         <item name="hcMFBtnBGColor">#FFFFFFFF</item>
+
+        <item name="hcMFBtnTextColorDown">#FFFFFFFF</item>
+        <item name="hcMFBtnBGColorDown">@color/orange</item>
+
         <item name="hcQuitText">#FF777777</item>
         <item name="hcCursorColor">#FF007aff</item>
 
@@ -27,6 +31,33 @@
         <item name="hcVerbFormLabelColor">#FF999999</item>
         <item name="hcVerbListSectionHeaderTextColor">#FFFFFFFF</item>
         <item name="hcVerbListSectionHeaderBGColor">@color/ButtonDarkBlue</item>
+
+
+        <!--keyboard-->
+        <item name="keyBgColor">#FFFFFFFF</item>
+        <item name="keyTextColor">#FF000000</item>
+        <item name="diacriticBgColor">#FF335889</item>
+        <item name="diacriticTextColor">#FFFFFFFF</item>
+        <item name="punctuationBgColor">#FF777778</item>
+        <item name="punctuationTextColor">#FFFFFFFF</item>
+        <item name="specialBgColor">#ff676767</item>
+        <item name="specialTextColor">#FF000000</item>
+        <item name="enterBgColor">@color/ButtonBlue</item>
+        <item name="enterTextColor">#FFFFFFFF</item>
+
+        <item name="keyBgColorDown">#FF000000</item>
+        <item name="keyTextColorDown">#FFFFFFFF</item>
+        <item name="diacriticBgColorDown">#FF000000</item>
+        <item name="diacriticTextColorDown">#FFFFFFFF</item>
+        <item name="punctuationBgColorDown">#FF000000</item>
+        <item name="punctuationTextColorDown">#FFFFFFFF</item>
+        <item name="specialBgColorDown">#ff787786</item>
+        <item name="specialTextColorDown">#FFFFFFFF</item>
+        <item name="enterBgColorDown">#FFFFFFFF</item>
+        <item name="enterTextColorDown">@color/ButtonBlue</item>
+
+        <item name="spaceTextColor">@color/KBGrey</item>
+        <item name="keyboardBgColor">#FFAAAAAA</item>
     </style>
 
 
@@ -42,6 +73,10 @@
         <item name="hcContinueBtnBGColor">#FF666666</item>
         <item name="hcMFBtnTextColor">#FFFFFFFF</item>
         <item name="hcMFBtnBGColor">#FF444444</item>
+
+        <item name="hcMFBtnTextColorDown">@color/orange</item>
+        <item name="hcMFBtnBGColorDown">#FFFFFFFF</item>
+
         <item name="hcQuitText">#FFFFFFFF</item>
         <item name="hcCursorColor">#FF007aff</item>
 
@@ -59,6 +94,32 @@
         <item name="hcVerbFormLabelColor">#FF999999</item>
         <item name="hcVerbListSectionHeaderTextColor">#FFFFFFFF</item>
         <item name="hcVerbListSectionHeaderBGColor">#FF555555</item>
+
+<!--keyboard-->
+        <item name="keyBgColor">#FF333333</item>
+        <item name="keyTextColor">#FFFFFFFF</item>
+        <item name="diacriticBgColor">#FF545454</item>
+        <item name="diacriticTextColor">#FFFFFFFF</item>
+        <item name="punctuationBgColor">#FF777778</item>
+        <item name="punctuationTextColor">#FFFFFFFF</item>
+        <item name="specialBgColor">#ff676767</item>
+        <item name="specialTextColor">#FF000000</item>
+        <item name="enterBgColor">@color/ButtonBlue</item>
+        <item name="enterTextColor">#FFFFFFFF</item>
+
+        <item name="keyBgColorDown">#FF000000</item>
+        <item name="keyTextColorDown">#FFFFFFFF</item>
+        <item name="diacriticBgColorDown">#FF000000</item>
+        <item name="diacriticTextColorDown">#FFFFFFFF</item>
+        <item name="punctuationBgColorDown">#FF000000</item>
+        <item name="punctuationTextColorDown">#FFFFFFFF</item>
+        <item name="specialBgColorDown">#ff787786</item>
+        <item name="specialTextColorDown">#FFFFFFFF</item>
+        <item name="enterBgColorDown">#FFFFFFFF</item>
+        <item name="enterTextColorDown">@color/ButtonBlue</item>
+
+        <item name="spaceTextColor">@color/KBGrey</item>
+        <item name="keyboardBgColor">#FF000000</item>
     </style>
 
 

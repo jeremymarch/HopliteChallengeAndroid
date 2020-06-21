@@ -271,5 +271,7 @@
         android:focusableInTouchMode="true"
         android:visibility="gone"
         android:padding="1dp"
+        android:translationZ="999dp"
+        android:theme="@style/HCDayNight"
         />
 </RelativeLayout>
