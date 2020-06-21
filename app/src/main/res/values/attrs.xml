@@ -34,6 +34,9 @@
     <attr name="hcMFBtnTextColorDown" format="reference|color" />
     <attr name="hcMFBtnBGColorDown" format="reference|color" />
     <attr name="hcCursorColor" format="reference|color" />
+    <attr name="hcStemTextColor" format="reference|color" />
+    <attr name="hctimeIsOutColor" format="reference|color" />
+    <attr name="hcScoreText" format="reference|color" />
 
     <attr name="hcMenuButtonTextColor1" format="reference|color" />
     <attr name="hcMenuButtonBGColor1" format="reference|color" />

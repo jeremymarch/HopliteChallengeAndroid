@@ -83,13 +83,13 @@ public class GreekKeyboard extends KeyboardView {
                 if (key.pressed) {
                     dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.mfbuttondown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(Color.WHITE);
+                    paint.setColor(mfTextColorDown);
                 }
                 else
                 {
                     dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.mfbutton);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(context.getResources().getColor(R.color.orange));
+                    paint.setColor(mfTextColor);
                 }
                 dr.draw(canvas);
             }
@@ -98,13 +98,13 @@ public class GreekKeyboard extends KeyboardView {
                 if (key.pressed) {
                     dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.mfpresseddown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(mfTextColorDown);
+                    paint.setColor(mfTextColor);
                 }
                 else
                 {
                     dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.mfbuttondown);
                     dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
-                    paint.setColor(mfTextColor);
+                    paint.setColor(mfTextColorDown);
                 }
                 dr.draw(canvas);
             }

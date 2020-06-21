@@ -296,7 +296,7 @@ public class MainActivity extends Activity
         String sElapsedTime = String.format("%.2f", elapsedTime);
         isCorrect = gv1.compareFormsCheckMFRecordResult(answerText, expectedForm, sElapsedTime, mMFPressed);
 
-        //Log.e("abc", "score1: " + gv1.score);
+        Log.e("abc", "score1: " + gv1.score + ", " + isHCGame);
         if (isHCGame == true) {
             scoreLabel.setText(Integer.toString(gv1.score));
         }
@@ -1087,7 +1087,8 @@ public class MainActivity extends Activity
 
     int textColor = 0;
     int bgColor = 0;
-
+    int stemTextColor = 0;
+    int timeIsOutColor = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1098,6 +1099,10 @@ public class MainActivity extends Activity
         textColor = typedValue.data;
         theme.resolveAttribute(R.attr.hcbgColor, typedValue, true);
         bgColor = typedValue.data;
+        theme.resolveAttribute(R.attr.hcStemTextColor, typedValue, true);
+        stemTextColor = typedValue.data;
+        theme.resolveAttribute(R.attr.hctimeIsOutColor, typedValue, true);
+        timeIsOutColor = typedValue.data;
 
         //https://stackoverflow.com/questions/39933345/no-network-security-config-specified-using-platform-default-android-log
         if (android.os.Build.VERSION.SDK_INT > 9)
@@ -1251,7 +1256,7 @@ public class MainActivity extends Activity
         editText.setEnabled(false);
         editText.passEvents = true;
         origFormText.setTextSize(greekFontSize);
-        stemText.setTextColor(0xFF888888);
+        stemText.setTextColor(stemTextColor);
         stemText.setTextSize(stemFontSize);
         changedFormText.setTextSize(greekFontSize);
         mTimeLabel.setTextSize(24);
@@ -1291,7 +1296,7 @@ public class MainActivity extends Activity
                     mHandler.postDelayed(mUpdateTimeTask, 50);
                     //mHandler.postAtTime(mUpdateTimeTask, System.currentTimeMillis() + 1000 );
                 } else {
-                    mTimeLabel.setTextColor(0xFFFF0000); //make red
+                    mTimeLabel.setTextColor(timeIsOutColor); //make red
                     stopTimer();
                     mTimeLabel.setText("0.00 sec");
                     timerTimedOut = true;
