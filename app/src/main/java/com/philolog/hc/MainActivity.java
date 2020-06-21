@@ -1087,7 +1087,6 @@ public class MainActivity extends Activity
 
     int textColor = 0;
     int bgColor = 0;
-    int stemTextColor = 0;
     int timeIsOutColor = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1099,8 +1098,6 @@ public class MainActivity extends Activity
         textColor = typedValue.data;
         theme.resolveAttribute(R.attr.hcbgColor, typedValue, true);
         bgColor = typedValue.data;
-        theme.resolveAttribute(R.attr.hcStemTextColor, typedValue, true);
-        stemTextColor = typedValue.data;
         theme.resolveAttribute(R.attr.hctimeIsOutColor, typedValue, true);
         timeIsOutColor = typedValue.data;
 
@@ -1256,7 +1253,6 @@ public class MainActivity extends Activity
         editText.setEnabled(false);
         editText.passEvents = true;
         origFormText.setTextSize(greekFontSize);
-        stemText.setTextColor(stemTextColor);
         stemText.setTextSize(stemFontSize);
         changedFormText.setTextSize(greekFontSize);
         mTimeLabel.setTextSize(24);
