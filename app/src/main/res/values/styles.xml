@@ -9,7 +9,10 @@
         <item name="hcbgColor">#FFFFFFFF</item>
         <item name="hcContinueBtnTextColor">#FFFFFFFF</item>
         <item name="hcContinueBtnBGColor">@color/ButtonBlue</item>
+        <item name="hcMFBtnTextColor">@color/orange</item>
+        <item name="hcMFBtnBGColor">#FFFFFFFF</item>
         <item name="hcQuitText">#FF777777</item>
+        <item name="hcCursorColor">#FF007aff</item>
 
         <item name="hcMenuButtonTextColor1">#FFFFFFFF</item>
         <item name="hcMenuButtonBGColor1">@color/ButtonBlue</item>
@@ -37,7 +40,10 @@
         <item name="hcbgColor">#FF000000</item>
         <item name="hcContinueBtnTextColor">#FFFFFFFF</item>
         <item name="hcContinueBtnBGColor">#FF666666</item>
+        <item name="hcMFBtnTextColor">#FFFFFFFF</item>
+        <item name="hcMFBtnBGColor">#FF444444</item>
         <item name="hcQuitText">#FFFFFFFF</item>
+        <item name="hcCursorColor">#FF007aff</item>
 
         <item name="hcMenuButtonTextColor1">#FFFFFFFF</item>
         <item name="hcMenuButtonBGColor1">#FF666666</item>

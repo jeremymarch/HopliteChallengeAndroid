@@ -90,7 +90,7 @@
                 android:layout_gravity="end"
                 android:width="40dp"
                 android:gravity="center_vertical|center_horizontal"
-                android:textColor="@color/orange"
+                android:textColor="?attr/hcMFBtnTextColor"
                 android:background="@drawable/mfbackground"
                 android:height="22dp"
                 android:minHeight="22dp"

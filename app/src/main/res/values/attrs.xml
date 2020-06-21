@@ -29,6 +29,9 @@
     <attr name="hcbgColor" format="reference|color" />
     <attr name="hcContinueBtnTextColor" format="reference|color" />
     <attr name="hcContinueBtnBGColor" format="reference|color" />
+    <attr name="hcMFBtnTextColor" format="reference|color" />
+    <attr name="hcMFBtnBGColor" format="reference|color" />
+    <attr name="hcCursorColor" format="reference|color" />
 
     <attr name="hcMenuButtonTextColor1" format="reference|color" />
     <attr name="hcMenuButtonBGColor1" format="reference|color" />
