@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
