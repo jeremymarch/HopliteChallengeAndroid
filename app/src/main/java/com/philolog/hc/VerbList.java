@@ -35,6 +35,12 @@ public class VerbList extends ListActivity {
         //ListView listview = this.getListView();
     }
 
+    public void clearSearch(View v)
+    {
+        EditText s = findViewById(R.id.word_search);
+        s.setText("");
+    }
+
     private void displayResultList() {
 /*
         TextView tView = new TextView(this);
