@@ -15,7 +15,7 @@
             android:label="Hoplite Challenge">
         </activity>
 
-        <activity android:name=".MenuActivity">
+        <activity android:name=".MenuActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

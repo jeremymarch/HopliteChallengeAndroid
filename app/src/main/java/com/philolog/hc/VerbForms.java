@@ -216,7 +216,6 @@ public class VerbForms extends ListActivity {
         });
     }
 
-
     private String commaToOr(String s)
     {
         if (s.isEmpty())
