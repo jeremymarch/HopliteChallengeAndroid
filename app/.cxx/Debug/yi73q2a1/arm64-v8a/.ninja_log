@@ -1,0 +1,12 @@
+# ninja log v5
+8	179	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libgreek/GreekForms.c.o	5a5d5183a60c2eb8
+12	274	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libseq/libGreekGlue.c.o	7e52944a4596b96f
+6	279	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libgreek/utilities.c.o	a9a63c7845d9a46a
+1	324	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libgreek/accent.c.o	e22bc0a5fba92b97
+1	356	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libgreek/specialverbs.c.o	6e16d8f218649cd6
+1	410	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libgreek/augment.c.o	e9af4499ae96b29
+6	426	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libgreek/ending.c.o	d4f2ed5c206ef2ae
+11	454	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libseq/VerbSequence.c.o	311e11f2f481e849
+3	901	1670306744	CMakeFiles/libGreek.dir/src/main/jni/libgreek/libmorph.c.o	9bb77e4f1ffe8bef
+0	16873	1670306760	CMakeFiles/libGreek.dir/src/main/jni/libseq/sqlite3.c.o	594c41258ef52e85
+16873	17067	1670306760	../../../../build/intermediates/cxx/Debug/yi73q2a1/obj/arm64-v8a/liblibGreek.so	40a4fefee1f83a94
