@@ -1,3 +1,0 @@
-/Users/jeremy/Documents/code/HopliteChallengeAndroid/app/.cxx/Debug/yi73q2a1/x86/CMakeFiles/rebuild_cache.dir
-/Users/jeremy/Documents/code/HopliteChallengeAndroid/app/.cxx/Debug/yi73q2a1/x86/CMakeFiles/edit_cache.dir
-/Users/jeremy/Documents/code/HopliteChallengeAndroid/app/.cxx/Debug/yi73q2a1/x86/CMakeFiles/libGreek.dir
