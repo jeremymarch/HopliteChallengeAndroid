@@ -1,0 +1,12 @@
+# ninja log v5
+4	96	1670547227	CMakeFiles/libGreek.dir/src/main/jni/libgreek/GreekForms.c.o	8dc7143172a1b04c
+5	171	1670547227	CMakeFiles/libGreek.dir/src/main/jni/libseq/libGreekGlue.c.o	acc56acf06cb74f1
+3	171	1670547227	CMakeFiles/libGreek.dir/src/main/jni/libgreek/utilities.c.o	9d25412216fef18d
+1	205	1670547227	CMakeFiles/libGreek.dir/src/main/jni/libgreek/accent.c.o	d80536cb8bce1793
+2	224	1670547227	CMakeFiles/libGreek.dir/src/main/jni/libgreek/specialverbs.c.o	da712077b949c91c
+1	267	1670547227	CMakeFiles/libGreek.dir/src/main/jni/libgreek/augment.c.o	55b6bda5bbf06310
+4	274	1670547227	CMakeFiles/libGreek.dir/src/main/jni/libgreek/ending.c.o	a5fe231f8b982574
+5	296	1670547227	CMakeFiles/libGreek.dir/src/main/jni/libseq/VerbSequence.c.o	e2cbe2392a2eee5
+2	717	1670547228	CMakeFiles/libGreek.dir/src/main/jni/libgreek/libmorph.c.o	ef31f08c523c02a6
+1	13877	1670547241	CMakeFiles/libGreek.dir/src/main/jni/libseq/sqlite3.c.o	639d9b5ddfb87668
+13878	13956	1670547241	../../../../build/intermediates/cxx/RelWithDebInfo/4t126n4c/obj/x86_64/liblibGreek.so	93f67cb809fdd4b4

@@ -360,6 +360,7 @@ public class MainActivity extends Activity
 
     public void sendDiagnostics(Boolean isCorrect, int lives, int score, String answerText, String expectedForm, String elapsedTime, Boolean mfPressed)
     {
+        /*
         JSONObject postData = new JSONObject();
         try {
             postData.put("type", "debugRequestPlusAnswer");
@@ -389,6 +390,7 @@ public class MainActivity extends Activity
             e.printStackTrace();
             //assert(1 == 2);
         }
+        */
         //Log.e("abc", "[" + postData.toString() + "]");
     }
 
