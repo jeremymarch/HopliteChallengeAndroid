@@ -25,5 +25,11 @@ public class ApplicationTest extends Application {
         String f = a.getForm(1,0);
         Assert.assertEquals("πέμπω", f);
     }
+
+    @Test
+    public void test_rest() {
+
+
+    }
 }
 

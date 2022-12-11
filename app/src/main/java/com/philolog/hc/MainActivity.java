@@ -6,14 +6,11 @@ import android.text.Spanned;
 import android.view.View;
 import android.view.Gravity;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.text.Editable;
 import android.os.Bundle;
 import android.os.Build;
-import android.text.InputType;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.view.inputmethod.InputMethodManager;
@@ -35,33 +32,26 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.content.DialogInterface;
 import android.app.AlertDialog;
-import android.app.ActionBar;
-import java.io.IOException;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.lang.String;
 import android.preference.PreferenceManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.view.animation.LinearInterpolator;
-import android.provider.SyncStateContract.Constants;
 import android.os.Vibrator;
 import android.content.pm.ActivityInfo;
 import org.json.JSONObject;
 import org.json.JSONException;
 import android.os.AsyncTask;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import com.philolog.hc.BuildConfig;
 import android.view.Display;
 import android.graphics.Point;
-import android.os.StrictMode;
+
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
@@ -69,27 +59,15 @@ import android.content.SharedPreferences.Editor;
 public class MainActivity extends Activity
 {
     private final static int KEYPRESS_VIBRATE = 40;
-
-    public final static int CodeDelete   = -5; // Keyboard.KEYCODE_DELETE
-    public final static int CodeCancel   = -3; // Keyboard.KEYCODE_CANCEL
-    public final static int CodePrev     = 55000;
-    public final static int CodeAllLeft  = 55001;
-    public final static int CodeLeft     = 55002;
-    public final static int CodeRight    = 55003;
-    public final static int CodeAllRight = 55004;
-    public final static int CodeNext     = 55005;
-    public final static int CodeClear    = 55006;
-
-    public final static int NO_ACCENT = 0;
+    //public final static int NO_ACCENT = 0;
     public final static int ACUTE = 1;
     public final static int CIRCUMFLEX = 2;
-    public final static int GRAVE = 3;
+    //public final static int GRAVE = 3;
     public final static int MACRON = 4;
     public final static int ROUGH_BREATHING = 5;
     public final static int SMOOTH_BREATHING =6;
     public final static int IOTA_SUBSCRIPT = 7;
     public final static int SURROUNDING_PARENTHESES = 8;
-
     public final static int COMBINING_GRAVE             = 0x0300;
     public final static int COMBINING_ACUTE             = 0x0301;
     public final static int COMBINING_CIRCUMFLEX        = 0x0302;
@@ -99,8 +77,7 @@ public class MainActivity extends Activity
     public final static int COMBINING_ROUGH_BREATHING   = 0x0314;
     public final static int COMBINING_IOTA_SUBSCRIPT    = 0x0345;
 
-
-    /** Called when the activity is first created. */
+    private final static boolean bSendDiagnostics = false;
     private Vibrator vibrator;
     private View mainView;
     public TypeWriter origFormText, stemText, changedFormText;
@@ -122,7 +99,7 @@ public class MainActivity extends Activity
     public boolean isDecomposedMode = false;
     private boolean mTimerCountDown = false;
     private boolean mMFPressed = false;
-    public  boolean mUnits[];
+    public boolean[] mUnits;
     public int mNumUnits = 20;
     public TextView scoreLabel;
     public Boolean isHCGame = false;
@@ -136,20 +113,6 @@ public class MainActivity extends Activity
     public String uniqueDeviceID = "";
     public Boolean timerTimedOut = false;
 
-    public void onKeyPressed(View v){
-        //if(v.getId() == R.id.my_btn){
-        //handle the click here
-        Button b = (Button)v;
-        String buttonText = b.getText().toString();
-        //R.id.editText.setText(buttonText);
-
-        EditTypeWriter editText = (EditTypeWriter)findViewById(R.id.editText);
-        editText.setText(buttonText, TextView.BufferType.EDITABLE);
-        //Log.d("abc", "click1" + buttonText);
-
-        //}
-    }
-
     public String makeBoldStem(String d1, String d2)
     {
         String[] d1Array = d1.split(" ");
@@ -159,7 +122,6 @@ public class MainActivity extends Activity
             if (!d1Array[i].equals(d2Array[i]))
                 d2Array[i] = "<b>" + d2Array[i] + "</b>";
         }
-        //Log.d("abc", TextUtils.join(" ", d2Array));
         return TextUtils.join(" ", d2Array);
     }
 
@@ -173,11 +135,8 @@ public class MainActivity extends Activity
         {
             Log.d("abc", "back");
             isDecomposedMode = false;
-            //verbSeqObj.vsNext(gv1, gv2);
-            //Log.e("abc", "seq: " + verbSeqObj.seq);
             origStr = gv1.getForm(0,0);
             origStr = origStr.replace(", ", ",\n");
-
             origStrDecomposed = gv1.getForm(0,1);
             origStrDecomposed = origStrDecomposed.replace(", ", ",\n");
             changedStr = gv2.getForm(0,0);
@@ -186,7 +145,6 @@ public class MainActivity extends Activity
             changedStrDecomposed = changedStrDecomposed.replace(", ", ",\n");
             stemStr = Html.fromHtml(makeBoldStem(gv1.getAbbrevDescription(), gv2.getAbbrevDescription()));
 
-            //set up
             mMFPressed = false;
             mKeyboardView.mMFPressed = false;
 
@@ -206,28 +164,13 @@ public class MainActivity extends Activity
             greenCheckRedX.setVisibility(View.GONE);
             isDecomposedMode = false;
 
-            if (true) {
-                Log.e("abc", "VerbSeq: "  + verbSeqObj.seq);
-                //if (verbSeqObj.seq == 1) {
-                if (verbSeqObj.state == VerbSequence.STATE_NEW) {
-                    origFormText.setText("");
-                    mHandler.postDelayed(mShowOrigForm, 700);
-                }
-                else {
-                    mHandler.postDelayed(mShowStem, 700);
-                }
+            Log.e("abc", "VerbSeq: "  + verbSeqObj.seq);
+            if (verbSeqObj.state == VerbSequence.STATE_NEW) {
+                origFormText.setText("");
+                mHandler.postDelayed(mShowOrigForm, 700);
             }
             else {
-                origFormText.setText(origStr);
-
-                //http://stackoverflow.com/questions/4032676/how-can-i-change-color-part-of-a-textview
-                stemText.setText(stemStr);
-
-                editText.requestFocus();
-                openKeyboard(findViewById(R.id.myView2), mStartTimerRunnable);
-                editText.setEnabled(true);
-                editText.passEvents = false;
-                //startTimer();
+                mHandler.postDelayed(mShowStem, 700);
             }
         }
         front = !front;
@@ -240,31 +183,7 @@ public class MainActivity extends Activity
         textPaint.getTextBounds(str, 0, str.length(), bounds);
         return bounds.width();
     }
-/*
-    public void centerTextView(TextView v, String s, int below)
-    {
-        int width = getTextWidth(v, s);
 
-        DisplayMetrics dm = mainView.getResources().getDisplayMetrics();
-        //FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(v.getLayoutParams());
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(v.getLayoutParams());
-        int offset = ((mainView.getWidth() - width) / 2);
-        if (offset < 0) /
-        /don't push the check or x off the screen
-            offset = 0;
-
-        lp.setMargins(offset, lp.topMargin, lp.rightMargin, lp.bottomMargin);
-        lp.width = convertDpToPx(width, dm);
-        //lp.height = v.getHeight();
-
-        if (below != 0) {
-            lp.addRule(RelativeLayout.BELOW, below);
-        }
-        v.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
-
-        v.setLayoutParams(lp);
-    }
-*/
     public boolean checkVerb2AndSetCheckOrX()
     {
         //http://stackoverflow.com/questions/3416087/how-to-set-margin-of-imageview-using-code-not-xml
@@ -289,7 +208,7 @@ public class MainActivity extends Activity
         lp.height = convertDpToPx(24, dm);
         greenCheckRedX.setLayoutParams(lp);
 
-        Boolean isCorrect;
+        boolean isCorrect;
         //change ret back to space to compare
         String expectedForm = changedFormText.getText().toString().replace(",\n", ", ");
         String answerText = editText.getText().toString();
@@ -297,7 +216,7 @@ public class MainActivity extends Activity
         isCorrect = gv1.compareFormsCheckMFRecordResult(answerText, expectedForm, sElapsedTime, mMFPressed);
 
         Log.e("abc", "score1: " + gv1.score + ", " + isHCGame);
-        if (isHCGame == true) {
+        if (isHCGame) {
             scoreLabel.setText(Integer.toString(gv1.score));
         }
         if (isCorrect) {
@@ -338,7 +257,9 @@ public class MainActivity extends Activity
             }
         }
 
-        sendDiagnostics(isCorrect, lives, gv1.score, answerText, expectedForm, sElapsedTime, mMFPressed);
+        if (bSendDiagnostics) {
+            sendDiagnostics(isCorrect, lives, gv1.score, answerText, expectedForm, sElapsedTime, mMFPressed);
+        }
         return isCorrect;
     }
 
@@ -355,12 +276,12 @@ public class MainActivity extends Activity
             editor.putString(PREF_UNIQUE_ID, uniqueID);
             editor.commit();
         }
-    }    return uniqueID;
+    }
+    return uniqueID;
 }
 
     public void sendDiagnostics(Boolean isCorrect, int lives, int score, String answerText, String expectedForm, String elapsedTime, Boolean mfPressed)
     {
-        /*
         JSONObject postData = new JSONObject();
         try {
             postData.put("type", "debugRequestPlusAnswer");
@@ -388,10 +309,8 @@ public class MainActivity extends Activity
             new SendDeviceDetails().execute("https://philolog.us/hc.php", "[" + postData.toString() + "]");
         } catch (JSONException e) {
             e.printStackTrace();
-            //assert(1 == 2);
         }
-        */
-        //Log.e("abc", "[" + postData.toString() + "]");
+        //Log.i("abc", "[" + postData.toString() + "]");
     }
 
     public void checkVerb()
@@ -411,7 +330,7 @@ public class MainActivity extends Activity
                     Runnable r2 = new Runnable() {
                         public void run() { continueButton.setVisibility(View.VISIBLE); }
                     };
-                    changedFormText.animateText(changedFormText.getText().toString(), false, r2); //herehere
+                    changedFormText.animateText(changedFormText.getText().toString(), false, r2);
                     flip();
                 }
             };
@@ -455,7 +374,7 @@ public class MainActivity extends Activity
                     checkVerb();
                 }
             };
-            mHandler.postDelayed(runCheckVerb, 1);//a tiny delay prevents freeze on api 21
+            mHandler.postDelayed(runCheckVerb, 1); //a tiny delay prevents freeze on api 21
         }
         else {
             if (!mMFPressed) {
@@ -475,17 +394,14 @@ public class MainActivity extends Activity
     public boolean isCombiningCharacter(char s)
     {
         //test this with a visible character: s == 0x03B2 ||
-        if (s == COMBINING_GRAVE ||
+        return s == COMBINING_GRAVE ||
                 s == COMBINING_ACUTE ||
                 s == COMBINING_CIRCUMFLEX ||
                 s == COMBINING_MACRON ||
                 s == COMBINING_DIAERESIS ||
                 s == COMBINING_SMOOTH_BREATHING ||
                 s == COMBINING_ROUGH_BREATHING ||
-                s == COMBINING_IOTA_SUBSCRIPT)
-            return true;
-        else
-            return false;
+                s == COMBINING_IOTA_SUBSCRIPT;
     }
 
     //see if there are one or more combining characters to the right of the cursor
@@ -518,9 +434,8 @@ public class MainActivity extends Activity
         }
     }
 
-    private OnKeyboardActionListener mOnKeyboardActionListener = new OnKeyboardActionListener() {
+    private final OnKeyboardActionListener mOnKeyboardActionListener = new OnKeyboardActionListener() {
         @Override public void onKey(int primaryCode, int[] keyCodes) {
-            // Get the EditText and its Editable
             View focusCurrent = MainActivity.this.getWindow().getCurrentFocus();
             if( focusCurrent==null || focusCurrent.getClass()!=EditTypeWriter.class )
                 return;
@@ -540,30 +455,7 @@ public class MainActivity extends Activity
 
             if (allowVibrate) {
                 vibrator.vibrate(KEYPRESS_VIBRATE);
-            }
-            if( primaryCode==CodeCancel ) {
-                //hideCustomKeyboard();
-
-            } /* else if( primaryCode==CodeDelete ) {
-                if( editable!=null && start>0 ) editable.delete(start - 1, start);
-            } else if( primaryCode==CodeClear ) {
-                if( editable!=null ) editable.clear();
-            } else if( primaryCode==CodeLeft ) {
-                if( start>0 ) edittext.setSelection(start - 1);
-            } else if( primaryCode==CodeRight ) {
-                if (start < edittext.length()) edittext.setSelection(start + 1);
-            } else if( primaryCode==CodeAllLeft ) {
-                edittext.setSelection(0);
-            } else if( primaryCode==CodeAllRight ) {
-                edittext.setSelection(edittext.length());
-            } else if( primaryCode==CodePrev ) {
-                View focusNew= edittext.focusSearch(View.FOCUS_BACKWARD);
-                if( focusNew!=null ) focusNew.requestFocus();
-            } else if( primaryCode==CodeNext ) {
-                View focusNew= edittext.focusSearch(View.FOCUS_FORWARD);
-                if( focusNew!=null ) focusNew.requestFocus();
-
-            } */ else if( primaryCode == 1 ) {
+            }  else if( primaryCode == 1 ) {
                 editable.insert(start, "α");
             }  else if( primaryCode == 2 ) {
                 editable.insert(start, "β");
@@ -640,31 +532,15 @@ public class MainActivity extends Activity
                     }
                     editable.delete(start - i - 1, start);
                 }
-            } /* else {// Insert character
-                editable.insert(start, Character.toString((char) primaryCode));
-            } */
+            }
         }
-
-        @Override public void onPress(int arg0) {
-        }
-
-        @Override public void onRelease(int primaryCode) {
-        }
-
-        @Override public void onText(CharSequence text) {
-        }
-
-        @Override public void swipeDown() {
-        }
-
-        @Override public void swipeLeft() {
-        }
-
-        @Override public void swipeRight() {
-        }
-
-        @Override public void swipeUp() {
-        }
+        @Override public void onPress(int arg0) {}
+        @Override public void onRelease(int primaryCode) {}
+        @Override public void onText(CharSequence text) {}
+        @Override public void swipeDown() {}
+        @Override public void swipeLeft() {}
+        @Override public void swipeRight() {}
+        @Override public void swipeUp() {}
     };
 
     public void localAccentLetter(Editable editable, int start, int acc)
@@ -955,13 +831,6 @@ public class MainActivity extends Activity
     }
 
     public void quitPressed(View v) {
-        // Do something in response to button
-
-        //final Intent intent = new Intent(this, MenuActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = "play";//editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-
         if (isHCGame && lives > 0) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
             dialog.setTitle("Alert");
@@ -976,16 +845,6 @@ public class MainActivity extends Activity
                         editText.passEvents = true;
                         gv1.compareFormsCheckMFRecordResult(editText.getText().toString(), changedFormText.getText().toString(), String.format("%.2f", elapsedTime), mMFPressed);
                     }
-                        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-
-                    /*
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    overridePendingTransition (0, 0);
-                    startActivity(intent);
-                    finish();
-                    */
                     finish();
 
                 }
@@ -995,8 +854,6 @@ public class MainActivity extends Activity
                     // do nothing
                 }
             });
-            //.setIcon(android.R.drawable.ic_dialog_alert)
-            //dialog.show();
 
             AlertDialog alert11 = dialog.create();
             alert11.show();
@@ -1009,35 +866,24 @@ public class MainActivity extends Activity
                 editText.passEvents = true;
                 gv1.compareFormsCheckMFRecordResult(editText.getText().toString(), changedFormText.getText().toString(), String.format("%.2f", elapsedTime), mMFPressed);
             }
-            /*
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            overridePendingTransition (0, 0);
-            startActivity(intent);
-            */
             finish();
         }
     }
 
     @Override
     public void onBackPressed() {
-        // do nothing.
+        // do nothing
         quitPressed(null);
     }
 
     public void startTimer()
     {
-        //start timer
-        //if (mStartTime == 0L) {
         timerTimedOut = false;
         mTimeLabel.setTextColor(textColor);
         mStartTime = System.nanoTime();
         elapsedTime = 0;
         mHandler.removeCallbacks(mUpdateTimeTask);
         mHandler.postDelayed(mUpdateTimeTask, 100);
-        //}
     }
 
     public void stopTimer()
@@ -1095,11 +941,6 @@ public class MainActivity extends Activity
     {
         SharedPreferences sharedPref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
         String themeName = sharedPref.getString("HCTheme", "HCDayNight");
-        if (themeName == null)
-        {
-            themeName = "HCDayNight";
-        }
-
         switch(themeName)
         {
             case "HCDark":
@@ -1128,15 +969,7 @@ public class MainActivity extends Activity
         theme.resolveAttribute(R.attr.hctimeIsOutColor, typedValue, true);
         timeIsOutColor = typedValue.data;
 
-        //https://stackoverflow.com/questions/39933345/no-network-security-config-specified-using-platform-default-android-log
-        if (android.os.Build.VERSION.SDK_INT > 9)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
         //https://stackoverflow.com/questions/4616095/how-to-get-the-build-version-number-of-your-android-application
-
         osInfo = "Android: " + android.os.Build.VERSION.RELEASE + " (" + android.os.Build.VERSION.INCREMENTAL + ")";
         osInfo += " (API: " + android.os.Build.VERSION.SDK_INT + ")";
         osInfo += " Device: " + android.os.Build.DEVICE;
@@ -1147,30 +980,7 @@ public class MainActivity extends Activity
         display.getSize(size);
         screenSize = size.y + " x " + size.x;
         uniqueDeviceID = uid(getApplicationContext());
-/*
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            setTheme(R.style.DarkTheme);
-        } else {
-            setTheme(R.style.LightTheme);
-        }
-*/
 
-        /*
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(false); // disable the button
-            actionBar.setDisplayHomeAsUpEnabled(false); // remove the left caret
-            actionBar.setDisplayShowHomeEnabled(false); // remove the icon
-        }
-        View decorView = getWindow().getDecorView();
-// Hide both the navigation bar and the status bar.
-// SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
-// a general rule, you should design your app to hide the status bar whenever you
-// hide the navigation bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-*/
         //http://stackoverflow.com/questions/9627774/android-allow-portrait-and-landscape-for-tablets-but-force-portrait-on-phone/39302787#39302787
         if (getResources().getBoolean(R.bool.portrait_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -1251,9 +1061,7 @@ public class MainActivity extends Activity
             return;
         }
         v1 = new Verb();
-        //v1.getRandomVerb();
         v2 = new Verb();
-        //v2.getRandomVerb();
 
         gv1 = new GreekVerb();
         gv1.score = 0;
@@ -1283,7 +1091,6 @@ public class MainActivity extends Activity
         stemText.setTextSize(stemFontSize);
         changedFormText.setTextSize(greekFontSize);
         mTimeLabel.setTextSize(24);
-        //origFormText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         origFormText.setGravity(Gravity.CENTER_HORIZONTAL);
 
 
@@ -1335,18 +1142,7 @@ public class MainActivity extends Activity
                 }
             }
         };
-/*
-        final ViewTreeObserver vto = mTimeLabel.getViewTreeObserver();
-        vto.addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
-            @Override
-            public void onDraw() {
-                // Do whatever you need to do...
-                Log.d("def", "now");
-                invalidate();
-            }
-        });
-*/
-        /* Using it */
+
         final ScaleGestureDetector mScaleDetector =
                 new ScaleGestureDetector(this, new MyPinchListener());
         mainView.setOnTouchListener(new View.OnTouchListener() {
@@ -1373,18 +1169,13 @@ public class MainActivity extends Activity
         };
         mShowStem = new Runnable() {
             public void run() {
-                //stemText.setText(stemStr);
-                //centerTextView(stemText, stemStr.toString(), R.id.textView);
                 stemText.animateText(stemStr, false, mEnableKeyboard);
                 mHandler.postDelayed(mEnableKeyboard, 700);
             }
         };
         mShowOrigForm = new Runnable() {
             public void run() {
-                //origFormText.setText(origStr);
-                //centerTextView(origFormText, origStr, 0);
                 origFormText.animateText(origStr, false, mShowStem);
-                //mHandler.postDelayed(mShowStem, 700);
             }
         };
 
@@ -1403,11 +1194,6 @@ public class MainActivity extends Activity
                 getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             }
         });
-
-        //so the default keyboard doesn't show.
-        if (Build.VERSION.SDK_INT > 20) {
-            editText.setShowSoftInputOnFocus(false);
-    }
 
 /*
         //or http://www.lucazanini.eu/en/2013/android/updating-frequently-a-textview-inside-a-loop/
@@ -1430,16 +1216,11 @@ public class MainActivity extends Activity
     }
 
     private class SendDeviceDetails extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
-
             String data = "";
-
             HttpsURLConnection httpURLConnection = null;
-
             try {
-
                 httpURLConnection = (HttpsURLConnection) new URL(params[0]).openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
@@ -1455,7 +1236,7 @@ public class MainActivity extends Activity
                 httpURLConnection.setSSLSocketFactory(sc.getSocketFactory());
 
                 DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-                wr.write(params[1].getBytes("UTF-8"));
+                wr.write(params[1].getBytes(StandardCharsets.UTF_8));
                 wr.flush();
                 wr.close();
 
@@ -1475,15 +1256,13 @@ public class MainActivity extends Activity
                     httpURLConnection.disconnect();
                 }
             }
-
             return data;
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Log.e("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
+            Log.i("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
         }
     }
 }
-
