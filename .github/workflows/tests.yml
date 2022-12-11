@@ -23,7 +23,7 @@ jobs:
         #https://github.com/ReactiveCircus/android-emulator-runner
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 32
+          api-level: 31
           script: ./gradlew connectedAndroidTest
       #- name: Unit Test
       #  run: ./gradlew connectedAndroidTest
