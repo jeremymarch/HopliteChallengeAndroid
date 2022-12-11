@@ -20,9 +20,10 @@ jobs:
 
       # Execute Unit Test
       - name: run tests
+        #https://github.com/ReactiveCircus/android-emulator-runner
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 32
           script: ./gradlew connectedAndroidTest
       #- name: Unit Test
       #  run: ./gradlew connectedAndroidTest
