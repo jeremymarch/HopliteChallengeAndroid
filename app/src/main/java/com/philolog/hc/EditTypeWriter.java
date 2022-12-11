@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 /**
  * Created by jeremy on 4/7/16.
  */
-public class EditTypeWriter  extends EditText {
+public class EditTypeWriter extends androidx.appcompat.widget.AppCompatEditText {
     private CharSequence mText;
     private int mIndex;
     public Boolean passEvents = false;

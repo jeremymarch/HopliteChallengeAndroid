@@ -17,6 +17,7 @@ apply plugin: 'com.android.application'
         //buildToolsVersion = "30.0.2"
 
         defaultConfig.with {
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
             applicationId = "com.philolog.hc"
             versionName "1.7.0"
             versionCode 62
@@ -101,6 +102,10 @@ apply plugin: 'com.android.application'
 
 dependencies {
     implementation 'androidx.preference:preference:1.2.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.1'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
 }
 
 // Specifies the location of the top level CMakeLists.txt
@@ -123,5 +128,5 @@ externalNativeBuild {
     }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
 }
