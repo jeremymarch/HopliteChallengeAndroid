@@ -26,6 +26,7 @@ add_library( # Sets the name of the library.
         src/main/jni/libgreek/ending.c
         src/main/jni/libgreek/GreekForms.c
 
+        src/main/jni/libseq/hcgreekSQLiteCollation.c
         src/main/jni/libseq/VerbSequence.c
         src/main/jni/libseq/libGreekGlue.c
         src/main/jni/libseq/sqlite3.c
