@@ -88,7 +88,7 @@ public class ApplicationTest extends Application {
             return;
         }
         String[] rows = file_contents.split("\n");
-        //Assert.assertEquals(34852, rows.length);
+        //Assert.assertEquals("Num rows in new.txt incorrect", 34852, rows.length);
         Verb v = new Verb();
 
         int line = 1;
@@ -109,7 +109,8 @@ public class ApplicationTest extends Application {
                 isOida = false;
             }
             v.getVerb(verb_num);
-            Assert.assertEquals("", rows[line],"Verb " + verb_num + ". " + v.present);
+            vf.verbid = verb_num;
+            //Assert.assertEquals("Verb row incorrect", rows[line],"Verb " + verb_num + ". " + v.present);
             line += 2;
             //if verb.present == "οἶδα" || verb.present == "σύνοιδα"
             //{
@@ -145,10 +146,10 @@ public class ApplicationTest extends Application {
                         else if (voice == 2/*.passive*/ && mood == 3/*.imperative*/) {
                             voi = "Passive";
                         }
-                        else if (vf.getVoiceDescription() == "Middle/Passive" && voice == 1/*.middle*/) {
+                        else if (vf.getVoiceDescription().equals("Middle/Passive") && voice == 1/*.middle*/) {
                             voi = "Middle (" + vf.getVoiceDescription() + ")";
                         }
-                        else if (vf.getVoiceDescription() == "Middle/Passive" && voice == 2/*.passive*/) {
+                        else if (vf.getVoiceDescription().equals("Middle/Passive") && voice == 2/*.passive*/) {
                             voi = "Passive (" + vf.getVoiceDescription() + ")";
                         }
                         else {
@@ -161,8 +162,9 @@ public class ApplicationTest extends Application {
                         }
                         Assert.assertEquals("line: " + line + ". verb: " + verb_num + " " + tense + " " + voice + " " + mood + " " + isOida, rows[line], sec);
 
-                        if (rows[line] != sec) {
-                            Assert.assertTrue("wrong", false);
+                        if (!rows[line].equals(sec)) {
+                            Assert.assertEquals("Tense Voice Mood description incorrect", rows[line], sec);
+                            //Log.e("abc", "abc: " + rows[line] + " : " + sec);
                             return;
                         }
                         line += 1;
@@ -180,41 +182,43 @@ public class ApplicationTest extends Application {
                                     form_d = "NDF";
                                 }
 
-                                if (form == "")
+                                if (form.equals(""))
                                 {
                                     form = "NF";
                                 }
-                                if (form_d == "")
+                                if (form_d.equals(""))
                                 {
                                     form_d = "NDF";
                                 }
                                 String label = (person + 1) + ((number == 0/*.singular*/) ? "s" : "p");
 
-                                String x = label + ": " + form + " ; " + form_d;
+                                String form_row = label + ": " + form + " ; " + form_d;
                                 if (print_lines) {
-                                    Log.i("abc","\t" + line + " - " + x);
+                                    Log.i("abc","\t" + line + " - " + form_row);
                                 }
-                                Assert.assertEquals("", rows[line], x);
+                                Assert.assertEquals("Form row incorrect", rows[line], form_row);
 /*
-                                let is_equal_insensitive = x.compare(rows[line], options: NSString.CompareOptions.diacriticInsensitive, range: nil, locale: nil)
+                                let is_equal_insensitive = form_row.compare(rows[line], options: NSString.CompareOptions.diacriticInsensitive, range: nil, locale: nil)
                                 XCTAssertEqual(is_equal_insensitive, ComparisonResult.orderedSame)
 
-                                let is_equal_literal = x.compare(rows[line], options: NSString.CompareOptions.literal, range: nil, locale: nil)
+                                let is_equal_literal = form_row.compare(rows[line], options: NSString.CompareOptions.literal, range: nil, locale: nil)
                                 XCTAssertEqual(is_equal_literal, ComparisonResult.orderedSame)
 
-                                XCTAssertEqual(rows[line], x, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood)")
+                                XCTAssertEqual(rows[line], form_row, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood)")
     */
-                                if (rows[line] != x) {
+                                if (!rows[line].equals(form_row)) {
+                                    Assert.assertEquals("forms not equal", rows[line], form_row);
                                     return;
                                 }
                                 line += 1;
-                            }
-                        }
+                            }//person
+                        }//number
+                        line += 1;
                     }
                 }
             }
             //next verb
-            line += 1;
+            //line += 1;
         }
     }
 }
