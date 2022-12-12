@@ -21,6 +21,7 @@ public class GreekVerb
     //public native void generateForm();
     //public native void changeFormByDegrees(int degrees);
     public native String getAbbrevDescription();
+    public native String getVoiceDescription();
 
     public native boolean compareFormsCheckMFRecordResult(String actual, String expected, String elapsed, boolean MFPressed);
 
