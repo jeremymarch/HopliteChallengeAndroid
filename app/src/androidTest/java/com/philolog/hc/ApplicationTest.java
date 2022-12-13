@@ -3,23 +3,13 @@ package com.philolog.hc;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-
 import androidx.test.platform.app.InstrumentationRegistry;
-
 import org.junit.Test;
 import org.junit.Assert;
-
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
 public class ApplicationTest extends Application {
 
     public ApplicationTest() {
@@ -38,10 +28,7 @@ public class ApplicationTest extends Application {
     }
 
     public static String getStringFromFile (InputStream fin) throws Exception {
-        //File fl = new File(filePath);
-        //FileInputStream fin = new FileInputStream(fl);
         String ret = convertStreamToString(fin);
-        //Make sure you close all streams.
         fin.close();
         return ret;
     }
@@ -60,35 +47,28 @@ public class ApplicationTest extends Application {
     }
 
     @Test
-    public void test_verbs() {
+    public void check_all_verbs() {
         String[] persons = {"first", "second", "third"};
         String[] numbers = {"singular", "plural"};
         String[] tenses = {"Present", "Imperfect", "Future", "Aorist", "Perfect", "Pluperfect"};
         String[] voices = {"Active", "Middle", "Passive"};
         String[] moods = {"Indicative", "Subjunctive", "Optative", "Imperative"};
 
-        String[] personsabbrev = {"1st", "2nd", "3rd"};
-        String[] numbersabbrev = {"sing.", "pl."};
-        String[] tensesabbrev = {"pres.", "imp.", "fut.", "aor.", "perf.", "plup."};
-        String[] voicesabbrev = {"act.", "mid.", "pass."};
-        String[] moodsabbrev = {"ind.", "subj.", "opt.", "imper."};
-
         final Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         boolean print_lines = true;
-        //ClassLoader classLoader = this.getClass().getClassLoader();
-        //URL resource = classLoader.getResource("new.txt");
         String file_contents = "";
         try {
             InputStream f = appContext.getAssets().open("new.txt");
             file_contents = getStringFromFile(f);
         } catch (Exception e) {
             e.printStackTrace();
-            Assert.assertTrue("Verb file not found", false);
+            Assert.fail("Verb file not found");
             return;
         }
         String[] rows = file_contents.split("\n");
         //Assert.assertEquals("Num rows in new.txt incorrect", 34852, rows.length);
+
         Verb v = new Verb();
 
         int line = 1;
@@ -111,6 +91,7 @@ public class ApplicationTest extends Application {
             String deponent_type = "";
             switch (dep) {
                 case 0:
+                    deponent_type = "";
                     break;
                 case 1:
                     deponent_type = " (Middle Deponent)";
@@ -226,17 +207,11 @@ public class ApplicationTest extends Application {
                                 if (form.contains(",")) {
                                     mfpressed = true;
                                 }
-                                Log.e("abc", label + ": " + form + " : " + rows[line].split(";")[0] + " : " + mfpressed);
+                                //Log.e("abc", label + ": " + form + " : " + rows[line].split(";")[0] + " : " + mfpressed);
+
+                                //Also check verbs with real comparison function
                                 Assert.assertTrue("check compare forms", vf.compareFormsCheckMF(label + ": " + form, rows[line].split(" ;")[0], mfpressed));
-/*
-                                let is_equal_insensitive = form_row.compare(rows[line], options: NSString.CompareOptions.diacriticInsensitive, range: nil, locale: nil)
-                                XCTAssertEqual(is_equal_insensitive, ComparisonResult.orderedSame)
 
-                                let is_equal_literal = form_row.compare(rows[line], options: NSString.CompareOptions.literal, range: nil, locale: nil)
-                                XCTAssertEqual(is_equal_literal, ComparisonResult.orderedSame)
-
-                                XCTAssertEqual(rows[line], form_row, "line: \(line). verb: \(vf.verbid) \(vf.person) \(vf.number) \(vf.tense) \(vf.voice) \(vf.mood)")
-    */
                                 if (!rows[line].equals(form_row)) {
                                     Assert.assertEquals("forms not equal", rows[line], form_row);
                                     return;
@@ -253,4 +228,3 @@ public class ApplicationTest extends Application {
         }
     }
 }
-
