@@ -23,7 +23,9 @@ public class GreekVerb
     public native String getAbbrevDescription();
     public native String getVoiceDescription();
 
+    public native boolean compareFormsCheckMF(String actual, String expected, boolean MFPressed);
     public native boolean compareFormsCheckMFRecordResult(String actual, String expected, String elapsed, boolean MFPressed);
+
 
     static {
         //http://stackoverflow.com/questions/1007861/how-do-i-get-a-list-of-jni-libraries-which-are-loaded/1008631#1008631

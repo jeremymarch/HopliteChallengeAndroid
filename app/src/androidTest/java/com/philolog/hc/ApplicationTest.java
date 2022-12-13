@@ -94,10 +94,7 @@ public class ApplicationTest extends Application {
         int line = 1;
         for (int verb_num = 0; verb_num < 127; verb_num++) {
 
-            //let verb = Verb2.init(verbid: verb_num)
-            //let vf = VerbForm(.unset, .unset, .unset, .unset, .unset, verb: verb_num);
             GreekVerb vf = new GreekVerb();
-
             boolean isOida = false;
 
             if (verb_num == 118 || verb_num == 119) {
@@ -109,8 +106,35 @@ public class ApplicationTest extends Application {
                 isOida = false;
             }
             v.getVerb(verb_num);
+
+            int dep = v.deponentType();
+            String deponent_type = "";
+            switch (dep) {
+                case 0:
+                    break;
+                case 1:
+                    deponent_type = " (Middle Deponent)";
+                    break;
+                case 2:
+                    deponent_type = " (Passive Deponent)";
+                    break;
+                case 3:
+                    deponent_type = " (Partial Deponent)";
+                    break;
+                case 4:
+                    deponent_type = " (Deponent gignomai)";
+                    break;
+                case 5:
+                    deponent_type = " (Middle Deponent with 6th pp)";
+                    break;
+            }
+
             vf.verbid = verb_num;
-            //Assert.assertEquals("Verb row incorrect", rows[line],"Verb " + verb_num + ". " + v.present);
+            String lemma = v.present;
+            if (v.present.length() == 0) {
+                lemma = v.future;
+            }
+            Assert.assertEquals("Verb row incorrect", rows[line],"Verb " + verb_num + ". " + lemma + deponent_type);
             line += 2;
             //if verb.present == "οἶδα" || verb.present == "σύνοιδα"
             //{
@@ -197,6 +221,13 @@ public class ApplicationTest extends Application {
                                     Log.i("abc","\t" + line + " - " + form_row);
                                 }
                                 Assert.assertEquals("Form row incorrect", rows[line], form_row);
+
+                                boolean mfpressed = false;
+                                if (form.contains(",")) {
+                                    mfpressed = true;
+                                }
+                                Log.e("abc", label + ": " + form + " : " + rows[line].split(";")[0] + " : " + mfpressed);
+                                Assert.assertTrue("check compare forms", vf.compareFormsCheckMF(label + ": " + form, rows[line].split(" ;")[0], mfpressed));
 /*
                                 let is_equal_insensitive = form_row.compare(rows[line], options: NSString.CompareOptions.diacriticInsensitive, range: nil, locale: nil)
                                 XCTAssertEqual(is_equal_insensitive, ComparisonResult.orderedSame)
