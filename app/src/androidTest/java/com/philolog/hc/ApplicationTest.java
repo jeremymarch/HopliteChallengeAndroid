@@ -144,7 +144,7 @@ public class ApplicationTest extends Application {
                         //    continue
                         //}
 
-                        var voi = "";
+                        String voi = "";
                         if (voice == 1/*.middle*/ && mood == 3/*.imperative*/) {
                             voi = "Middle";
                         }
