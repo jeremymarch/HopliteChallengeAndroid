@@ -299,7 +299,7 @@ public class MainActivity extends Activity
             postData.put("tense", gv2.tense);
             postData.put("voice", gv2.voice);
             postData.put("mood", gv2.mood);
-            postData.put("appversion", BuildConfig.VERSION_NAME);
+            postData.put("appversion", "1.8.0");
             postData.put("device", uniqueDeviceID);
             postData.put("agent", osInfo);
             postData.put("screen", screenSize);
