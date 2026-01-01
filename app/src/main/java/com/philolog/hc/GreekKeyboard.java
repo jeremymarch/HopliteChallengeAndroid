@@ -108,7 +108,7 @@ public class GreekKeyboard extends KeyboardView {
                 }
                 dr.draw(canvas);
             }
-            else if (key.codes[0] == 34){
+            else if (key.codes[0] == 34){ //Enter
                 Drawable dr;
                 if (key.pressed)
                 {
@@ -118,12 +118,12 @@ public class GreekKeyboard extends KeyboardView {
                 }
                 else {
                     dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.enterbutton);
-                    dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height - 4);
+                    dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
                     paint.setColor(enterTextColor);
                 }
                 dr.draw(canvas);
             }
-            else if (key.codes[0] > 25 && key.codes[0] < 33){
+            else if (key.codes[0] > 26 && key.codes[0] < 33){ //diacritics
                 Drawable dr;
                 if (key.pressed) {
                     dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.accentbuttondown);
@@ -135,6 +135,20 @@ public class GreekKeyboard extends KeyboardView {
                     paint.setColor(diacriticTextColor);
                 }
                 dr.setBounds(key.x, key.y + 6, key.x + key.width, key.y + key.height);
+                dr.draw(canvas);
+            }
+            else if (key.codes[0] == 26){ //parentheses
+                Drawable dr;
+                if (key.pressed) {
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.accentbuttondown);
+                    paint.setColor(diacriticTextColorDown);
+                }
+                else
+                {
+                    dr = (Drawable) ContextCompat.getDrawable(context, R.drawable.accentbutton);
+                    paint.setColor(diacriticTextColor);
+                }
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 dr.draw(canvas);
             }
             else if (key.codes[0] == 35){ //delete
