@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.philolog.hc.MenuActivity"
     android:background="?attr/hcbgColor"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
     <Button
         android:layout_width="fill_parent"

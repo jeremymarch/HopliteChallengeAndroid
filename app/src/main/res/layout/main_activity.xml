@@ -5,7 +5,8 @@
     android:id="@+id/myView2"
     android:orientation="vertical"
     android:background="?attr/hcbgColor"
-    android:backgroundTintMode="screen">
+    android:backgroundTintMode="screen"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,11 +22,11 @@
             android:layout_height="wrap_content"
             android:visibility="visible">
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="X"
+                android:text="×"
                 android:id="@+id/quitButton"
-                android:textSize="20sp"
+                android:textSize="34sp"
                 android:onClick="quitPressed"
                 android:textColor="?attr/hcQuitText"
                 android:background="@drawable/quitbackground"
@@ -62,8 +63,8 @@
                 android:layout_marginTop="4dp"
                 android:visibility="gone"/>-->
             <TextView
-                android:layout_marginLeft="146dp"
-                android:layout_marginStart="46dp"
+                android:layout_marginLeft="66dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="0dp"
                 android:layout_width="82dp"
                 android:layout_height="36dp"
