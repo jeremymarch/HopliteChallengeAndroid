@@ -16,7 +16,7 @@ apply plugin: 'com.android.application'
                 */
             }
         }
-        compileSdk 35
+        compileSdk 36
 
         //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
         //buildToolsVersion = "30.0.2"
@@ -28,7 +28,7 @@ apply plugin: 'com.android.application'
             versionName "1.9.0"
             versionCode 64
             minSdkVersion 21 //16
-            targetSdkVersion 35
+            targetSdkVersion 36
 
             ndk {
                 abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
