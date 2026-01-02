@@ -25,8 +25,8 @@ apply plugin: 'com.android.application'
             ndkVersion "29.0.14206865"
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
             applicationId = "com.philolog.hc"
-            versionName "1.9.0"
-            versionCode 64
+            versionName "1.9.1"
+            versionCode 65
             minSdkVersion 21 //16
             targetSdkVersion 36
 
