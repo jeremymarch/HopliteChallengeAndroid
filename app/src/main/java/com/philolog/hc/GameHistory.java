@@ -3,14 +3,12 @@ package com.philolog.hc;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.app.Activity;
 
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;

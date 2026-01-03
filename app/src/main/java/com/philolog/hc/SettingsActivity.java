@@ -28,7 +28,6 @@ public class SettingsActivity extends Activity {
     }
 
     public static class PrefsFragment extends PreferenceFragment {
-
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

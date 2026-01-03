@@ -3,7 +3,6 @@ package com.philolog.hc;
 import android.app.ListActivity;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +13,8 @@ import android.widget.TextView;
 import android.view.MotionEvent;
 import android.os.Handler;
 import android.view.Gravity;
+
+import androidx.annotation.NonNull;
 
 public class VerbForms extends ListActivity {
     public static final int INDICATIVE  = 0;
@@ -64,13 +65,13 @@ public class VerbForms extends ListActivity {
     //https://medium.com/@ali.muzaffar/android-detecting-a-pinch-gesture-64a0a0ed4b41#.k0qw1qynj
     private class MyPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
-        public void onScaleEnd(ScaleGestureDetector detector) {
+        public void onScaleEnd(@NonNull ScaleGestureDetector detector) {
 //Log.e("abc", "Scale End");
             //getListView().setScrollContainer(true);
             getListView().setEnabled(true);
         }
         @Override
-        public boolean onScaleBegin(ScaleGestureDetector detector) {
+        public boolean onScaleBegin(@NonNull ScaleGestureDetector detector) {
             //mBlock = true;
             //getListView().setScrollContainer(false);
             getListView().setEnabled(false);
@@ -92,8 +93,7 @@ public class VerbForms extends ListActivity {
         public boolean onScale(ScaleGestureDetector detector) {
             //Log.e("abc", "pinch: " + detector.getScaleFactor());
 
-            if (detector.getScaleFactor() < 1)
-            {
+            if (detector.getScaleFactor() < 1) {
                 //Log.e("abc", "pinch together");
                 //together
                 /*if (!mBlock) {
@@ -118,8 +118,7 @@ public class VerbForms extends ListActivity {
                     //}
                 }
             }
-            else
-            {
+            else {
                 //apart
                 //Log.e("abc", "apart");
                 /*
@@ -284,12 +283,10 @@ public class VerbForms extends ListActivity {
                         //FIX ME, is this right?? how do we label these.
                         //yes it's correct, middle deponents do not have a passive voice.  H&Q page 316
                         int deponentType = ve.deponentType();
-                        if (deponentType == MIDDLE_DEPONENT || deponentType == PASSIVE_DEPONENT || deponentType == DEPONENT_GIGNOMAI || ve.present.equals("κεῖμαι"))
-                        {
+                        if (deponentType == MIDDLE_DEPONENT || deponentType == PASSIVE_DEPONENT || deponentType == DEPONENT_GIGNOMAI || ve.present.equals("κεῖμαι")) {
                             s = tenses[t] + " Middle " + moods[m];
                         }
-                        else
-                        {
+                        else {
                             s =  tenses[t] + " Middle/Passive " + moods[m];
                         }
                     }
@@ -316,8 +313,9 @@ public class VerbForms extends ListActivity {
                             }
 
                             int mf = 0;
-                            if (isDecomposedMode)
+                            if (isDecomposedMode) {
                                 mf = 1;
+                            }
 
                             String form = vf.getForm(1,mf);
                             form = form.replace(", ", "\n");
@@ -330,13 +328,14 @@ public class VerbForms extends ListActivity {
                             }
                         }
                     }
-                    if (countPerSection == 0)
-                    {
+                    if (countPerSection == 0) {
                         //remove section header
-                        if (!update)
+                        if (!update) {
                             mAdapter.removeLastSectionHeaderItem();
-                        else
+                        }
+                        else {
                             updateIndex--;
+                        }
                     }
                 }
             }

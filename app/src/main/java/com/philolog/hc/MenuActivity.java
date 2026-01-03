@@ -6,16 +6,11 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
-
-import java.io.File;
-import java.io.IOException;
-
 
 public class MenuActivity extends Activity {
     public final static String EXTRA_MESSAGE = "com.philolog.hc.MESSAGE";
-    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,13 +25,15 @@ public class MenuActivity extends Activity {
 
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
         SharedPreferences sharedPref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
-        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-            if (key.equals("HCTheme")) {
-                recreate();
+                if (key != null && key.equals("HCTheme")) {
+                    recreate();
+                }
             }
+
+            ;
         };
-    };
         sharedPref.registerOnSharedPreferenceChangeListener(prefListener);
 
         //to be sure the db is created on first run

@@ -56,8 +56,9 @@ import java.util.UUID;
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
 
-public class MainActivity extends Activity
-{
+import androidx.annotation.NonNull;
+
+public class MainActivity extends Activity {
     private final static int KEYPRESS_VIBRATE = 40;
     //public final static int NO_ACCENT = 0;
     public final static int ACUTE = 1;
@@ -184,8 +185,7 @@ public class MainActivity extends Activity
         return bounds.width();
     }
 
-    public boolean checkVerb2AndSetCheckOrX()
-    {
+    public boolean checkVerb2AndSetCheckOrX() {
         //http://stackoverflow.com/questions/3416087/how-to-set-margin-of-imageview-using-code-not-xml
         String text = editText.getText().toString();
         int width = getTextWidth(editText, text);
@@ -194,13 +194,11 @@ public class MainActivity extends Activity
         int offset = ((editText.getWidth() - width) / 2) - convertDpToPx(45, dm);
         if (offset < 0) //don't push the check or x off the screen
             offset = 0;
-        if (text.length() == 0) //if no text entered, center it
-        {
+        if (text.isEmpty()) { //if no text entered, center it
             offset = 0;
             lp.gravity =  Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL;
         }
-        else
-        {
+        else {
             lp.gravity =  Gravity.CENTER_VERTICAL|Gravity.RIGHT;
         }
         lp.setMargins(0, 0, offset, 0);
@@ -280,8 +278,7 @@ public class MainActivity extends Activity
     return uniqueID;
 }
 
-    public void sendDiagnostics(Boolean isCorrect, int lives, int score, String answerText, String expectedForm, String elapsedTime, Boolean mfPressed)
-    {
+    public void sendDiagnostics(Boolean isCorrect, int lives, int score, String answerText, String expectedForm, String elapsedTime, Boolean mfPressed) {
         JSONObject postData = new JSONObject();
         try {
             postData.put("type", "debugRequestPlusAnswer");
@@ -313,8 +310,7 @@ public class MainActivity extends Activity
         //Log.i("abc", "[" + postData.toString() + "]");
     }
 
-    public void checkVerb()
-    {
+    public void checkVerb() {
         editText.passEvents = true;
 
         if (checkVerb2AndSetCheckOrX()) {
@@ -378,21 +374,19 @@ public class MainActivity extends Activity
         }
         else {
             if (!mMFPressed) {
-                mStartTime += (HCTime / 2 * 1e6 * 1000); //add time
+                mStartTime += (long) ((double) HCTime / 2 * 1e6 * 1000); //add time
                 mMFPressed = true;
                 mMFLabelView.setVisibility(View.VISIBLE);
                 //change key to comma
             }
-            else
-            {
+            else {
                 //insert comma
                 editable.insert(start, ", ");
             }
         }
     }
 
-    public boolean isCombiningCharacter(char s)
-    {
+    public boolean isCombiningCharacter(char s) {
         //test this with a visible character: s == 0x03B2 ||
         return s == COMBINING_GRAVE ||
                 s == COMBINING_ACUTE ||
@@ -407,22 +401,18 @@ public class MainActivity extends Activity
     //see if there are one or more combining characters to the right of the cursor
     //if so move past them, so we don't insert a character between the combining characters
     //and their letter.
-    public int fixCursorStart(int start, String s, EditTypeWriter edittext)
-    {
-        if (start < s.length()) //doesn't matter if we're already at end of string
-        {
+    public int fixCursorStart(int start, String s, EditTypeWriter edittext) {
+        if (start < s.length()) {//doesn't matter if we're already at end of string
             char charToRight = s.charAt(start);
             while (isCombiningCharacter(charToRight))
             {
                 start++;
                 edittext.setSelection(start);
 
-                if (start + 1 <= s.length())
-                {
+                if (start + 1 <= s.length()) {
                     charToRight = s.charAt(start);
                 }
-                else //we're at the end
-                {
+                else { //we're at the end
                     break;
                 }
             }
@@ -443,8 +433,7 @@ public class MainActivity extends Activity
             Editable editable = edittext.getText();
             //fix bug found by Chris SGI2019
             // where text can be entered after pressing enter
-            if (!edittext.isEnabled())
-            {
+            if (!edittext.isEnabled()) {
                 return;
             }
             int start = edittext.getSelectionStart();
@@ -543,8 +532,7 @@ public class MainActivity extends Activity
         @Override public void swipeUp() {}
     };
 
-    public void localAccentLetter(Editable editable, int start, int acc)
-    {
+    public void localAccentLetter(Editable editable, int start, int acc) {
         int maxSubstringForAccent = 7;
         String str2 = editable.toString();
         String sub;
@@ -554,20 +542,18 @@ public class MainActivity extends Activity
         //this seems like an odd way of doing this??
         //should determine combining diacritics + letter first and
         //only call addAccent once
-        for (i = 1; i < maxSubstringForAccent; i++)
-        {
-            if (start - i < 0)
-            {
+        for (i = 1; i < maxSubstringForAccent; i++) {
+            if (start - i < 0) {
                 break;
             }
             sub = str2.substring(start - i, start);
 
             accentedLetter = gv1.addAccent(acc, sub);
-            if (!accentedLetter.equals("")) {
+            if (!accentedLetter.isEmpty()) {
                 break;
             }
         }
-        if (!accentedLetter.equals("")) {
+        if (!accentedLetter.isEmpty()) {
             editable.replace(start - i, start, accentedLetter);
         }
     }
@@ -597,8 +583,7 @@ public class MainActivity extends Activity
         hideCustomKeyboard(null);
     }
 
-    public void onOpen(View v)
-    {
+    public void onOpen(View v) {
         editText.setVisibility(View.VISIBLE);
         openKeyboard(mainView, null);
     }
@@ -672,12 +657,10 @@ public class MainActivity extends Activity
         return mKeyboardView.getVisibility() == View.VISIBLE;
     }
 
-    public void resetHCGame()
-    {
+    public void resetHCGame() {
         lives = 3;
         scoreLabel.setText("0");
-        if (gv1 != null)
-        {
+        if (gv1 != null) {
             gv1.score = 0;
         }
         verbSeqObj.vsReset();
@@ -687,31 +670,25 @@ public class MainActivity extends Activity
         gameOverLabel.setVisibility(View.GONE);
     }
 
-    public void onContinuePressed(View v)
-    {
+    public void onContinuePressed(View v) {
         if (allowVibrate) {
             vibrator.vibrate(KEYPRESS_VIBRATE);
         }
-        if (isHCGame && lives == 0)
-        {
+        if (isHCGame && lives == 0) {
             resetHCGame();
         }
         nextSeq3();
         continueButton.setText("Continue");
     }
 
-    public void nextSeq3()
-    {
+    public void nextSeq3() {
         int state = verbSeqObj.vsNext(gv1, gv2);
         Log.e("abc", "Cleanup: seq: " + verbSeqObj.seq + ", res: " + state);
-        if (state == VerbSequence.STATE_NEW)
-            cleanUp(true);
-        else //if (state == 2)
-            cleanUp(false);
+        //if (state == 2)
+        cleanUp(state == VerbSequence.STATE_NEW);
     }
 
-    public void cleanUp(final Boolean reset) //if reset, then clear away answer rather than move it up
-    {
+    public void cleanUp(final Boolean reset) { //if reset, then clear away answer rather than move it up
         continueButton.setVisibility(View.INVISIBLE);
         //changedFormText.animateHideText(null);
 
@@ -749,8 +726,7 @@ public class MainActivity extends Activity
                     changedFormText.setTextWithPadding(editText.getText().toString(), false); //here
                     changedFormText.setHeight(editText.getHeight());
                 }
-                else //Move up from CHANGED FORM
-                {
+                else { //Move up from CHANGED FORM
                     animation = new TranslateAnimation(
                             Animation.RELATIVE_TO_SELF, 0,
                             Animation.RELATIVE_TO_SELF, 0,
@@ -821,8 +797,7 @@ public class MainActivity extends Activity
             else
                 mHandler.postDelayed(fl1, 100);
         }
-        else
-        {
+        else {
             if (reset)
                 editText.animateHideText(fl2);
             else
@@ -858,8 +833,7 @@ public class MainActivity extends Activity
             AlertDialog alert11 = dialog.create();
             alert11.show();
         }
-        else
-        {
+        else {
             if (front) {
                 stopTimer();
                 editText.setEnabled(false);
@@ -876,8 +850,7 @@ public class MainActivity extends Activity
         quitPressed(null);
     }
 
-    public void startTimer()
-    {
+    public void startTimer() {
         timerTimedOut = false;
         mTimeLabel.setTextColor(textColor);
         mStartTime = System.nanoTime();
@@ -895,12 +868,11 @@ public class MainActivity extends Activity
     //https://medium.com/@ali.muzaffar/android-detecting-a-pinch-gesture-64a0a0ed4b41#.k0qw1qynj
     class MyPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
-        public boolean onScale(ScaleGestureDetector detector) {
+        public boolean onScale(@NonNull ScaleGestureDetector detector) {
             if (front) {
                 return true;
             }
-            if (detector.getScaleFactor() < 1)
-            {
+            if (detector.getScaleFactor() < 1) {
                 //together
                 if (isDecomposedMode) {
                     //centerTextView(origFormText, origStr, 0);
@@ -913,18 +885,19 @@ public class MainActivity extends Activity
                     isDecomposedMode = false;
                 }
             }
-            else
-            {
+            else {
                 //apart
                 if (!isDecomposedMode) {
                     //centerTextView(origFormText, origStrDecomposed, 0);
                     origFormText.setTextWithPadding(origStrDecomposed, false);
                     //centerTextView(changedFormText, changedStrDecomposed, R.id.editholder);
 
-                    if (changedFormText.getVisibility() == View.VISIBLE)
+                    if (changedFormText.getVisibility() == View.VISIBLE) {
                         changedFormText.setTextWithPadding(changedStrDecomposed, false);
-                    else
+                    }
+                    else {
                         editText.setText(changedStrDecomposed);
+                    }
 
                     isDecomposedMode = true;
                 }
@@ -937,12 +910,10 @@ public class MainActivity extends Activity
     int bgColor = 0;
     int timeIsOutColor = 0;
 
-    public static void localSetTheme(Context context)
-    {
+    public static void localSetTheme(Context context) {
         SharedPreferences sharedPref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context);
         String themeName = sharedPref.getString("HCTheme", "HCDayNight");
-        switch(themeName)
-        {
+        switch(themeName) {
             case "HCDark":
                 context.setTheme(R.style.HCDark);
                 break;

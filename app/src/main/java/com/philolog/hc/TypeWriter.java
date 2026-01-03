@@ -2,17 +2,13 @@ package com.philolog.hc;
 
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.os.Handler;
-import android.view.ViewTreeObserver;
-import android.util.Log;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,23 +49,22 @@ public class TypeWriter extends TextView {
         super(context, attrs);
     }
 
-    private Handler mHandler = new Handler();
-    private Runnable characterAdder = new Runnable() {
+    private final Handler mHandler = new Handler();
+    private final Runnable characterAdder = new Runnable() {
         @Override
         public void run() {
             setText(mText.subSequence(0, mIndex++));
-            if(mIndex <= mText.length()) {
+            if (mIndex <= mText.length()) {
                 mHandler.postDelayed(characterAdder, mDelay);
             }
-            else
-            {
+            else {
                 if (mComplete != null)
                     mHandler.postDelayed(mComplete, 700);
                 //setPadding(50,0,0,0);
             }
         }
     };
-    private Runnable characterRemover = new Runnable() {
+    private final Runnable characterRemover = new Runnable() {
         @Override
         public void run() {
             setText(mText.subSequence(0, mIndex--));

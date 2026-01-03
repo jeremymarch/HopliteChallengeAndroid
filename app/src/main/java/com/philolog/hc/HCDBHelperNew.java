@@ -1,9 +1,6 @@
 package com.philolog.hc;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.DatabaseUtils;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.io.File;
@@ -38,8 +35,8 @@ public class HCDBHelperNew extends SQLiteAssetHelper {
     public static final String DATABASE_NAME = "hcdatadb1-5.sqlite";
     private static final int DATABASE_VERSION = 1;
     public String dbpath;
-    private String dboldname1 = "hcdatadb.sqlite";
-    private String dboldpath1;
+    private final String dboldname1 = "hcdatadb.sqlite";
+    private final String dboldpath1;
     private static HCDBHelperNew singleton;
 
     public static HCDBHelperNew getInstance(final Context context) {

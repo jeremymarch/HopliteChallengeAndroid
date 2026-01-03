@@ -1,11 +1,11 @@
 package com.philolog.hc;
 
 import android.content.pm.ActivityInfo;
+
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 import android.app.Activity;
-
-
 import androidx.viewpager.widget.PagerAdapter;
 import android.view.View;
 import android.util.Log;
@@ -16,8 +16,6 @@ import android.webkit.WebView;
 //http://stackoverflow.com/questions/34155294/showing-webview-in-viewpager
 public class TutorialActivity extends Activity {
     private List<View> mListViews;
-    private ViewPager viewPager;
-    private MyPagerAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +27,7 @@ public class TutorialActivity extends Activity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        viewPager = (ViewPager) findViewById(R.id.vpPager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.vpPager);
 
         mListViews = new ArrayList<View>();
         addView(mListViews, "file:///android_asset/tutorialTitlePage.html");
@@ -39,7 +37,7 @@ public class TutorialActivity extends Activity {
         addView(mListViews, "file:///android_asset/tutorialKeyboard.html");
         addView(mListViews, "file:///android_asset/tutorialPinch.html");
 
-        myAdapter = new MyPagerAdapter();
+        MyPagerAdapter myAdapter = new MyPagerAdapter();
         viewPager.setAdapter(myAdapter);
 
         //viewPager.setAdapter(new TutorialPagerAdapter(this));
@@ -55,13 +53,13 @@ public class TutorialActivity extends Activity {
     private class MyPagerAdapter extends PagerAdapter {
         public final String[] pages = {"Introduction", "Acknowledgements", "Game Play", "Practice Mode", "Keyboard", "Pinch to View Endings"};
         @Override
-        public void destroyItem(View arg0, int arg1, Object arg2) {
+        public void destroyItem(@NonNull View arg0, int arg1, @NonNull Object arg2) {
             Log.d("k", "destroyItem");
             ((ViewPager) arg0).removeView(mListViews.get(arg1));
         }
 
         @Override
-        public void finishUpdate(View arg0) {
+        public void finishUpdate(@NonNull View arg0) {
             Log.d("k", "finishUpdate");
         }
 
@@ -72,14 +70,14 @@ public class TutorialActivity extends Activity {
         }
 
         @Override
-        public Object instantiateItem(View arg0, int arg1) {
+        public Object instantiateItem(@NonNull View arg0, int arg1) {
             Log.d("k", "instantiateItem");
             ((ViewPager) arg0).addView(mListViews.get(arg1), 0);
             return mListViews.get(arg1);
         }
 
         @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
+        public boolean isViewFromObject(@NonNull View arg0, @NonNull Object arg1) {
             Log.d("k", "isViewFromObject");
             return arg0 == (arg1);
         }

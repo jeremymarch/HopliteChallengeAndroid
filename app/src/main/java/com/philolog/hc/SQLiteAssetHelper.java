@@ -32,6 +32,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +42,7 @@ import java.util.zip.ZipInputStream;
 /**
  * A helper class to manage database creation and version management using
  * an application's raw asset files.
- *
+
  * This class provides developers with a simple way to ship their Android app
  * with an existing SQLite database (which may be pre-populated with data) and
  * to manage its initial creation and any upgrades required with subsequent
@@ -72,11 +74,11 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
     private SQLiteDatabase mDatabase = null;
     private boolean mIsInitializing = false;
 
-    private String mDatabasePath;
+    private final String mDatabasePath;
 
-    private String mAssetPath;
+    private final String mAssetPath;
 
-    private String mUpgradePathFormat;
+    private final String mUpgradePathFormat;
 
     private int mForcedUpgradeVersion = 0;
 
@@ -218,7 +220,7 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
             mIsInitializing = false;
             if (success) {
                 if (mDatabase != null) {
-                    try { mDatabase.close(); } catch (Exception e) { }
+                    try { mDatabase.close(); } catch (Exception ignored) { }
                     //mDatabase.unlock();
                 }
                 mDatabase = db;
@@ -338,7 +340,7 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
                     List<String> cmds = SQLiteAssetHelperUtils.splitSqlScript(sql, ';');
                     for (String cmd : cmds) {
                         //Log.d(TAG, "cmd=" + cmd);
-                        if (cmd.trim().length() > 0) {
+                        if (!cmd.trim().isEmpty()) {
                             db.execSQL(cmd);
                         }
                     }
@@ -463,9 +465,9 @@ public class SQLiteAssetHelper extends SQLiteOpenHelper {
                 if (zis == null) {
                     throw new SQLiteAssetException("Archive is missing a SQLite database file");
                 }
-                SQLiteAssetHelperUtils.writeExtractedFileToDisk(zis, new FileOutputStream(dest));
+                SQLiteAssetHelperUtils.writeExtractedFileToDisk(zis, Files.newOutputStream(Paths.get(dest)));
             } else {
-                SQLiteAssetHelperUtils.writeExtractedFileToDisk(is, new FileOutputStream(dest));
+                SQLiteAssetHelperUtils.writeExtractedFileToDisk(is, Files.newOutputStream(Paths.get(dest)));
             }
 
             Log.w(TAG, "database copy complete");

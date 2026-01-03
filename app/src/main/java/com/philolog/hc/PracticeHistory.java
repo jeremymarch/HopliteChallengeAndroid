@@ -4,17 +4,12 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.app.Activity;
-
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -29,11 +24,9 @@ import android.view.LayoutInflater;
 import android.text.Html;
 
 public class PracticeHistory extends ListActivity {
-
     private ArrayList<String> results = new ArrayList<String>();
     private MyCustomAdapter mAdapter;
     private SQLiteDatabase newDB;
-    private Integer gameid;
     private boolean isHCGame = false;
 
     @Override
@@ -48,27 +41,25 @@ public class PracticeHistory extends ListActivity {
         mAdapter = new MyCustomAdapter();
 
         Intent intent = getIntent();
-        gameid = intent.getIntExtra("GameID", 1);
+        Integer gameid = intent.getIntExtra("GameID", 1);
 
         String newString;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
+            if (extras == null) {
                 newString= null;
             } else {
                 newString = extras.getString("GameOrPractice");
                 gameid = extras.getInt("GameID");
             }
         } else {
-            newString= (String) savedInstanceState.getSerializable("GameOrPractice");
+            newString = (String) savedInstanceState.getSerializable("GameOrPractice");
             gameid = (Integer) savedInstanceState.getSerializable("GameID");
         }
-        if (newString.contentEquals("game"))
-        {
+        if (newString.contentEquals("game")) {
             isHCGame = true;
         }
-        else
-        {
+        else {
             isHCGame = false;
         }
 
@@ -79,12 +70,13 @@ public class PracticeHistory extends ListActivity {
     }
 
     private void displayResultList() {
-
         TextView title = (TextView) findViewById(R.id.GameHistoryTitle);
-        if (isHCGame)
+        if (isHCGame) {
             title.setText("Game History");
-        else
+        }
+        else {
             title.setText("Practice History");
+        }
 
         /*
         TextView tView = new TextView(this);
@@ -102,8 +94,7 @@ public class PracticeHistory extends ListActivity {
         //getListView().setTextFilterEnabled(true);
 
     }
-    private String getDate(long timeStamp){
-
+    private String getDate(long timeStamp) {
         try{
             DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date netDate = (new Date(timeStamp));
@@ -123,47 +114,43 @@ public class PracticeHistory extends ListActivity {
 
             Log.e("abc", "Row count: " + c.getCount());
 
-            if (c != null ) {
-                if (c.moveToFirst()) {
-                    do {
-                        //Log.e("abc", "a");
-                        String person = c.getString(c.getColumnIndex("person"));
-                        String number = c.getString(c.getColumnIndex("number"));
-                        String tense = c.getString(c.getColumnIndex("tense"));
-                        String voice = c.getString(c.getColumnIndex("voice"));
-                        String mood = c.getString(c.getColumnIndex("mood"));
-                        String verbid = c.getString(c.getColumnIndex("verbid"));
+            if (c.moveToFirst()) {
+                do {
+                    //Log.e("abc", "a");
+                    String person = c.getString(c.getColumnIndex("person"));
+                    String number = c.getString(c.getColumnIndex("number"));
+                    String tense = c.getString(c.getColumnIndex("tense"));
+                    String voice = c.getString(c.getColumnIndex("voice"));
+                    String mood = c.getString(c.getColumnIndex("mood"));
+                    String verbid = c.getString(c.getColumnIndex("verbid"));
 
-                        String given = c.getString(c.getColumnIndex("answerGiven"));
-                        String correct = c.getString(c.getColumnIndex("correct"));
-                        String elapsedTime = c.getString(c.getColumnIndex("elapsedtime"));
+                    String given = c.getString(c.getColumnIndex("answerGiven"));
+                    String correct = c.getString(c.getColumnIndex("correct"));
+                    String elapsedTime = c.getString(c.getColumnIndex("elapsedtime"));
 
-                        GreekVerb gv = new GreekVerb();
-                        Verb v = new Verb();
-                        v.getVerb(Integer.parseInt(verbid));
+                    GreekVerb gv = new GreekVerb();
+                    Verb v = new Verb();
+                    v.getVerb(Integer.parseInt(verbid));
 
-                        gv.person = Integer.parseInt(person);
-                        gv.number = Integer.parseInt(number);
-                        gv.tense = Integer.parseInt(tense);
-                        gv.voice = Integer.parseInt(voice);
-                        gv.mood = Integer.parseInt(mood);
-                        gv.verb = v;
-                        gv.verbid = Integer.parseInt(verbid);
+                    gv.person = Integer.parseInt(person);
+                    gv.number = Integer.parseInt(number);
+                    gv.tense = Integer.parseInt(tense);
+                    gv.voice = Integer.parseInt(voice);
+                    gv.mood = Integer.parseInt(mood);
+                    gv.verb = v;
+                    gv.verbid = Integer.parseInt(verbid);
 
-                        historyItem g = new historyItem();
-                        g.stem = gv.getAbbrevDescription();
-                        g.correct = gv.getForm(1,0);
-                        g.given = given;
-                        g.time = elapsedTime;
-                        if (correct.equalsIgnoreCase("1"))
-                            g.isCorrect = true;
-                        else
-                            g.isCorrect = false;
+                    historyItem g = new historyItem();
+                    g.stem = gv.getAbbrevDescription();
+                    g.correct = gv.getForm(1,0);
+                    g.given = given;
+                    g.time = elapsedTime;
+                    g.isCorrect = correct.equalsIgnoreCase("1");
 
-                        mAdapter.addItem(g);
-                    }while (c.moveToNext());
-                }
+                    mAdapter.addItem(g);
+                } while (c.moveToNext());
             }
+
         } catch (SQLiteException se ) {
             Log.e(getClass().getSimpleName(), "Could not create or Open the database");
         } finally {
@@ -175,10 +162,9 @@ public class PracticeHistory extends ListActivity {
     }
 
     private class MyCustomAdapter extends BaseAdapter {
-
-        private ArrayList<historyItem> mData = new ArrayList<historyItem>();
+        private final ArrayList<historyItem> mData = new ArrayList<historyItem>();
         //private ArrayList mData = new ArrayList();
-        private LayoutInflater mInflater;
+        private final LayoutInflater mInflater;
 
         public MyCustomAdapter() {
             mInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -286,10 +272,9 @@ public class PracticeHistory extends ListActivity {
             Log.e("abc", mData.get(position).time);
             return convertView;
         }
-
     }
 
-    private class historyItem {
+    private static class historyItem {
         String stem;
         String correct;
         String given;

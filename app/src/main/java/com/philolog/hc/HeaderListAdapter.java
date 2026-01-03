@@ -22,10 +22,10 @@ public class HeaderListAdapter extends BaseAdapter {
     private static final int TYPE_SEPARATOR = 1;
     private int rowHeight = 0;
     private ArrayList mData = new ArrayList();
-    private TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
+    private final TreeSet<Integer> sectionHeader = new TreeSet<Integer>();
 
-    private LayoutInflater mInflater;
-    private Context appContext;
+    private final LayoutInflater mInflater;
+    private final Context appContext;
     public HeaderListAdapter(Context context, int rowHeightp) {
         mInflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -33,8 +33,7 @@ public class HeaderListAdapter extends BaseAdapter {
         rowHeight = rowHeightp;
     }
 
-    public void clearAll()
-    {
+    public void clearAll() {
         mData.clear();
         notifyDataSetChanged();
     }

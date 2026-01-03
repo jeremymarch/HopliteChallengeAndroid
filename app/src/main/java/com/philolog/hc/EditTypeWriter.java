@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.EditText;
 import android.view.MotionEvent;
 
 /**
@@ -25,8 +24,8 @@ public class EditTypeWriter extends androidx.appcompat.widget.AppCompatEditText 
         super(context, attrs);
     }
 
-    private Handler mHandler = new Handler();
-    private Runnable characterAdder = new Runnable() {
+    private final Handler mHandler = new Handler();
+    private final Runnable characterAdder = new Runnable() {
         @Override
         public void run() {
             setText(mText.subSequence(0, mIndex++));
@@ -40,7 +39,7 @@ public class EditTypeWriter extends androidx.appcompat.widget.AppCompatEditText 
             }
         }
     };
-    private Runnable characterRemover = new Runnable() {
+    private final Runnable characterRemover = new Runnable() {
         @Override
         public void run() {
             setText(mText.subSequence(0, mIndex--));
