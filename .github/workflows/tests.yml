@@ -23,7 +23,7 @@ jobs:
           cache: 'gradle'
 
       - name: Run Instrumented Tests
-        uses: Reactivecircus/android-emulator-runner@v3
+        uses: Reactivecircus/android-emulator-runner@v2
         with:
           api-level: 33
           target: google_apis
