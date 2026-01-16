@@ -1,19 +1,20 @@
 package com.philolog.hc;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 import androidx.test.platform.app.InstrumentationRegistry;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.Assert;
+import org.junit.runner.RunWith;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class ApplicationTest extends Application {
+@RunWith(AndroidJUnit4.class)
+public class ApplicationTest {
 
     public ApplicationTest() {
-        //super(Application.class);
     }
 
     public static String convertStreamToString(InputStream is) throws Exception {

@@ -114,8 +114,7 @@ public class MainActivity extends Activity {
     public String uniqueDeviceID = "";
     public Boolean timerTimedOut = false;
 
-    public String makeBoldStem(String d1, String d2)
-    {
+    public String makeBoldStem(String d1, String d2) {
         String[] d1Array = d1.split(" ");
         String[] d2Array = d2.split(" ");
 
@@ -126,14 +125,11 @@ public class MainActivity extends Activity {
         return TextUtils.join(" ", d2Array);
     }
 
-    public void flip()
-    {
-        if (front)
-        {
+    public void flip() {
+        if (front) {
             Log.d("abc", "front");
         }
-        else
-        {
+        else {
             Log.d("abc", "back");
             isDecomposedMode = false;
             origStr = gv1.getForm(0,0);

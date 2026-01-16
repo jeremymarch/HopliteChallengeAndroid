@@ -1,9 +1,11 @@
 package com.philolog.hc;
 
 import static org.junit.Assert.*;
-
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(AndroidJUnit4.class)
 public class HcVerbTestsTest {
     public static final int INDICATIVE  = 0;
     public static final int SUBJUNCTIVE = 1;
@@ -40,9 +42,10 @@ public class HcVerbTestsTest {
     public static final String[] tenses = {"Present", "Imperfect", "Future", "Aorist", "Perfect", "Pluperfect"};
     public static final String[] voices = { "Active", "Middle", "Passive" };
     public static final String[] moods = { "Indicative", "Subjunctive", "Optative", "Imperative" };
+
     @Test
     public void hc_verbs_ReturnsTrue() {
-/*
+
         int verbID = 1;
         Verb ve = new Verb();
         GreekVerb vf = new GreekVerb();
@@ -53,7 +56,7 @@ public class HcVerbTestsTest {
         boolean update = false;
         boolean isOida = false;
         boolean isDecomposedMode = false;
-        if (ve.present.equals("οἶδα") || ve.present.equals("σύνοιδα")) {
+        if (ve.present != null && (ve.present.equals("οἶδα") || ve.present.equals("σύνοιδα"))) {
             isOida = true;
         }
 
@@ -74,10 +77,8 @@ public class HcVerbTestsTest {
                     }
                     else if (v == MIDDLE)
                     {
-                        //FIX ME, is this right?? how do we label these.
-                        //yes it's correct, middle deponents do not have a passive voice.  H&Q page 316
                         int deponentType = ve.deponentType();
-                        if (deponentType == MIDDLE_DEPONENT || deponentType == PASSIVE_DEPONENT || deponentType == DEPONENT_GIGNOMAI || ve.present.equals("κεῖμαι"))
+                        if (deponentType == MIDDLE_DEPONENT || deponentType == PASSIVE_DEPONENT || deponentType == DEPONENT_GIGNOMAI || (ve.present != null && ve.present.equals("κεῖμαι")))
                         {
                             s = tenses[t] + " Middle " + moods[m];
                         }
@@ -89,9 +90,6 @@ public class HcVerbTestsTest {
                     else
                     {
                         continue; //skip passive if middle+passive are the same
-                    }
-                    if (!update) {
-                        //jwm mAdapter.addSectionHeaderItem(s);
                     }
                     updateIndex++;
 
@@ -113,34 +111,21 @@ public class HcVerbTestsTest {
                                 mf = 1;
 
                             String form = vf.getForm(1,mf);
-                            form = form.replace(", ", "\n");
-                            if (!form.isEmpty()) {
-                                if (!update) {
-                                    //jwm mAdapter.addItem(new VerbListItem(verbID, (p+1) + ((n == 0) ? "s:" : "p:") + form));
-                                } else {
-                                    //jwm mAdapter.updateItem(updateIndex++, (p+1) + ((n == 0) ? "s:" : "p:") + form);
+                            if (form != null) {
+                                form = form.replace(", ", "\n");
+                                if (!form.isEmpty()) {
+                                    countPerSection++;
                                 }
-                                countPerSection++;
                             }
                         }
                     }
                     if (countPerSection == 0)
                     {
-                        //remove section header
-                        if (!update) {
-                            //mAdapter.removeLastSectionHeaderItem();
-                        }
-                        else {
-                            updateIndex--;
-                        }
+                        updateIndex--;
                     }
                 }
             }
         }
         assertTrue(true);
-
- */
     }
-
-
 }

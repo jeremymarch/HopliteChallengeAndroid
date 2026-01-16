@@ -1,140 +1,60 @@
 apply plugin: 'com.android.application'
 
-    android {
-        testOptions {
-            unitTests {
-                includeAndroidResources = true
-            }
+android {
+    namespace 'com.philolog.hc'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId = "com.philolog.hc"
+        minSdkVersion 21
+        targetSdkVersion 36
+        versionCode 65
+        versionName "1.9.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
         }
-        signingConfigs {
-            debug {
-                /*
-                storeFile file('/Users/jeremy/AndroidStudioProjects/keystore.jks')
-                storePassword ''
-                keyAlias = ''
-                keyPassword ''
-                */
-            }
-        }
-        compileSdk 36
+    }
 
-        //To see what is the latest: http://developer.android.com/tools/revisions/build-tools.html
-        //buildToolsVersion = "30.0.2"
-
-        defaultConfig.with {
-            ndkVersion "29.0.14206865"
-            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-            applicationId = "com.philolog.hc"
-            versionName "1.9.1"
-            versionCode 65
-            minSdkVersion 21 //16
-            targetSdkVersion 36
-
-            ndk {
-                abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
-            }
-//            flavorDimensions "abi"
-            productFlavors {
-                all {
-                    flavorDimension "abi"
-                }
-            }
-        }
-
-    /*
-     * native build settings
-
-    android.ndk {
-        moduleName = "libGreek"
-        CFlags.add("-O3")
-        CFlags.add("-std=c99")
-        ldLibs.add("log")
-
-         * Other ndk flags configurable here are
-         * cppFlags += "-fno-rtti"
-         * cppFlags += "-fno-exceptions"
-         * ldLibs    = ["android", "log"]
-         * stl       = "system"
-         */
-
-    android.buildTypes {
+    buildTypes {
         release {
-            minifyEnabled = false
-            proguardFiles.add(file('proguard-rules.txt'))
-            externalNativeBuild {
-                cmake {
-                    cFlags "-std=c99 -O3 -DNDEBUG"
-                }
-            }
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            debuggable = true
-            externalNativeBuild {
-                cmake {
-                    cFlags "-std=c99 -O3 -DHCDEBUG"
-                }
-            }
+            debuggable true
         }
     }
 
-/*
-    android.productFlavors {
-        // for detailed abiFilter descriptions, refer to "Supported ABIs" @
-        // https://developer.android.com/ndk/guides/abis.html#sa
-        create("arm") {
-            ndk.abiFilters.add("armeabi")
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
         }
-        create("arm7") {
-            ndk.abiFilters.add("armeabi-v7a")
-        }
-        create("arm8") {
-            ndk.abiFilters.add("arm64-v8a")
-        }
-        create("x86") {
-            ndk.abiFilters.add("x86")
-        }
-        create("x86-64") {
-            ndk.abiFilters.add("x86_64")
-        }
-        create("mips") {
-            ndk.abiFilters.add("mips")
-        }
-        create("mips-64") {
-            ndk.abiFilters.add("mips64")
-        }
-        // To include all cpu architectures, leaves abiFilters empty
-        create("all")
     }
-*/
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
 
 dependencies {
     implementation 'androidx.preference:preference:1.2.1'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
+    
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:core:1.5.0'
-    androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test:rules:1.5.0'
-}
-
-// Specifies the location of the top level CMakeLists.txt
-// The path is relative to the hosting directory
-// of this build.gradle file
-externalNativeBuild {
-    cmake {
-        path "CMakeLists.txt"
-    }
-}
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
-        dependenciesInfo {
-            includeInApk true
-            includeInBundle true
-        }
-//        buildToolsVersion '33.0.0'
-        namespace 'com.philolog.hc'
-    }
-
-dependencies {
-    testImplementation 'junit:junit:4.13.2'
+    
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test:runner:1.7.0'
+    androidTestImplementation 'androidx.test:rules:1.7.0'
+    androidTestImplementation 'androidx.test:core:1.7.0'
 }
