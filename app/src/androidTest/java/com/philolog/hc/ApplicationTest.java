@@ -113,7 +113,7 @@ public class ApplicationTest {
 
             vf.verbid = verb_num;
             String lemma = v.present;
-            if (v.present.length() == 0) {
+            if (v.present.isEmpty()) {
                 lemma = v.future;
             }
             Assert.assertEquals("Verb row incorrect", rows[line],"Verb " + verb_num + ". " + lemma + deponent_type);
@@ -188,11 +188,11 @@ public class ApplicationTest {
                                     form_d = "NDF";
                                 }
 
-                                if (form.equals(""))
+                                if (form.isEmpty())
                                 {
                                     form = "NF";
                                 }
-                                if (form_d.equals(""))
+                                if (form_d.isEmpty())
                                 {
                                     form_d = "NDF";
                                 }
@@ -204,10 +204,7 @@ public class ApplicationTest {
                                 }
                                 Assert.assertEquals("Form row incorrect", rows[line], form_row);
 
-                                boolean mfpressed = false;
-                                if (form.contains(",")) {
-                                    mfpressed = true;
-                                }
+                                boolean mfpressed = form.contains(",");
                                 //Log.e("abc", label + ": " + form + " : " + rows[line].split(";")[0] + " : " + mfpressed);
 
                                 //Also check verbs with real comparison function
