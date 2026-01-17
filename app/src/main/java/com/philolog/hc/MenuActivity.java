@@ -1,16 +1,17 @@
 package com.philolog.hc;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
 
-public class MenuActivity extends Activity {
+public class MenuActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.philolog.hc.MESSAGE";
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +25,15 @@ public class MenuActivity extends Activity {
         }
 
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
-        SharedPreferences sharedPref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.OnSharedPreferenceChangeListener prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        
+        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
             public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-                if (key != null && key.equals("HCTheme")) {
+                if ("HCTheme".equals(key)) {
                     recreate();
                 }
             }
-
-            ;
         };
         sharedPref.registerOnSharedPreferenceChangeListener(prefListener);
 
@@ -48,31 +49,29 @@ public class MenuActivity extends Activity {
         verbSeqObj.vsInit( datafile );
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (prefListener != null) {
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+            sharedPref.unregisterOnSharedPreferenceChangeListener(prefListener);
+        }
+    }
+
     public void play(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, MainActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = "play";//editText.getText().toString();
+        String message = "play";
         intent.putExtra(EXTRA_MESSAGE, message);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         overridePendingTransition (0, 0);
         startActivity(intent);
-        //finish();
     }
 
     public void practice(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, MainActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = "practice";//editText.getText().toString();
+        String message = "practice";
         intent.putExtra(EXTRA_MESSAGE, message);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         overridePendingTransition (0, 0);
         startActivity(intent);
     }
@@ -80,16 +79,8 @@ public class MenuActivity extends Activity {
     public void showPracticeHistory(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, GameHistory.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = "practice history";//editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
-        //intent.putExtra("GameID", 1); //1 is the practice game.
-        String message = "practice";//editText.getText().toString();
+        String message = "practice";
         intent.putExtra("GameOrPractice", message);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         overridePendingTransition (0, 0);
         startActivity(intent);
     }
@@ -98,13 +89,8 @@ public class MenuActivity extends Activity {
         // Do something in response to button
         Log.e("abc", "show game history");
         Intent intent = new Intent(this, GameHistory.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = "game";//editText.getText().toString();
+        String message = "game";
         intent.putExtra("GameOrPractice", message);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         overridePendingTransition (0, 0);
         startActivity(intent);
     }
@@ -112,14 +98,7 @@ public class MenuActivity extends Activity {
     public void showVerbList(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, VerbList.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = "practice history";//editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
         intent.putExtra("GameID", 1); //1 is the practice game.
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         overridePendingTransition (0, 0);
         startActivity(intent);
     }
@@ -127,18 +106,12 @@ public class MenuActivity extends Activity {
     public void settings(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, SettingsActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = "practice";//editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 
     public void showAbout(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, TutorialActivity.class);
-        //EditText editText = (EditText) findViewById(R.id.edit_message);
-        //String message = "practice";//editText.getText().toString();
-        //intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 }

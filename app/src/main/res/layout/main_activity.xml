@@ -5,6 +5,7 @@
     android:id="@+id/myView2"
     android:orientation="vertical"
     android:backgroundTintMode="screen"
+    android:background="?attr/hcbgColor"
     android:fitsSystemWindows="true">
 
     <LinearLayout
