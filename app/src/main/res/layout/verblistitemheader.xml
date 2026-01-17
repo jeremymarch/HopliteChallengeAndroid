@@ -10,9 +10,10 @@
         android:layout_width="0dp"
         android:layout_weight="0.5"
         android:gravity="center_vertical"
-        android:text="text"
+        android:text=""
         android:visibility="visible"
         android:textColor="?attr/hcVerbListSectionHeaderTextColor"
         android:background="?attr/hcVerbListSectionHeaderBGColor"
-        android:paddingLeft="10dp" />
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
 </LinearLayout>

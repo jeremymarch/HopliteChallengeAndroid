@@ -10,21 +10,23 @@ android:layout_width="fill_parent"
     android:layout_width="0dp"
     android:layout_weight="0.5"
     android:gravity="center_vertical"
-    android:text="text"
+    android:text="@string/text"
     android:visibility="visible"
     android:textColor="?attr/hctextColor"
     android:background="?attr/hcbgColor"
-    android:paddingLeft="10dp" />
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"/>
 
     <TextView
         android:id="@+id/score"
         android:layout_height="50dp"
-        android:gravity="center_vertical|right"
-        android:text="text"
+        android:gravity="center_vertical|end"
+        android:text="@string/text_label"
         android:visibility="visible"
         android:layout_width="0dp"
         android:layout_weight="0.50"
         android:textColor="?attr/hctextColor"
         android:background="?attr/hcbgColor"
-        android:paddingRight="10dp" />
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp" />
 </LinearLayout>

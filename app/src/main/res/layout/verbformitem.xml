@@ -10,11 +10,12 @@
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
         android:gravity="top"
-        android:text="text"
+        android:text=""
         android:visibility="visible"
         android:textColor="?attr/hcVerbFormLabelColor"
         android:background="?attr/hcbgColor"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:paddingTop="4dp"/>
 
     <TextView
@@ -23,10 +24,11 @@
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:gravity="fill_vertical"
-        android:text="text\ntext"
+        android:text=""
         android:visibility="visible"
         android:textColor="?attr/hctextColor"
         android:background="?attr/hcbgColor"
-        android:paddingLeft="4dp" />
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"/>
 
 </LinearLayout>

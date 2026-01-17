@@ -97,6 +97,21 @@
     <string name="MFTitle">MF</string>
     <string name="TutInfo">Intro</string>
     <string name="TutAcknowledgements">Acknowledgements</string>
+    <string name="play">Play</string>
+    <string name="game_history">Game History</string>
+    <string name="practice">Practice</string>
+    <string name="practice_history">Practice History</string>
+    <string name="verb_forms">Verb Forms</string>
+    <string name="about">" About "</string>
+    <string name="settings">Settings</string>
+    <string name="hoplite_challenge">Hoplite Challenge</string>
+    <string name="practice_history_label">Practice History</string>
+    <string name="games">Games</string>
+    <string name="text">text</string>
+    <string name="text_label">text</string>
+    <string name="xbuttontext">×</string>
+    <string name="thirtysectext">30.00 sec</string>
+    <string name="h_and_q_verbs"><![CDATA[H&Q Verbs]]></string>
 
 
 </resources>

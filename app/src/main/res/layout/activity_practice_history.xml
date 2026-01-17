@@ -11,7 +11,7 @@ android:layout_height="match_parent"
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Practice History"
+            android:text="@string/practice_history_label"
             android:id="@+id/GameHistoryTitle"
             android:layout_gravity="start"
             android:gravity="center_horizontal|start"
@@ -19,7 +19,6 @@ android:layout_height="match_parent"
             android:textSize="28sp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"/>
     </LinearLayout>
 <ListView

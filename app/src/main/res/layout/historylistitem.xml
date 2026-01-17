@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="fill_parent"
+    android:baselineAligned="false"
     android:orientation="horizontal"
     android:background="?attr/hcbgColor">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:orientation="vertical"
@@ -18,35 +18,37 @@
         android:layout_height="20dp"
         android:layout_width="fill_parent"
         android:gravity="center_vertical"
-        android:text="text"
+        android:text=""
         android:visibility="visible"
         android:textColor="?attr/hctextColor"
         android:background="?attr/hcbgColor"
-        android:paddingStart="10dp" />
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
 
     <TextView
         android:id="@+id/correct"
         android:layout_height="20dp"
         android:gravity="center_vertical"
-        android:text="text"
+        android:text=""
         android:visibility="visible"
         android:layout_width="fill_parent"
         android:textColor="?attr/hctextColor"
         android:background="?attr/hcbgColor"
-        android:paddingStart="10dp" />
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"/>
         <TextView
             android:id="@+id/given"
             android:layout_height="20dp"
             android:gravity="center_vertical"
-            android:text="text"
+            android:text=""
             android:visibility="visible"
             android:layout_width="fill_parent"
             android:textColor="?attr/hctextColor"
             android:background="?attr/hcbgColor"
-            android:paddingStart="10dp" />
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"/>
     </LinearLayout>
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:orientation="vertical"
@@ -57,18 +59,18 @@
             android:id="@+id/greenCheck"
             android:layout_gravity="center_vertical|end"
             android:visibility="gone"
-            android:layout_marginRight="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="3dp"/>
         <TextView
             android:id="@+id/time"
             android:layout_height="30dp"
             android:layout_width="fill_parent"
-            android:gravity="center_vertical|right"
-            android:text="text"
+            android:gravity="center_vertical|end"
+            android:text=""
             android:visibility="visible"
             android:textColor="?attr/hctextColor"
             android:background="?attr/hcbgColor"
+            android:paddingStart="10dp"
             android:paddingEnd="10dp" />
     </LinearLayout>
 </LinearLayout>
