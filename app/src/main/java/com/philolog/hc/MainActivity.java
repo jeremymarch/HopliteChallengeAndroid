@@ -39,19 +39,8 @@ import android.view.animation.TranslateAnimation;
 import android.view.animation.LinearInterpolator;
 import android.os.Vibrator;
 import android.content.pm.ActivityInfo;
-import org.json.JSONObject;
-import org.json.JSONException;
-import android.os.AsyncTask;
-import java.net.URL;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
 import android.view.Display;
 import android.graphics.Point;
-
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
@@ -65,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     //public final static int NO_ACCENT = 0;
     public final static int ACUTE = 1;
     public final static int CIRCUMFLEX = 2;
-    //public final static int GRAVE = 3;
     public final static int MACRON = 4;
     public final static int ROUGH_BREATHING = 5;
     public final static int SMOOTH_BREATHING =6;
@@ -89,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
     public Spanned stemStr;
     private EditTypeWriter editText;
     private GreekVerb gv1, gv2;
-    private Verb v1, v2;
     private VerbSequence verbSeqObj;
     private boolean front;
     private GreekKeyboard mKeyboardView;
@@ -153,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
 
             mTimeLabel.setTextColor(textColor);
             if (isHCGame)
-                mTimeLabel.setText("30.00 sec");
+                mTimeLabel.setText(R.string.thirtysectext);
             else
-                mTimeLabel.setText("0.00 sec");
+                mTimeLabel.setText(R.string.zero_seconds_label);
             editText.setText("");
 
             stemText.setText("");
@@ -249,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                 life2.setVisibility(View.GONE);
                 life1.setVisibility(View.GONE);
                 gameOverLabel.setVisibility(View.VISIBLE);
-                continueButton.setText("Play again?");
+                continueButton.setText(R.string.play_again);
             }
         }
 
@@ -676,7 +663,7 @@ public class MainActivity extends AppCompatActivity {
             resetHCGame();
         }
         nextSeq3();
-        continueButton.setText("Continue");
+        continueButton.setText(R.string.ContinueButtonTitle);
     }
 
     public void nextSeq3() {
@@ -768,7 +755,6 @@ public class MainActivity extends AppCompatActivity {
 
         final Runnable fl3 = new Runnable() {
             public void run() {
-
                 if (reset)
                     origFormText.animateHideText(fl5);
                 else
@@ -1007,13 +993,13 @@ public class MainActivity extends AppCompatActivity {
             scoreLabel.setVisibility(View.VISIBLE);
             mTimerCountDown = true;
             lives = 3;
-            mTimeLabel.setText("30.00 sec");
+            mTimeLabel.setText(R.string.thirtysectext);
         } else {
             scoreLabel.setVisibility(View.INVISIBLE);
             isHCGame = false;
             mTimerCountDown = false;
             lives = 0;
-            mTimeLabel.setText("0.00 sec");
+            mTimeLabel.setText(R.string.zero_seconds_label);
         }
 
         verbSeqObj = new VerbSequence();
@@ -1031,8 +1017,8 @@ public class MainActivity extends AppCompatActivity {
             origFormText.setText("Error Code: HC" + res);
             return;
         }
-        v1 = new Verb();
-        v2 = new Verb();
+        Verb v1 = new Verb();
+        Verb v2 = new Verb();
 
         gv1 = new GreekVerb();
         gv1.score = 0;
@@ -1099,7 +1085,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     mTimeLabel.setTextColor(timeIsOutColor); //make red
                     stopTimer();
-                    mTimeLabel.setText("0.00 sec");
+                    mTimeLabel.setText(R.string.zero_seconds_label);
                     timerTimedOut = true;
                     editText.setEnabled(false);
                     editText.passEvents = true;
@@ -1186,54 +1172,54 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class SendDeviceDetails extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            String data = "";
-            HttpsURLConnection httpURLConnection = null;
-            try {
-                httpURLConnection = (HttpsURLConnection) new URL(params[0]).openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-                httpURLConnection.setRequestProperty("Accept", "application/json");
-                httpURLConnection.setRequestProperty("Content-Length", "" + params[1].getBytes().length);
-                httpURLConnection.setDoInput(true);
-                httpURLConnection.setDoOutput(true);
-
-                //https://stackoverflow.com/questions/16504527/how-to-do-an-https-post-from-android
-                SSLContext sc;
-                sc = SSLContext.getInstance("TLS");
-                sc.init(null, null, new java.security.SecureRandom());
-                httpURLConnection.setSSLSocketFactory(sc.getSocketFactory());
-
-                DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-                wr.write(params[1].getBytes(StandardCharsets.UTF_8));
-                wr.flush();
-                wr.close();
-
-                InputStream in = httpURLConnection.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(in);
-
-                int inputStreamData = inputStreamReader.read();
-                while (inputStreamData != -1) {
-                    char current = (char) inputStreamData;
-                    inputStreamData = inputStreamReader.read();
-                    data += current;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (httpURLConnection != null) {
-                    httpURLConnection.disconnect();
-                }
-            }
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            Log.i("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
-        }
-    }
+//    private class SendDeviceDetails extends AsyncTask<String, Void, String> {
+//        @Override
+//        protected String doInBackground(String... params) {
+//            String data = "";
+//            HttpsURLConnection httpURLConnection = null;
+//            try {
+//                httpURLConnection = (HttpsURLConnection) new URL(params[0]).openConnection();
+//                httpURLConnection.setRequestMethod("POST");
+//                httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+//                httpURLConnection.setRequestProperty("Accept", "application/json");
+//                httpURLConnection.setRequestProperty("Content-Length", "" + params[1].getBytes().length);
+//                httpURLConnection.setDoInput(true);
+//                httpURLConnection.setDoOutput(true);
+//
+//                //https://stackoverflow.com/questions/16504527/how-to-do-an-https-post-from-android
+//                SSLContext sc;
+//                sc = SSLContext.getInstance("TLS");
+//                sc.init(null, null, new java.security.SecureRandom());
+//                httpURLConnection.setSSLSocketFactory(sc.getSocketFactory());
+//
+//                DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
+//                wr.write(params[1].getBytes(StandardCharsets.UTF_8));
+//                wr.flush();
+//                wr.close();
+//
+//                InputStream in = httpURLConnection.getInputStream();
+//                InputStreamReader inputStreamReader = new InputStreamReader(in);
+//
+//                int inputStreamData = inputStreamReader.read();
+//                while (inputStreamData != -1) {
+//                    char current = (char) inputStreamData;
+//                    inputStreamData = inputStreamReader.read();
+//                    data += current;
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            } finally {
+//                if (httpURLConnection != null) {
+//                    httpURLConnection.disconnect();
+//                }
+//            }
+//            return data;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//            super.onPostExecute(result);
+//            Log.i("TAG", result); // this is expecting a response code to be sent from your server upon receiving the POST data
+//        }
+//    }
 }

@@ -112,6 +112,8 @@
     <string name="xbuttontext">×</string>
     <string name="thirtysectext">30.00 sec</string>
     <string name="h_and_q_verbs"><![CDATA[H&Q Verbs]]></string>
+    <string name="zero_seconds_label">0.00 sec</string>
+    <string name="play_again">Play again?</string>
 
 
 </resources>
