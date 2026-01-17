@@ -16,7 +16,7 @@ import java.util.List;
  * Created by jeremy on 3/20/16.
  */
 //http://stackoverflow.com/questions/6700374/android-character-by-character-display-text-animation
-public class TypeWriter extends TextView {
+public class TypeWriter extends androidx.appcompat.widget.AppCompatTextView {
 
     private CharSequence mText;
     private int mIndex;
@@ -142,9 +142,9 @@ public class TypeWriter extends TextView {
 
         setPadding(leftPadding,0,0,0);
         if (cTop)
-            v.setGravity(Gravity.LEFT|Gravity.TOP);
+            v.setGravity(Gravity.START|Gravity.TOP);
         else
-            v.setGravity(Gravity.LEFT|Gravity.CENTER_VERTICAL);
+            v.setGravity(Gravity.START|Gravity.CENTER_VERTICAL);
 
 
     }
