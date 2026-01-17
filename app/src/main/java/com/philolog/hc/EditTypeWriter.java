@@ -18,10 +18,12 @@ public class EditTypeWriter extends androidx.appcompat.widget.AppCompatEditText 
 
     public EditTypeWriter(Context context) {
         super(context);
+        setShowSoftInputOnFocus(false);
     }
 
     public EditTypeWriter(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setShowSoftInputOnFocus(false);
     }
 
     private final Handler mHandler = new Handler();

@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             lp.gravity =  Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL;
         }
         else {
-            lp.gravity =  Gravity.CENTER_VERTICAL|Gravity.RIGHT;
+            lp.gravity =  Gravity.CENTER_VERTICAL|Gravity.END;
         }
         lp.setMargins(0, 0, offset, 0);
         lp.width = convertDpToPx(24, dm);
@@ -253,9 +253,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        if (bSendDiagnostics) {
-            sendDiagnostics(isCorrect, lives, gv1.score, answerText, expectedForm, sElapsedTime, mMFPressed);
-        }
+//        if (bSendDiagnostics) {
+//            sendDiagnostics(isCorrect, lives, gv1.score, answerText, expectedForm, sElapsedTime, mMFPressed);
+//        }
         return isCorrect;
     }
 
@@ -270,43 +270,43 @@ public class MainActivity extends AppCompatActivity {
             uniqueID = UUID.randomUUID().toString();
             Editor editor = sharedPrefs.edit();
             editor.putString(PREF_UNIQUE_ID, uniqueID);
-            editor.commit();
+            editor.apply();
         }
     }
     return uniqueID;
 }
 
-    public void sendDiagnostics(Boolean isCorrect, int lives, int score, String answerText, String expectedForm, String elapsedTime, Boolean mfPressed) {
-        JSONObject postData = new JSONObject();
-        try {
-            postData.put("type", "debugRequestPlusAnswer");
-            postData.put("answerText", answerText);
-            postData.put("expectedForm", expectedForm);
-            postData.put("isCorrect", isCorrect);
-            postData.put("answerSeconds", elapsedTime);
-            postData.put("timedOut", timerTimedOut);
-            postData.put("mfPressed", mfPressed.toString());
-            postData.put("lives", lives);
-            postData.put("score", score);
-            postData.put("verbID", gv2.verbid);
-            postData.put("person", gv2.person);
-            postData.put("number", gv2.number);
-            postData.put("tense", gv2.tense);
-            postData.put("voice", gv2.voice);
-            postData.put("mood", gv2.mood);
-            postData.put("appversion", "1.8.0");
-            postData.put("device", uniqueDeviceID);
-            postData.put("agent", osInfo);
-            postData.put("screen", screenSize);
-            postData.put("accessdate", "");
-            postData.put("error", "");
-
-            new SendDeviceDetails().execute("https://philolog.us/hc.php", "[" + postData.toString() + "]");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //Log.i("abc", "[" + postData.toString() + "]");
-    }
+//    public void sendDiagnostics(Boolean isCorrect, int lives, int score, String answerText, String expectedForm, String elapsedTime, Boolean mfPressed) {
+//        JSONObject postData = new JSONObject();
+//        try {
+//            postData.put("type", "debugRequestPlusAnswer");
+//            postData.put("answerText", answerText);
+//            postData.put("expectedForm", expectedForm);
+//            postData.put("isCorrect", isCorrect);
+//            postData.put("answerSeconds", elapsedTime);
+//            postData.put("timedOut", timerTimedOut);
+//            postData.put("mfPressed", mfPressed.toString());
+//            postData.put("lives", lives);
+//            postData.put("score", score);
+//            postData.put("verbID", gv2.verbid);
+//            postData.put("person", gv2.person);
+//            postData.put("number", gv2.number);
+//            postData.put("tense", gv2.tense);
+//            postData.put("voice", gv2.voice);
+//            postData.put("mood", gv2.mood);
+//            postData.put("appversion", "1.8.0");
+//            postData.put("device", uniqueDeviceID);
+//            postData.put("agent", osInfo);
+//            postData.put("screen", screenSize);
+//            postData.put("accessdate", "");
+//            postData.put("error", "");
+//
+//            new SendDeviceDetails().execute("https://philolog.us/hc.php", "[" + postData.toString() + "]");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        //Log.i("abc", "[" + postData.toString() + "]");
+//    }
 
     public void checkVerb() {
         editText.passEvents = true;

@@ -25,10 +25,9 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class GameHistory extends ListActivity {
     public final static String EXTRA_MESSAGE = "com.philolog.hc.MESSAGE";
-    private ArrayList<String> results = new ArrayList<String>();
+    private final ArrayList<String> results = new ArrayList<String>();
     private MyCustomAdapter mAdapter;
     private SQLiteDatabase newDB;
-    private ListView lv;
     private boolean isHCGame = false;
 
     @Override
@@ -42,34 +41,26 @@ public class GameHistory extends ListActivity {
         Log.e("abc", "loaded game history");
         mAdapter = new MyCustomAdapter();
 
-        String newString;
+        String gameType;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
-                newString= null;
+            if (extras == null) {
+                gameType = null;
             } else {
-                newString= extras.getString("GameOrPractice");
+                gameType = extras.getString("GameOrPractice");
             }
         } else {
-            newString= (String) savedInstanceState.getSerializable("GameOrPractice");
-        }
-        if (newString.contentEquals("game"))
-        {
-            isHCGame = true;
-        }
-        else
-        {
-            isHCGame = false;
+            gameType = (String) savedInstanceState.getSerializable("GameOrPractice");
         }
 
-
+        isHCGame = gameType != null && gameType.contentEquals("game");
 
         setContentView(R.layout.game_history);
         openAndQueryDatabase();
 
         displayResultList();
 
-        lv = getListView();
+        ListView lv = getListView();
         lv.setOnItemClickListener(new OnItemClickListener()
         {
             //http://stackoverflow.com/questions/7645880/listview-with-onitemclicklistener-android
@@ -137,23 +128,21 @@ public class GameHistory extends ListActivity {
     }
 
     private void openAndQueryDatabase() {
+        Cursor c = null;
         try {
             String whereClause = "";
-            if (isHCGame)
-            {
+            if (isHCGame) {
                 whereClause = " WHERE score != -1 ";
-            }
-            else
-            {
+            } else {
                 whereClause = " WHERE score == -1 ";
             }
 
             HCDBHelperNew dbHelper = HCDBHelperNew.getInstance(getApplicationContext());
             newDB = dbHelper.getReadableDatabase();//.getWritableDatabase();
-            Cursor c = newDB.rawQuery("SELECT gameid, timest, score FROM games " +
+            c = newDB.rawQuery("SELECT gameid, timest, score FROM games " +
                     whereClause + " ORDER BY gameid DESC LIMIT 1000", null);
 
-            Log.e("abc", "Row count: " + c.getCount());
+            //Log.e("abc", "Row count: " + c.getCount());
 
             if (c.moveToFirst()) {
                 int timestIndex = c.getColumnIndexOrThrow("timest");
@@ -175,9 +164,12 @@ public class GameHistory extends ListActivity {
                     mAdapter.addItem(g);
                 } while (c.moveToNext());
             }
-        } catch (SQLiteException se ) {
+        } catch (SQLiteException se) {
             Log.e(getClass().getSimpleName(), "Could not create or Open the database");
         } finally {
+            if (c != null) {
+                c.close(); // Ensure the cursor is closed
+            }
             if (newDB != null) {
                 //newDB.execSQL("DELETE FROM " + tableName);
                 newDB.close();
@@ -188,9 +180,9 @@ public class GameHistory extends ListActivity {
 
     private class MyCustomAdapter extends BaseAdapter {
 
-        private ArrayList<gamesHistory> mData = new ArrayList<gamesHistory>();
+        private final ArrayList<gamesHistory> mData = new ArrayList<gamesHistory>();
         //private ArrayList mData = new ArrayList();
-        private LayoutInflater mInflater;
+        private final LayoutInflater mInflater;
 
         public MyCustomAdapter() {
             mInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -221,7 +213,7 @@ public class GameHistory extends ListActivity {
             System.out.println("getView " + position + " " + convertView);
             ViewHolder holder = null;
             if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.gameshistoryitem, null);
+                convertView = mInflater.inflate(R.layout.gameshistoryitem, parent, false);
                 holder = new ViewHolder();
                 holder.textView = (TextView)convertView.findViewById(R.id.gamedate);
                 holder.textView2 = (TextView) convertView.findViewById(R.id.score);
@@ -245,7 +237,7 @@ public class GameHistory extends ListActivity {
         }
     }
 
-    private class gamesHistory {
+    private static class gamesHistory {
         String date;
         String score;
         Integer gameID;

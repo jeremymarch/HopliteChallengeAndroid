@@ -95,10 +95,10 @@ public class HeaderListAdapter extends BaseAdapter {
             switch (rowType) {
                 case TYPE_ITEM:
                     if (rowHeight == 0) {
-                        convertView = mInflater.inflate(R.layout.verblistitem, null);
+                        convertView = mInflater.inflate(R.layout.verblistitem, parent, false);
                     }
                     else {
-                        convertView = mInflater.inflate(R.layout.verbformitem, null);
+                        convertView = mInflater.inflate(R.layout.verbformitem, parent, false);
                         holder.label = (TextView) convertView.findViewById(R.id.verbformlabel);
                         holder.label.setTextSize(20);
                     }
@@ -111,7 +111,7 @@ public class HeaderListAdapter extends BaseAdapter {
 
                     break;
                 case TYPE_SEPARATOR:
-                    convertView = mInflater.inflate(R.layout.verblistitemheader, null);
+                    convertView = mInflater.inflate(R.layout.verblistitemheader, parent, false);
                     holder.textView = (TextView) convertView.findViewById(R.id.verbitemheader);
                     holder.textView.setTextSize(18);
                     break;

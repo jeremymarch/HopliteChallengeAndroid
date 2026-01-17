@@ -11,7 +11,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="Hoplite Challenge">
+            >
         </activity>
 
         <activity android:name=".MenuActivity" android:exported="true">

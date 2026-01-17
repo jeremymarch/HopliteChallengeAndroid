@@ -24,7 +24,7 @@ import android.view.LayoutInflater;
 import android.text.Html;
 
 public class PracticeHistory extends ListActivity {
-    private ArrayList<String> results = new ArrayList<String>();
+    final private ArrayList<String> results = new ArrayList<String>();
     private MyCustomAdapter mAdapter;
     private SQLiteDatabase newDB;
     private boolean isHCGame = false;
@@ -37,33 +37,29 @@ public class PracticeHistory extends ListActivity {
         if(getResources().getBoolean(R.bool.portrait_only)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-        Log.e("abc", "loaded game history");
+        //Log.e("abc", "loaded game history");
         mAdapter = new MyCustomAdapter();
 
         Intent intent = getIntent();
         Integer gameid = intent.getIntExtra("GameID", 1);
 
-        String newString;
+        String gameType;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
-                newString= null;
+                gameType = null;
             } else {
-                newString = extras.getString("GameOrPractice");
+                gameType = extras.getString("GameOrPractice");
                 gameid = extras.getInt("GameID");
             }
         } else {
-            newString = (String) savedInstanceState.getSerializable("GameOrPractice");
+            gameType = (String) savedInstanceState.getSerializable("GameOrPractice");
             gameid = (Integer) savedInstanceState.getSerializable("GameID");
         }
-        if (newString.contentEquals("game")) {
-            isHCGame = true;
-        }
-        else {
-            isHCGame = false;
-        }
+        isHCGame = gameType != null && gameType.contentEquals("game");
 
         setContentView(R.layout.activity_practice_history);
+        assert gameid != null;
         openAndQueryDatabase(gameid);
 
         displayResultList();
@@ -106,13 +102,14 @@ public class PracticeHistory extends ListActivity {
     }
 
     private void openAndQueryDatabase(Integer gameID) {
+        Cursor c = null;
         try {
             HCDBHelperNew dbHelper = HCDBHelperNew.getInstance(getApplicationContext());
             newDB = dbHelper.getReadableDatabase();//.getWritableDatabase();
-            Cursor c = newDB.rawQuery("SELECT person, number, tense, voice, mood, verbid, correct, elapsedtime, answerGiven FROM verbseq " +
+            c = newDB.rawQuery("SELECT person, number, tense, voice, mood, verbid, correct, elapsedtime, answerGiven FROM verbseq " +
                     " WHERE gameid=" + gameID.toString() + " ORDER BY id DESC LIMIT 1000", null);
 
-            Log.e("abc", "Row count: " + c.getCount());
+            //Log.e("abc", "Row count: " + c.getCount());
 
             if (c.moveToFirst()) {
                 int personIndex = c.getColumnIndexOrThrow("person");
@@ -152,7 +149,7 @@ public class PracticeHistory extends ListActivity {
 
                     historyItem g = new historyItem();
                     g.stem = gv.getAbbrevDescription();
-                    g.correct = gv.getForm(1,0);
+                    g.correct = gv.getForm(1, 0);
                     g.given = given;
                     g.time = elapsedTime;
                     g.isCorrect = correct.equalsIgnoreCase("1");
@@ -161,9 +158,12 @@ public class PracticeHistory extends ListActivity {
                 } while (c.moveToNext());
             }
 
-        } catch (SQLiteException se ) {
+        } catch (SQLiteException se) {
             Log.e(getClass().getSimpleName(), "Could not create or Open the database");
         } finally {
+            if (c != null) {
+                c.close(); // Ensure the cursor is closed
+            }
             if (newDB != null)
                 //newDB.execSQL("DELETE FROM " + tableName);
                 newDB.close();
@@ -223,7 +223,7 @@ public class PracticeHistory extends ListActivity {
 
             ViewHolder holder = null;
             if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.historylistitem, null);
+                convertView = mInflater.inflate(R.layout.historylistitem, parent, false);
                 holder = new ViewHolder();
                 holder.textView = (TextView)convertView.findViewById(R.id.stem);
                 holder.textView2 = (TextView)convertView.findViewById(R.id.correct);
@@ -279,7 +279,7 @@ public class PracticeHistory extends ListActivity {
             holder.textView3.setText(mData.get(position).given);
             holder.textView4.setText(mData.get(position).time);
 
-            Log.e("abc", mData.get(position).time);
+            //Log.e("abc", mData.get(position).time);
             return convertView;
         }
     }
