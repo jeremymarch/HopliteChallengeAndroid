@@ -20,19 +20,19 @@
             android:layout_height="wrap_content"
             android:visibility="visible">
             <Button
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="@string/xbuttontext"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/quitbackground"
+                android:drawableTop="@drawable/close_x2"
                 android:id="@+id/quitButton"
                 android:textSize="34sp"
                 android:onClick="quitPressed"
                 android:textColor="?attr/hcQuitText"
-                android:background="@drawable/quitbackground"
                 android:layout_margin="4dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="1dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="0dp" />
+                android:paddingLeft="0dp"
+                android:paddingTop="0dp"
+                android:paddingRight="0dp"
+                android:paddingBottom="2dp" />
             <!--<Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

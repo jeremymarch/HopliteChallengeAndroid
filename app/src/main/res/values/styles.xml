@@ -71,8 +71,8 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
 
-        <item name="hctextColor">#FFFFFFFF</item>
-        <item name="hcbgColor">#FF000000</item>
+        <item name="hctextColor">#FFE0E0E0</item>
+        <item name="hcbgColor">#FF121212</item>
         <item name="hcContinueBtnTextColor">#FFFFFFFF</item>
         <item name="hcContinueBtnBGColor">#FF666666</item>
         <item name="hcMFBtnTextColor">#FFFFFFFF</item>
@@ -97,8 +97,8 @@
         <item name="hcMenuSettingsColor">#FF999999</item>
 
 
-        <item name="hcVerbListHeaderTextColor">#FFFFFFFF</item>
-        <item name="hcVerbListHeaderBGColor">#ff000000</item>
+        <item name="hcVerbListHeaderTextColor">#FFE0E0E0</item>
+        <item name="hcVerbListHeaderBGColor">#FF121212</item>
         <item name="hcVerbFormLabelColor">#FF999999</item>
         <item name="hcVerbListSectionHeaderTextColor">#FFFFFFFF</item>
         <item name="hcVerbListSectionHeaderBGColor">#FF555555</item>
