@@ -56,9 +56,11 @@ import java.util.UUID;
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private final static int KEYPRESS_VIBRATE = 40;
     //public final static int NO_ACCENT = 0;
     public final static int ACUTE = 1;
@@ -840,12 +842,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        // do nothing
-        quitPressed(null);
-    }
-
     public void startTimer() {
         timerTimedOut = false;
         mTimeLabel.setTextColor(textColor);
@@ -926,6 +922,13 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         MainActivity.localSetTheme(this);
         super.onCreate(savedInstanceState);
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                quitPressed(null);
+            }
+        });
 
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = getTheme();

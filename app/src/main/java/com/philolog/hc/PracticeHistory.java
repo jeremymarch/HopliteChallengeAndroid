@@ -115,18 +115,28 @@ public class PracticeHistory extends ListActivity {
             Log.e("abc", "Row count: " + c.getCount());
 
             if (c.moveToFirst()) {
+                int personIndex = c.getColumnIndexOrThrow("person");
+                int numberIndex = c.getColumnIndexOrThrow("number");
+                int tenseIndex = c.getColumnIndexOrThrow("tense");
+                int voiceIndex = c.getColumnIndexOrThrow("voice");
+                int moodIndex = c.getColumnIndexOrThrow("mood");
+                int verbidIndex = c.getColumnIndexOrThrow("verbid");
+                int answerGivenIndex = c.getColumnIndexOrThrow("answerGiven");
+                int correctIndex = c.getColumnIndexOrThrow("correct");
+                int elapsedTimeIndex = c.getColumnIndexOrThrow("elapsedtime");
+
                 do {
                     //Log.e("abc", "a");
-                    String person = c.getString(c.getColumnIndex("person"));
-                    String number = c.getString(c.getColumnIndex("number"));
-                    String tense = c.getString(c.getColumnIndex("tense"));
-                    String voice = c.getString(c.getColumnIndex("voice"));
-                    String mood = c.getString(c.getColumnIndex("mood"));
-                    String verbid = c.getString(c.getColumnIndex("verbid"));
+                    String person = c.getString(personIndex);
+                    String number = c.getString(numberIndex);
+                    String tense = c.getString(tenseIndex);
+                    String voice = c.getString(voiceIndex);
+                    String mood = c.getString(moodIndex);
+                    String verbid = c.getString(verbidIndex);
 
-                    String given = c.getString(c.getColumnIndex("answerGiven"));
-                    String correct = c.getString(c.getColumnIndex("correct"));
-                    String elapsedTime = c.getString(c.getColumnIndex("elapsedtime"));
+                    String given = c.getString(answerGivenIndex);
+                    String correct = c.getString(correctIndex);
+                    String elapsedTime = c.getString(elapsedTimeIndex);
 
                     GreekVerb gv = new GreekVerb();
                     Verb v = new Verb();

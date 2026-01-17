@@ -155,31 +155,33 @@ public class GameHistory extends ListActivity {
 
             Log.e("abc", "Row count: " + c.getCount());
 
-            if (c != null ) {
-                if (c.moveToFirst()) {
-                    do {
-                        Log.e("abc", "a");
-                        String timest = c.getString(c.getColumnIndex("timest"));
-                        long timestamp = Long.parseLong(timest) * 1000L;
-                        timest = getDate(timestamp );
+            if (c.moveToFirst()) {
+                int timestIndex = c.getColumnIndexOrThrow("timest");
+                int scoreIndex = c.getColumnIndexOrThrow("score");
+                int gameidIndex = c.getColumnIndexOrThrow("gameid");
+                do {
+                    Log.e("abc", "a");
+                    String timest = c.getString(timestIndex);
+                    long timestamp = Long.parseLong(timest) * 1000L;
+                    timest = getDate(timestamp);
 
-                        String score = c.getString(c.getColumnIndex("score"));
-                        String gameid = c.getString(c.getColumnIndex("gameid"));
-                        results.add(timest + ", Score: " + score);
-                        gamesHistory g = new gamesHistory();
-                        g.date = timest;
-                        g.score = score;
-                        g.gameID = Integer.parseInt(gameid);
-                        mAdapter.addItem(g);
-                    }while (c.moveToNext());
-                }
+                    String score = c.getString(scoreIndex);
+                    String gameid = c.getString(gameidIndex);
+                    results.add(timest + ", Score: " + score);
+                    gamesHistory g = new gamesHistory();
+                    g.date = timest;
+                    g.score = score;
+                    g.gameID = Integer.parseInt(gameid);
+                    mAdapter.addItem(g);
+                } while (c.moveToNext());
             }
         } catch (SQLiteException se ) {
             Log.e(getClass().getSimpleName(), "Could not create or Open the database");
         } finally {
-            if (newDB != null)
+            if (newDB != null) {
                 //newDB.execSQL("DELETE FROM " + tableName);
-            newDB.close();
+                newDB.close();
+            }
         }
 
     }
