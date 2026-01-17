@@ -965,6 +965,7 @@ public class MainActivity extends AppCompatActivity {
         changedFormText = (TypeWriter) findViewById(R.id.changedTextView);
         mTimeLabel = (TextView) findViewById(R.id.mTimeLabel);
         editText = (EditTypeWriter) findViewById(R.id.editText);
+
         continueButton = (Button) findViewById(R.id.continueButton);
         mMFLabelView = (TextView) findViewById(R.id.mfpressed);
         scoreLabel = (TextView) findViewById(R.id.scoreLabel);
