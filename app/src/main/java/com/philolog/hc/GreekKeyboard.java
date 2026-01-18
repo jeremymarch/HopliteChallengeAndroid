@@ -176,7 +176,7 @@ public class GreekKeyboard extends KeyboardView {
           mPaint.setColor(keyTextColorDown);
         } else {
           dr = mDeleteButtonDr;
-          mPaint.setColor(keyTextColor);
+          mPaint.setColor(keyTextColorDown);
         }
         if (dr != null) {
           dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);

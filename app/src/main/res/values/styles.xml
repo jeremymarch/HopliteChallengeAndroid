@@ -30,8 +30,8 @@
         <item name="hcMenuButtonBGColor3">@color/ButtonLightBlue</item>
         <item name="hcMenuSettingsColor">@color/ButtonBlue</item>
 
-        <item name="hcVerbListHeaderTextColor">#FFFFFFFF</item>
-        <item name="hcVerbListHeaderBGColor">@color/ButtonDarkBlue</item>
+        <item name="hcVerbListHeaderTextColor">#FF000000</item>
+        <item name="hcVerbListHeaderBGColor">#FFFFFFFF</item>
         <item name="hcVerbFormLabelColor">#FF999999</item>
         <item name="hcVerbListSectionHeaderTextColor">#FFFFFFFF</item>
         <item name="hcVerbListSectionHeaderBGColor">@color/ButtonDarkBlue</item>
